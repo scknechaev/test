@@ -1,0 +1,53 @@
+<div class="" >
+  <div style="margin-top: 10px; padding: 0px 15px;">
+
+    <form  ng-submit="createOrEditUser()" class="form-horizontal">
+      <h1 style="text-align: center" ng-if="newUser.isEditing">Edit user</h1>
+      <h1 style="text-align: center" ng-if="!newUser.isEditing">Create user</h1>
+      <div class="form-group {{validate.name}}">
+        <label for="name" class="col-sm-2 control-label">Name</label>
+        <div class="col-sm-10">
+          <input ng-model="newUser.name" type="text" class="form-control" name="name"  placeholder="Name">
+        </div>
+      </div>
+      <div class="form-group {{validate.email}}">
+        <label for="email" class="col-sm-2 control-label">Email</label>
+        <div class="col-sm-10">
+          <input ng-model="newUser.email"  type="email" class="form-control" name="email"  placeholder="email">
+        </div>
+      </div>
+      <div class="form-group {{validate.password}}">
+        <label for="password" class="col-sm-2 control-label">Password</label>
+        <div class="col-sm-10">
+          <input ng-model="newUser.password" type="password" class="form-control" name="password" placeholder="Password">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="role" class="col-sm-2 control-label">User Role</label>
+        <div class="col-sm-10">
+          <select ng-init="newUser.role = 1" ng-model="newUser.role" class="form-control" ng-options="r.type as r.name for r in roleTypes">
+          </select>
+        </div>
+      </div>
+      <div class="form-group ng-class={{validate.email}}">
+        <div class="col-sm-offset-10 col-sm-1">
+          <button type="submit" class="btn btn-default manage-btn" ng-if="newUser.isEditing">Save</button>
+          <button type="submit" class="btn btn-default manage-btn" ng-if="!newUser.isEditing">Create</button>
+        </div>
+      </div>
+      <div ng-model="creationSuccess">
+        <span ng-show="creationSuccess">User successfully created</span>
+      </div>
+      <div ng-model="creationFail">
+        <span ng-show="creationFail">Error creating new user </span>
+      </div>
+        <div ng-show="alert">
+            <alert ng-model="alert"  type="{{alert.type}}" close="closeAlert()">{{alert.msg}}</alert>
+        </div>
+
+    </form>
+
+  </div>
+</div>
+

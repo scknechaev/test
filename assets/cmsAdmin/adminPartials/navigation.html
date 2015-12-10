@@ -1,0 +1,127 @@
+<!-- bound to the navModal -->
+<div class="col-md-12">
+  <nav class="navbar table-header navbar-default ng-scope">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href >Tab management</a>
+        </div>
+        <div id="usermanagementmenu">
+            <ul class="nav navbar-nav navbar-right mobview" ng-if="userRole">
+                <li>
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-lg" ng-click="setModalState()">Create tab</button>
+                </li>
+            </ul>
+        </div>
+    </div>
+  </nav>
+    <div class="list-group navigation-list">
+        <table class="table table-hover">
+      <thead>
+        <th>Name</th>
+        <th>Url</th>
+        <th ng-if="userRole">Edit</th>
+        <th ng-if="userRole">Delete</th>
+      </thead>
+      <tbody>
+        <tr ng-repeat="nav in navs track by $index" class="">
+          <td class="">
+            <span class="">{{nav.name}}</span>
+          </td>
+          <td class="">
+            <div ng-if="nav.navtype === 1">
+                <a href="http://{{pageUrl}}/content/{{nav.page.url}}" target="_blank">{{nav.page.url}}</a>
+            </div>
+            <div ng-if="nav.navtype === 2">
+                <a href="http://{{nav.href}}" target="_blank">{{nav.href}}</a>
+            </div>
+          </td>
+          <td ng-if="userRole">
+              <button type="button" class="btn btn-primary btn-sm margin-right ng-scope delUserButton" title="Edit" data-toggle="modal" data-target=".bs-example-modal-lg" ng-click="setModalState(nav)"><span class="fa fa-pencil"></span></button>
+            </button>
+          </td>
+          <td ng-if="userRole">
+            <button class="btn btn-danger btn-sm ng-scope" title="Delete"  ng-click="openConfirmDelNav(nav, $index)">
+              <span class="fa fa-trash-o"></span>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+
+    <!-- modal window -->
+        <div class="modal fade bs-example-modal-lg" role="dialog" aria-labelledby="gridSystemModalLabel" aria-hidden="true" ng-controller="navModalController" data-dismiss="">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <form name="Form.navModalForm"  ng-submit="createOrEditNav()" class="form-horizontal" novalidate >
+              <div class="modal-header">
+                <div class="nav-modal-title">
+                  <h1 style="text-align: center" ng-if="$parent.isEditing">Edit tab</h1>
+                  <h1 style="text-align: center" ng-if="!$parent.isEditing">Create tab</h1>
+                  <button type="button" class="close close-modal-bttn" title="Close" data-dismiss="modal">
+                    <span aria-hidden="true">×</span>
+                  </button>
+                </div>
+              </div>
+              <div class="modal-body">
+                <div class="" >
+                    <div style="margin-top: 10px">
+                            <div class="form-group">
+                                <label for="name" class="col-sm-2 control-label">Name</label>
+                                <div class="col-sm-10 nav-name">
+                                    <input ng-model="$parent.navCopy.name" type="text" class="form-control validate-err" name="name"  placeholder="Название" required>
+                                    <div class="error-container" ng-show="Form.navModalForm.name.$dirty && Form.navModalForm.name.$invalid" role="alert">
+                                        <small class="error" ng-show="Form.navModalForm.name.$error.required">This field is required</small>
+                                    </div>
+                                </div>
+                            </div>
+                                <div class="form-group">
+                            <label for="type" class="col-sm-2 control-label">Type</label>
+                            <div class="col-sm-10">
+                                <select ng-model="$parent.navCopy.navtype"  class="form-control" name="type" ng-options="t.type as t.name for t in typeOpt" required>
+                                    <option style="display:none" value="">Select type</option>
+                                    <span ng-show="Form.navModalForm.type.$error.required && Form.navModalForm.type.$dirty ">type is required.</span>
+
+                                </select>
+                            </div>
+                             </div>
+                            <div class="form-group" ng-if="$parent.navCopy.navtype === 1 ">
+                                <label for="page"  class="col-sm-2 control-label">Page</label>
+                                <div class="col-sm-10">
+                                    <select ng-model="$parent.navCopy.page" ng-disabled="$parent.navCopy.navtype === 2" name="page" class="form-control" ng-options="p.id as p.title for p in pages" required>
+                                        <option style="display:none" value="">Select page</option>
+                                        <span ng-if="$parent.navCopy.navtype === 1">
+                                        <span ng-show="Form.navModalForm.page.$error.required && Form.navModalForm.page.$dirty ">Page is required.</span>
+                                        </span>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group" ng-if="$parent.navCopy.navtype === 2" >
+                                <label for="href" class="col-sm-2 control-label">Url</label>
+                                <div class="col-sm-10">
+                                    <input ng-model="$parent.navCopy.href" ng-disabled="$parent.navCopy.navtype === 1" type="text" class="form-control" name="href" placeholder="Href/Url" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                            </div>
+                            <div ng-show="alert">
+                                <alert ng-model="alert"  type="{{alert.type}}" close="closeAlert()">{{alert.msg}}</alert>
+                            </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                  <div class="col-sm-offset-9 col-sm-2">
+                    <button type="submit" class="btn btn-default col-sm-offset-7" ng-disabled="Form.navModalForm.$invalid" ng-if="$parent.isEditing">Save</button>
+                    <button type="submit" class="btn btn-default col-sm-offset-10" ng-disabled="Form.navModalForm.$invalid" ng-if="!$parent.isEditing">Create</button>
+                  </div>
+                </div>
+                </form>
+              </div>
+              </form>
+            </div>
+          </div>
+        
+      <!-- Ending modal -->
+    </div>
+</div>
+

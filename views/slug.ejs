@@ -1,0 +1,49 @@
+<div id="sidebar-page-nav" class="side_bar">
+	<% if (!isParse) { %>
+    <ul class="nav nav-pills nav-stacked">
+        <% for(var i = 0; i < navs.length; i++) { %>
+        <li role="presentation" data-id=<%= navs[i].id%>>
+        	<% if (navs[i].navtype === 1) { %>
+        		<a href="#"> <%= navs[i].name %></a>
+        	<% } %>
+        	<% if (navs[i].navtype === 2) { %>
+        		<a target="_blank" href="#"> <%= navs[i].name %></a>
+        	<% } %>
+        </li>
+        <% } %>
+    </ul>
+    <% } %>
+</div>
+<div id="page-wrapper">
+    <%- page.html %>
+</div>
+<% if (!isParse) { %>
+<script type="text/javascript">
+	document.addEventListener('DOMContentLoaded', function () {
+		$.get('/navigation', {}, function (navs) { 
+			console.log(navs);
+
+			$('#sidebar-page-nav li')
+				.each(function () {
+					var elem = $(this),
+						id   = elem.data('id');
+
+					setHref(id, elem.find('a'), navs);
+				});
+		});
+	});
+
+	function setHref (id, elem, navs) {
+		var nav;
+
+		$(navs).each(function () {
+			nav = this;
+
+			if (nav.id === id) {
+				elem.attr('href', nav.href || nav.page.url);
+				return false;
+			}
+		});
+	}
+</script>
+<% } %>

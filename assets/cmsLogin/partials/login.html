@@ -1,0 +1,50 @@
+<div style="margin-top: 50px" id="main-container">
+  <form  class="form-horizontal registartion-form" name="Form.login" method="post" action="/login" data-type="login"><!-- to ng-submit="login()"-->
+    <div class="row">
+      <h1 style="text-align: center">Login</h1>
+    </div>
+    <div class="form-group">
+      <label for="email" class="col-sm-2 col-sm-offset-2 control-label"><!-- email --></label>
+      <div class="col-sm-4">
+        <input  type="email" class="form-control validate-err" email-validation name="email"  placeholder="Enter email" required ng-model="mail">
+        <div class="error-container" ng-show="Form.login.email.$dirty && Form.login.email.$invalid" role="alert">
+            <small class="error" ng-show="Form.login.email.$error.required">This fiels is required</small>
+            <small class="error" ng-show="!Form.login.email.$error.required && Form.login.email.$error.emailValid">Enter valid e-mail</small>
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="password" class="col-sm-2 col-sm-offset-2 control-label"><!-- Password --></label>
+      <div class="col-sm-4">
+        <input  type="password" class="form-control validate-err" name="password" placeholder="Enter password" required ng-model="pass">
+        <div class="error-container" ng-show="Form.login.password.$dirty && Form.login.password.$invalid" role="alert">
+            <small class="error" ng-show="Form.login.password.$error.required">This fiels is required</small>
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="col-sm-offset-4 col-sm-1">
+        <button type="submit" ng-disabled="Form.login.$invalid" class="btn btn-primary" ng-click="makeRequest($event, mail, pass)">Login</button>
+      </div>
+    </div>
+    <div id="error-message" class="form-group" ng-class="errorClass">
+      <div class="col-sm-4 col-sm-offset-4">
+        <div class="alert alert-danger">
+          Incorrect credentials
+        </div>
+      </div>
+    </div>
+    <div class="error-message-password">
+
+    </div>
+    <div class="alert alert-warning alert-dismissable validate-field" role="alert" ng-model="alert" type="warning">
+      <button ng-show="closeable" type="button" class="close" ng-click="close()">
+          <span aria-hidden="true">×</span>
+          <span class="sr-only">Close</span>
+      </button>
+    <div>
+      <span class="validation-message">Please, fill all required fields!</span>
+    </div>
+  </div>
+  </form>
+</div>

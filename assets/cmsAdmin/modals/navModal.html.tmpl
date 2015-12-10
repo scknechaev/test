@@ -1,0 +1,77 @@
+<div class="" >
+    <div style="margin-top: 10px">
+
+        <form name="form.navModalForm"  ng-submit="createOrEditNav()" class="form-horizontal" novalidate >
+            <div class="nav-modal-title">
+                <h1 ng-if="isEditing">Edit navigation</h1>
+                <h1 ng-if="!isEditing">Create navigation</h1>
+            </div>
+<!--             <h1 style="text-align: center" ng-if="nav.navtype == 1">NAV FORM INTERNAL</h1>
+            <h1 style="text-align: center" ng-if="nav.navtype == 2">NAV FORM EXTERNAL</h1>
+            <h1 style="text-align: center" ng-if="nav.navtype !== 1 && nav.navtype !== 2">NAV FORM</h1> -->
+            <div class="modal-body">
+
+            <div class="form-group">
+                <label for="name" class="col-sm-2 control-label">Name</label>
+                <div class="col-sm-10 nav-name">
+                    <input ng-model="nav.name" type="text" class="form-control" name="name"  placeholder="Name" required>
+<!--                     <span ng-show="form.navModalForm.name.$error.required && form.navModalForm.name.$dirty ">Name is required.</span> -->
+                </div>
+            </div>
+                <div class="form-group">
+            <label for="type" class="col-sm-2 control-label">Type</label>
+            <div class="col-sm-10">
+                <select ng-model="nav.navtype"  class="form-control" name="type" ng-options="t.type as t.name for t in typeOpt" required>
+                    <option style="display:none" value="">Select</option>
+                    <span ng-show="form.navModalForm.type.$error.required && form.navModalForm.type.$dirty ">type is required.</span>
+
+                </select>
+            </div>
+             </div>
+                <div class="form-group">
+            <label for="orientation" class="col-sm-2 control-label">Orientation</label>
+            <div class="col-sm-10">
+                <select ng-model="nav.orientation" class="form-control" name="orientation" ng-options="o.orientation as o.name for o in orientOpt" required>
+                    <option style="display:none" value="">Select</option>
+                    <span ng-show="form.navModalForm.orientation.$error.required && form.navModalForm.orientation.$dirty ">orientation is required.</span>
+
+                </select>
+            </div>
+             </div>
+            <div class="form-group" ng-if="nav.navtype === 1 ">
+                <label for="page"  class="col-sm-2 control-label">Page</label>
+                <div class="col-sm-10">
+                    <select ng-model="nav.page" ng-disabled="nav.navtype === 2" name="page" class="form-control" ng-options="p.id as p.title for p in pages" required>
+                        <option style="display:none" value="">Select page</option>
+                        <span ng-if="nav.navtype === 1">
+                        <span ng-show="form.navModalForm.page.$error.required && form.navModalForm.page.$dirty ">Page is required.</span>
+                        </span>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group" ng-if="nav.navtype === 2" >
+                <label for="href" class="col-sm-2 control-label">href</label>
+                <div class="col-sm-10">
+                    <input ng-model="nav.href" ng-disabled="nav.navtype === 1" type="text" class="form-control" name="href" placeholder="Href/Url" required>
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                <div class="col-sm-offset-10 col-sm-1">
+                    <button type="submit" ng-disabled="form.navModalForm.$invalid" class="btn btn-default manage-btn" ng-if="isEditing">Save</button>
+                    <button type="submit" ng-disabled="form.navModalForm.$invalid" class="btn btn-default manage-btn" ng-if="!isEditing">Create</button>
+                </div>
+            </div>
+<!--             <div ng-show="messageShow">
+                <span ng-class="msgClass"> {{msg}} </span>
+            </div> -->
+            <div ng-show="alert">
+                <alert ng-model="alert"  type="{{alert.type}}" close="closeAlert()">{{alert.msg}}</alert>
+            </div>
+            </div>
+        </form>
+
+    </div>
+</div>
+

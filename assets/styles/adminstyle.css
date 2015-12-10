@@ -1,0 +1,223 @@
+body, html {
+    height: 100%;
+    width: 100%;
+	overflow: hidden;
+}
+
+body {
+	min-width: 320px;
+}
+.error-container .error {
+  color: #D11C26;
+}
+.validate-err.ng-dirty.ng-invalid{
+  border-color: #E96666;
+}
+.validate-err.ng-dirty.ng-invalid:focus {
+  border-color: #E96666;
+  outline: 0;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(233, 102, 102, 0.6);
+  box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(233, 102, 102, 0.6);
+}
+.fa-pencil:before {
+	content: "\f040";
+}
+
+.fa-trash-o:before {
+	content: "\f014";
+}
+.modal.fade.in {
+	background-color: rgba(0, 0, 0, 0.42);
+}
+/*Start Main ***************************************************************/
+#logout {
+  position: relative;
+  top: -1px;
+  padding-bottom: 15px;
+}
+.side_bar,
+#main-view {
+	height: calc(100vh - 85px);
+	padding-bottom: 45px;
+}
+#main-view {
+	background-color: white;
+	padding-bottom: 20px;
+}
+#main-container {
+	width: 100%;
+	min-width: 320px;
+}
+.side_bar {
+  background-color: #1C2B36;
+  padding: 0;
+}
+.top_bar {
+    width: 100%;
+    background-color: #c4e3f3;
+}
+.wrapper {
+	background: #1C2B36;
+	overflow: auto;
+	position: relative;
+	width: 100%;
+	margin: 0;
+}
+.logo {
+	color: azure;
+	margin-left: 10px;
+}
+.logo:hover {
+	color: rgb(214, 229, 229);
+}
+#main-footer {
+	background-color: #1C2B36;
+	padding: 5px 20px 0;
+	line-height: 25px;
+	color: white;
+}
+#main-footer label {
+	margin-right: 20px;
+}
+/*End Main ***************************************************************/
+
+/*Start NAV **************************************************************/
+.nav-modal-title {
+	text-align: center;
+}
+.registartion-form {
+	width: 80%;
+	margin: 0px auto;
+}
+.nav {
+	margin-top: 0.5px;
+}
+.nav-name > span {
+	position: relative;
+	top: 5px;
+}
+.nav li a {
+	color: white;
+}
+.nav li {
+	margin:0!important;
+}
+.nav > li > a:hover, .nav > li > a:focus {
+  text-decoration: none;
+  border-radius: 0;
+  background-color: #44657E;
+}
+.nav > li > a.active {
+  text-decoration: none;
+  border-radius: 0;
+  background-color: #324C5F;
+}
+.nav-modal-title {
+	text-align: center;
+}
+/*End NAV **************************************************************/
+
+/*Start Table styles*/
+.table-header{
+	margin-top: 10px;
+}
+.table-header .btn {
+	margin: 8px 10px 0 0;
+	padding: 6px 15px;
+  	border-radius: 4px;
+}
+
+
+/*End Table styles*/
+
+/*START User styles**************************************************************/
+.manage-btn{
+	width: 70px;
+}
+.users-list{
+	margin-bottom: 70px;
+}
+/*END User styles**************************************************************/
+
+
+/*START Pages styles**************************************************************/
+a.btn.btn-primary.create-btn {
+	color: white;
+}
+a.btn.btn-primary.create-btn:hover {
+	border-radius: 4px;
+	color: #fff;
+	background-color: #286090;
+	border-color: #204d74;
+}
+#page-wrapper{
+	margin-left: 18%;
+	margin-top: 22px;
+}
+#sidebar-page-nav {
+	height: 100%;
+	width: 16%;
+	float: left;
+}
+#sidebar-page-nav li a:hover,
+#sidebar-page-nav li a:focus {
+  background-color: #17232C;
+}
+/*END Pages styles**************************************************************/
+
+/*table tyles*******************************************************************/
+td.userName {
+  max-width: 175px;
+  word-wrap: break-word;
+}
+/*table tyles*******************************************************************/
+
+/*Login validation*******************************************************************/
+.validate-field {
+	width: 40%;
+	margin: 0px auto;
+	display: none;
+}
+/*End login validation*******************************************************************/
+
+#userName {
+	color: white;
+	display: block;
+	margin-top: 15px;
+}
+
+#error-message {
+	transition: all 1s ease;
+	-webkit-transition: all 1s ease;
+	-moz-transition: all 1s ease;
+	-o-transition: all 1s ease;
+}
+
+.visible {
+	opacity: 1;
+}
+
+.invisible {
+	opacity: 0;
+}
+
+.disabled {
+	display: none;
+}
+
+/*XS*/
+@media all and (max-width: 767px) {
+
+}
+/*SM*/
+@media all and (min-width: 768px) {
+ 
+}
+/*MD*/
+@media all and (min-width: 992px) {
+   
+}
+/*LD*/
+@media all and (min-width: 1200px) {
+
+}

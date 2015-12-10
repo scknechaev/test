@@ -1,0 +1,33 @@
+@media screen and (max-width: 991px) {
+
+	#main-view {
+		overflow: hidden;
+	}
+
+	#page-editing {
+		margin-left: 0px;
+	}
+
+	.side_bar {
+		height: auto;
+	}
+
+	.side_bar > ul {
+		padding: 10px 0px;
+	}
+}
+
+@media screen and (max-width: 767px) {
+
+	.validate-field {
+		width: 100%;
+		text-align: center;
+	}
+}
+
+@media screen and (max-width: 650px) {
+
+	.menu-curr-element {
+		width: 100%;
+	}
+}

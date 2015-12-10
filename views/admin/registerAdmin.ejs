@@ -1,0 +1,47 @@
+<div style="margin-top:50px" id="main-container">
+  <form class="form-horizontal registartion-form" method="post" action="/register" data-type="register">
+    <h1 style="text-align: center">Registration</h1>
+    <div class="form-group">
+      <label for="name" class="col-sm-1 col-sm-offset-3 control-label">Name</label>
+      <div class="col-sm-4">
+        <input type="text" class="form-control" name="name"  placeholder="Enter Name">
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="email" class="col-sm-1 col-sm-offset-3 control-label">Email</label>
+      <div class="col-sm-4">
+        <input type="text" class="form-control" name="email"  placeholder="Enter email">
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="password" class="col-sm-1 col-sm-offset-3 control-label">Password</label>
+      <div class="col-sm-4">
+        <input type="password" class="form-control" name="password" placeholder="Enter password">
+      </div>
+    </div>
+<div class="form-group">
+      <label for="role" class="col-sm-1 col-sm-offset-3 control-label">Role</label>
+      <div class="col-sm-4">
+        <select class="form-control" name="role">
+          <option value="">Select role</option>
+          <option value="1">Moderator</option>
+          <option value="2">Admin</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <div class="col-sm-offset-6 col-sm-1">
+        <button type="submit" class="btn btn-default col-sm-offset-12">Registration</button>
+      </div>
+    </div>
+    <div class="alert alert-warning alert-dismissable validate-field" role="alert" ng-model="alert" type="warning">
+      <button ng-show="closeable" type="button" class="close" ng-click="close()">
+          <span aria-hidden="true">×</span>
+          <span class="sr-only">Close</span>
+      </button>
+      <div><span class="validation-message">Please, fill all required fields!</span></div>
+    </div>
+  </form>
+</div>
+
