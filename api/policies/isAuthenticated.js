@@ -5,5 +5,5 @@ module.exports = function (req, res, next) {
         return next();
     }
     
-    res.badRequest({ 'message': 'unauthorized' });
+    res.forbidden({ 'message': 'unauthorized' });
 };

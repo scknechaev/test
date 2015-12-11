@@ -27,7 +27,7 @@ module.exports = {
                     return res.badRequest(err);
                 }
 
-                return res.redirect('/dashboard');
+                res.redirect('/dashboard');
             });
 
         })(req, res);

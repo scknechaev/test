@@ -2,9 +2,11 @@ module.exports = function (req, res, next) {
 
     if (req.isAuthenticated() && isAdmin(req.user)) {
     	return next();
+    } else if (req.wantsJSON) {
+    	return res.forbidden({ 'message': 'Have no permissions to do this action' });
     }
 
-    res.badRequest({ 'message': 'Have no permissions to do this action' });
+    res.redirect('/');
 };
 
 /**

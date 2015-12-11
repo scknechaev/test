@@ -3,10 +3,10 @@ var bcrypt = require('bcrypt-nodejs');
 module.exports = {
 
     dashboard: function (req, res) {
-      	res.render('indexAdmin', {
-        	user: req.user
-       	});
-
+      	// res.render('indexAdmin', {
+       //  	user: req.user
+       // 	});
+		res.send(200, 'This is some test text');
     },
 
     createUser: function (req, res) {
