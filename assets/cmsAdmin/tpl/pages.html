@@ -1,0 +1,63 @@
+<div class="col-md-12">
+  <nav class="navbar table-header navbar-default ng-scope">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href >Page management</a>
+        </div>
+        <div id="usermanagementmenu">
+            <ul class="nav navbar-nav navbar-right mobview">
+                <li>
+                    <a href="" ui-sref="app.editpage" class="btn btn-primary create-btn">Create page</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+  </nav>
+  <div id="pagesList" class="list">
+    <table class="table table-hover">
+      <thead>
+        <th>Page name</th>
+        <th>Last updeated</th>
+        <th>Edit</th>
+        <th  >Delete</th>
+      </thead>
+      <tbody>
+        <tr ng-repeat="page in pages" class="userItem">
+          <td>
+            <span>{{page.title}}</span>
+          </td>
+          <td>
+            <span> {{ page.updatedAt | dateTimeUtc }} </span>
+          </td>
+          <td>
+            <button  type="button" class="btn btn-primary btn-sm margin-right ng-scope delUserButton" title="Edit" ng-click="editPage(page)">
+              <span class="fa fa-pencil"></span>
+            </button>
+          </td>
+
+          <td  >
+            <button class="btn btn-danger btn-sm ng-scope" title="Delete" ng-click="openConfirmDelPage(page, $index)">
+              <span class="fa fa-trash-o"></span>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+
+<!--     <div ng-repeat="page in pages" class="userItem well menu-curr-element">
+      <div class="userName">
+        <p>{{page.id}}</p>
+      </div>
+      <div class="userEmail">
+        <p>{{page.title}}</p>
+      </div>
+      <div>
+        <button ng-click="editPage(page)"  type="button" class="btn btn-primary delUserButton">Edit</button>
+        <button ng-click="delPage(page, $index)"  type="button" class="btn btn-danger delUserButton">Remove</button>
+      </div>
+    </div> -->
+  </div>
+</div>
+
+

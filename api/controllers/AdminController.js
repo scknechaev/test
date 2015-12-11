@@ -4,7 +4,7 @@ var path = require('path');
 module.exports = {
 
     myprotected: function (req, res) {
-        return res.render('indexAdmin', {
+        return res.render('indexCms', {
            user: req.user
        });
     }
