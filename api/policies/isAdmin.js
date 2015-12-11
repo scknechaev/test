@@ -1,10 +1,10 @@
 module.exports = function (req, res, next) {
 
     if (req.isAuthenticated() && isAdmin(req.user)) {
-    	next();
-    } 
+    	return next();
+    }
 
-    return res.send(401, { message: 'Have no permissions to do this action' });
+    res.badRequest({ 'message': 'Have no permissions to do this action' });
 };
 
 /**
