@@ -24,7 +24,7 @@ module.exports = {
 
         async.auto({
         	isUserExist: function (call) {
-        		User.find({
+        		User.findOne({
         			'email': email
         		}).exec(call);
         	},
