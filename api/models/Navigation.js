@@ -1,21 +1,34 @@
 module.exports = {
+
     attributes: {
+
         name: {
-            type: 'string'
+            type: 'string',
+            required: true,
         },
+
         navtype: {
-            type: 'integer'
+            type: 'integer',
+            required: true
         },
+
         href: {
-            type: 'string'
+            type: 'string',
+            required: true
         },
+
         page: {
-            model: 'page'
+            model: 'Page',
+            required: true,
         },
+
         orientation: {
-            type: 'integer'
+            type: 'integer',
+            required: true,
         }
+
     }
+
 };
 /**
  * navtype 1 internal, 2 external

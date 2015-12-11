@@ -49,12 +49,12 @@ module.exports.policies = {
     // }
 
     'AdminController': {
-        '*': 'isAuthenticatedAdmin'
+        '*': 'isAdmin'
     },
     'UserController': {
-        '*': 'isAdmin',
-        'login': true,
+        '*'     : 'isAdmin',
+        'index' : true,
+        'login' : true,
         'logout': true,
-        'register': true
     }
 };

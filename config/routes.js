@@ -38,16 +38,15 @@ module.exports.routes = {
     //     views: 'mainBook.ejs'
     // },
 
-    '/': 'UserController.login',
+    '/'               : 'UserController.index',
+    'POST /login'     : 'UserController.login',
+    '/logout'         : 'UserController.logout',
 
-    'GET /admin': 'AdminController.myprotected',
-
-    'POST /login': 'UserController.login',
-    'GET /isLogedin': 'UserController.isLogedin',
-
-    '/logout': 'UserController.logout',
-
-    'POST /api/createUser': 'UserController.createUser',
+    'GET /dashboard'          : 'AdminController.dashboard',
+    'POST /admin/createuser'  : 'AdminController.createUser',
+    'PUT /admin/updateuser'   : 'AdminController.updateUser',
+    'DELETE /admin/deleteuser': 'AdminController.deleteUser',
+    
     'GET /navigation': 'NavigationController.getNavs',
 
     'get /content/:pageID': {
