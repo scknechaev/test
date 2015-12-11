@@ -55,6 +55,6 @@ module.exports.policies = {
         '*': 'isAdmin',
         'login': true,
         'logout': true,
-        'register': true
+        'getLoginForm': true
     }
 };

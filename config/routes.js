@@ -38,10 +38,9 @@ module.exports.routes = {
     //     views: 'mainBook.ejs'
     // },
 
-    '/': 'UserController.login',
+    '/': 'UserController.getLoginForm',
 
-    'GET /admin': 'AdminController.myprotected',
-
+    'GET /admin': 'AdminController.dashboard',
     'POST /login': 'UserController.login',
 
     '/logout': 'UserController.logout',

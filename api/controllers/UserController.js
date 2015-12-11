@@ -2,22 +2,22 @@ var passport = require('passport');
 
 module.exports = {
 
+    getLoginForm: function (req, res) {
+        res.view('admin/loginAdmin.ejs', {
+            layout: false
+        });
+    },
+
     login: function (req, res) {
-        
-        if (req.method === 'GET') {
-            return res.view('admin/loginAdmin.ejs', {
-                layout: false
-            });
-        }
 
         passport.authenticate('local', function (err, user, info) {
 
             if ((err) || (!user)) {
-                // return res.redirect('/signin');
                 return res.send(400, {
-                    message: 'incorrect creditionals'
+                    message: err || 'incorrect creditionals'
                 });
             }
+
             user.email = user.email.toLocaleLowerCase();
             req.logIn(user, function (err) {
 
