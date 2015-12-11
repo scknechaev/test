@@ -61,6 +61,12 @@ var adminApp =  angular.module('adminApp', ['ngRoute', 'ngCkeditor', 'ui.bootstr
                     }).when('/navigation', {
                         templateUrl: '/cmsAdmin/adminPartials/navigation.html',
                         controller: 'navigationController'
+                    }).when('/dashboard', {
+                        templateUrl: '/cmsAdmin/adminPartials/dashboard.html',
+                        controller: 'dashboardController'
+                    }).when('/media', {
+                        templateUrl: '/cmsAdmin/adminPartials/media.html',
+                        controller: 'mediaController'
                     }).otherwise({
                         redirectTo: '/users'
                     });
