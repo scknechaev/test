@@ -8,11 +8,13 @@ module.exports = {
         },
 
         navtype: {
-            type: 'integer'
+            type: 'integer',
+            required: true
         },
 
         href: {
-            type: 'string'
+            type: 'string',
+            required: true
         },
 
         page: {

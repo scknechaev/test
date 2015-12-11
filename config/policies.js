@@ -50,7 +50,6 @@ module.exports.policies = {
 
     'AdminController': {
         '*': 'isAdmin'
-        // '*': true
     },
     'UserController': {
         '*'     : 'isAdmin',

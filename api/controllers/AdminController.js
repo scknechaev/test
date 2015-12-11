@@ -10,17 +10,31 @@ module.exports = {
     },
 
     createUser: function (req, res) {
-        var params = _.pick(req.body, ['name', 'email', 'password', 'role']),
-            email  = params.email && params.email.toLowerCase();
+        var params 			  = _.pick(req.body, ['name', 'email', 'password', 'role']),
+            email  			  = params.email && params.email.toLowerCase(),
+            passLengthEnought = CommonUtils.isPassLengthEnought(params.password);
 
-        if ( !CommonUtils.isPassLengthEnought(params.password) ) {
+        if ( !email || !passLengthEnought ) {
+        	if (!email) {
+        		return res.badRequest({ 'message': 'Email is not specified' });
+        	}
+
             return res.badRequest({ 'message': 'Min length is six simbols' });
         }
 
         async.auto({
-        	salt: function (call) {
-        		call(null, bcrypt.genSaltSync(8));
+        	isUserExist: function (call) {
+        		User.find({
+        			'email': email
+        		}).exec(call);
         	},
+        	salt: ['isUserExist', function (call, data) {
+        		if (data.isUserExist) {
+        			return call('User with such email already exist');
+        		}
+
+        		call(null, bcrypt.genSaltSync(8));
+        	}],
         	hash: ['salt', function (call, data) {
         		bcrypt.hash(params.password, data.salt, null, call);
         	}],
@@ -31,7 +45,7 @@ module.exports = {
         	}]
         }, function (err, data) {
             if (err) {
-                res.badRequest({ 'message': 'Cannot create user', 'error': err });
+                return res.badRequest({ 'message': 'Cannot create user', 'error': err });
             } 
             
             res.ok({ 'message': 'User created', 'user': _.omit(data.user, 'password') });
