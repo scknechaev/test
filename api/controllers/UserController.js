@@ -11,10 +11,9 @@ module.exports = {
     login: function (req, res) {
 
         passport.authenticate('local', function (err, user, info) {
-
-            if ((err) || (!user)) {
+            if (err || !user) {
                 return res.send(400, {
-                    message: err || 'incorrect creditionals'
+                    'message': err || 'incorrect creditionals'
                 });
             }
 
@@ -32,6 +31,6 @@ module.exports = {
     },
     logout: function (req, res) {
         req.logOut();
-        res.redirect('/signin');
+        res.redirect('/');
     }
 }
