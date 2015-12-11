@@ -38,14 +38,13 @@ module.exports.routes = {
     //     views: 'mainBook.ejs'
     // },
 
-    '/': 'UserController.getLoginForm',
+    '/'               : 'UserController.index',
+    'POST /login'     : 'UserController.login',
+    '/logout'         : 'UserController.logout',
+    'POST /createUser': 'UserController.createUser',
 
     'GET /admin': 'AdminController.dashboard',
-    'POST /login': 'UserController.login',
-
-    '/logout': 'UserController.logout',
-
-    'POST /api/createUser': 'UserController.createUser',
+    
     'GET /navigation': 'NavigationController.getNavs',
 
     'get /content/:pageID': {

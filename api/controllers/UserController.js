@@ -2,7 +2,7 @@ var passport = require('passport');
 
 module.exports = {
 
-    getLoginForm: function (req, res) {
+    index: function (req, res) {
         res.view('admin/loginAdmin.ejs', {
             layout: false
         });
@@ -41,17 +41,22 @@ module.exports = {
             pass   = params.password;
         
         if ( !isPassLengthEnought(pass) ) {
-            return res.send(400, { message: 'min length is six simbols' });
+            return res.send(400, { message: 'Min length is six simbols' });
         }
 
-        User.create({name: req.body.name, email: email, password: req.body.password, role: req.body.role}, function (err, created) {
+        User.create({
+            'name'    : req.body.name, 
+            'email'   : email, 
+            'password': req.body.password, 
+            'role'    : req.body.role
+        }, function (err, created) {
             if (err) {
                 res.send(400, {message: 'cannot create user'} );
             } else {
 
                 return res.send({message: 'user created', user: created});
             }
-        })
+        });
     },
 
     removeUser: function (req, res) {

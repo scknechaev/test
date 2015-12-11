@@ -28,7 +28,6 @@ module.exports = {
     },
 
     beforeValidate: function (values, next) {
-        console.log(arguments);
 
         if (values.url !== undefined) {
             if (values.url[0] === '/') {
@@ -41,7 +40,7 @@ module.exports = {
     },
 
     afterDestroy: function (navs, cb) {
-        Navigation.destroy(_.pluck(navs, 'id')).exec(cb);
+        Navigation.destroy( _.pluck(navs, 'id') ).exec(cb);
     }
 
 };
