@@ -44,17 +44,27 @@ passport.use(new LocalStrategy({
         call(null);
       }]
     }, function (err, data) {
-      if (err) {
-        return next(null, false, err);
-      }
-
-      next(null, {
-          'email': data.user.email,
-          'id'   : data.user.id
-        }, {
-          'message': 'Logged in Successfully'
-      });
-
+      generResponse(err, data, next);
     });
 
   }));
+
+/**
+ * @name generResponse
+ * @desc Generating of the response for authorization
+ * @param err  - error object
+ *        data - data object from async
+ *        call - callback function
+ */
+function generResponse (err, data, call) {
+  if (err) {
+    return call(null, false, err);
+  }
+
+  call(null, {
+      'email': data.user.email,
+      'id'   : data.user.id
+    }, {
+      'message': 'Logged in Successfully'
+  });
+}
