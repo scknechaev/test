@@ -41,9 +41,11 @@ module.exports.routes = {
     '/'               : 'UserController.index',
     'POST /login'     : 'UserController.login',
     '/logout'         : 'UserController.logout',
-    'POST /createUser': 'UserController.createUser',
 
-    'GET /admin': 'AdminController.dashboard',
+    'GET /admin'              : 'AdminController.dashboard',
+    'POST /admin/createuser'  : 'AdminController.createUser',
+    'PUT /admin/updateuser'   : 'AdminController.updateUser',
+    'DELETE /admin/deleteuser': 'AdminController.deleteUser',
     
     'GET /navigation': 'NavigationController.getNavs',
 

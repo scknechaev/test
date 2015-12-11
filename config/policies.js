@@ -52,9 +52,9 @@ module.exports.policies = {
         '*': 'isAdmin'
     },
     'UserController': {
-        '*': 'isAdmin',
-        'login': true,
+        '*'     : 'isAdmin',
+        'index' : true,
+        'login' : true,
         'logout': true,
-        'getLoginForm': true
     }
 };
