@@ -2,9 +2,6 @@ var passport = require('passport');
 
 module.exports = {
 
-    isLogedin: function (req, res) {
-        //  console.log("");
-    },
     login: function (req, res) {
         
         if (req.method === 'GET') {

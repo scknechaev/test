@@ -9,18 +9,22 @@ module.exports = {
     },
 
     attributes: {
+
         title: {
             type: 'string'
         },
+
         url: {
             type: 'string',
             unique: true,
             required: true,
             isValidExp: true
         },
+
         html: {
             type: 'string'
         }
+
     },
 
     beforeValidate: function (values, next) {

@@ -3,12 +3,16 @@ var async = require('async');
 module.exports = {
 
     render: function (req, res) {
-        var query = getQuery(req.param('pageID')),
-            parse = req.allParams().parse || req.query.parse;
+        var pageId = req.query.pageId,
+            parse  = req.allParams().parse || req.query.parse;
+
+        if (!pageId) {
+            return res.badRequest('page id is not defined');
+        }
 
         async.parallel({
             ptask: function (callback) {
-                Page.findOne(query).exec(function (err, data) {
+                Page.findOne(pageId).exec(function (err, data) {
 
                     if (err) {
                         callback(err, null);
@@ -59,16 +63,3 @@ module.exports = {
     }
 
 };
-
-function getQuery (pageID) {
-
-    if (isNaN(pageID)) {
-        return {
-            url: pageID
-        }
-    }
-
-    return {
-        id: pageID
-    }
-}

@@ -43,7 +43,6 @@ module.exports.routes = {
     'GET /admin': 'AdminController.myprotected',
 
     'POST /login': 'UserController.login',
-    'GET /isLogedin': 'UserController.isLogedin',
 
     '/logout': 'UserController.logout',
 
