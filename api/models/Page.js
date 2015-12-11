@@ -14,6 +14,10 @@ module.exports = {
             type: 'string'
         },
 
+        navs: {
+            model: 'Navigation'
+        }
+
         url: {
             type: 'string',
             unique: true,

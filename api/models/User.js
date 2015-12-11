@@ -17,7 +17,8 @@ module.exports = {
         },
 
         role: {
-            type: 'integer'
+            type: 'integer',
+            enum: [1, 2]    // 1 - admin, 2 - author
         }
     }
 };

@@ -15,7 +15,7 @@ module.exports = {
         },
 
         page: {
-            model: 'page'
+            model: 'Page'
         },
 
         orientation: {
