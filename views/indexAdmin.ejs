@@ -47,9 +47,11 @@
   <div class="col-md-2 side_bar " ng-controller="sidebarController">
     <ul class="nav nav-pills nav-stacked" data-user-role=<%=user.role%>>
         <% if (user.role == 2) { %>   <!-- Admin  -->
-          <li role="presentation" ><a href="#/users" ng-class="{active:$root.isActive('/users')}" >Users</a></li>
+          <li role="presentation" ><a href="#/dashboard" ng-class="{active:$root.isActive('/dashboard')}" >Dashboard</a></li>
           <li role="presentation"><a href="#/pages" ng-class="{active:$root.isActive('/pages')}" >Pages</a></li>
-          <li role="presentation"><a href="#/navigation" ng-class="{active:$root.isActive('/navigation')}" >Navigation</a></li>
+          <li role="presentation"><a href="#/media" ng-class="{active:$root.isActive('/media')}" >Media</a></li>
+          <li role="presentation"><a href="#/navigation" ng-class="{active:$root.isActive('/navigation')}" >Menu</a></li>
+          <li role="presentation" ><a href="#/users" ng-class="{active:$root.isActive('/users')}" >Users</a></li>
         <% } %>
         <% if (user.role == 1) { %>   <!-- Moderator  -->
           <li role="presentation"><a href="#/pages">Pages</a></li>
