@@ -1,6 +1,5 @@
+var bcrypt = require('bcrypt-nodejs');
 
-var fs = require('fs');
-var path = require('path');
 module.exports = {
 
     dashboard: function (req, res) {
@@ -18,14 +17,25 @@ module.exports = {
             return res.badRequest({ 'message': 'Min length is six simbols' });
         }
 
-        User.create(params).exec(function (err, created) {
+        async.auto({
+        	salt: function (call) {
+        		call(null, bcrypt.genSaltSync(8));
+        	},
+        	hash: ['salt', function (call, data) {
+        		bcrypt.hash(params.password, data.salt, null, call);
+        	}],
+        	user: ['hash', function (call, data) {
+        		params.password = data.hash;
+
+        		User.create(params).exec(call);
+        	}]
+        }, function (err, data) {
             if (err) {
                 res.badRequest({ 'message': 'Cannot create user', 'error': err });
             } 
             
-            res.ok({ 'message': 'User created', 'user': created });
+            res.ok({ 'message': 'User created', 'user': _.omit(data.user, 'password') });
         });
-
     },
 
     deleteUser: function (req, res) {

@@ -11,7 +11,8 @@ module.exports = {
     attributes: {
 
         title: {
-            type: 'string'
+            type: 'string',
+            required: true,
         },
 
         navs: {
@@ -26,7 +27,8 @@ module.exports = {
         },
 
         html: {
-            type: 'string'
+            type: 'string',
+            required: true,
         }
 
     },

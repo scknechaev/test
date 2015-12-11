@@ -3,7 +3,8 @@ module.exports = {
     attributes: {
 
         name: {
-            type: 'string'
+            type: 'string',
+            required: true,
         },
 
         navtype: {
@@ -15,11 +16,13 @@ module.exports = {
         },
 
         page: {
-            model: 'Page'
+            model: 'Page',
+            required: true,
         },
 
         orientation: {
-            type: 'integer'
+            type: 'integer',
+            required: true,
         }
 
     }

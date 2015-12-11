@@ -9,22 +9,20 @@ module.exports = {
     },
 
     login: function (req, res) {
-
         passport.authenticate('local', function (err, user, info) {
             if (err || !user) {
-                return res.send(400, {
-                    'message': err || 'incorrect creditionals'
+                return res.badRequest(err || {
+                    'message': 'incorrect creditionals'
                 });
             }
 
             user.email = user.email.toLocaleLowerCase();
             req.logIn(user, function (err) {
-
                 if (err) {
-                    res.send(err);
+                    res.badRequest(err);
                 }
 
-                return res.redirect('/admin');
+                return res.redirect('/dashboard');
             });
 
         })(req, res);
