@@ -16,7 +16,7 @@ module.exports = {
 
         navs: {
             model: 'Navigation'
-        }
+        },
 
         url: {
             type: 'string',
