@@ -2,11 +2,21 @@ angular.module('app')
   .controller('menuController', [
     '$scope',
     'navigationService',
-    'ngDialog',
-    function ($scope, navigationService, ngDialog) {
+    '$modal',
+    function ($scope, navigationService, $modal) {
         $scope.pageUrl = navigationService.getUrl();
-        getNavs($scope);
+        $scope.navs = [];
         $scope.Form = {};
+
+        $scope.getNavs = function () {
+            navigationService.getNavs().then(function (navs) {
+                $scope.navs = navs;
+                console.log(navs);
+            }, function (err) {
+                console.log(err);
+            });
+        }
+        $scope.getNavs();
 
         $scope.setModalState = function (editingNav) {
             $scope.Form.navModalForm.name.$setPristine();
@@ -32,15 +42,25 @@ angular.module('app')
             })
         };
         $scope.openConfirmDelNav = function (nav, index) {
-          ngDialog.open({
-              template: 'cmsAdmin/tpl/modals/confirmDelNav.html.tmpl',
-              scope: $scope,
-              controller: ['$scope', function($scope) {
+          $modal.open({
+              templateUrl: 'cmsAdmin/tpl/modals/confirmDelNav.html.tmpl',
+              resolve: {
+                nav : function () {
+                  return nav;
+                },
+                index : function () {
+                  return index;
+                }
+              },
+              controller: ['$scope', '$modalInstance', 'nav', 'index', function($scope, $modalInstance, nav, index) {
                   $scope.index = index;
                   $scope.nav =  nav;
                   setTimeout(function(){
                       $('.modal-footer .btn.btn-danger').focus();
                   },200);
+                  $scope.cancel = function () {
+                      $modalInstance.dismiss('cancel');
+                  };
               }]
           });
         };
@@ -50,14 +70,7 @@ angular.module('app')
             modalWindow.modalClosed = false;
         }
 
-        function getNavs ($scope) {
-            navigationService.getNavs().then(function (navs) {
-                $scope.navs = navs;
-                console.log(navs);
-            }, function (err) {
-                console.log(err);
-            });
-        }
+        
 }]);
 
 

@@ -1,6 +1,6 @@
 angular.module('app')
-  .controller('createUserController', ['$scope', 'ngDialog', '$http', 'ngNotify',
-   function ($scope, ngDialog, $http, ngNotify) {
+  .controller('createUserController', ['$scope', '$http', 'ngNotify',
+   function ($scope, $http, ngNotify) {
       $scope.roleTypes = [{
           name: 'Moderator',
           type: 1

@@ -1,5 +1,5 @@
   angular.module('app')
-      .controller('usersController', ['$scope', '$http', '$modal', 'userService', 'ngDialog', function ($scope, $http, $modal, userService, ngDialog) {
+      .controller('usersController', ['$scope', '$http', '$modal', 'userService', function ($scope, $http, $modal, userService) {
           $scope.Form = {};
           $scope.users = [];
           getUsers();
@@ -47,26 +47,43 @@
               })
           };
 
-          $scope.delUser = function (user, index)  {
-              console.log(arguments);
-              userService.delUser(user).then(function (deletedUser) {
-                  $scope.users.splice(index, 1);
-              });
-          };
+          
 
           $scope.openConfirmDelUser = function (user, index) {
-            ngDialog.open({
-                template: 'cmsAdmin/tpl/modals/confirmDelUser.html.tmpl',
-                scope: $scope,
-                controller: ['$scope', function($scope) {
+            $modal.open({
+                resolve:{
+                  user: function(){
+                    return user;
+                  },
+                  users: function(){
+                    return $scope.users;
+                  },
+                  index: function(){
+                    return index;
+                  }
+                },
+                templateUrl: 'cmsAdmin/tpl/modals/confirmDelUser.html.tmpl',
+                controller: ['$scope', '$modalInstance', 'user', 'users', 'pageService', 'index',
+                  function($scope, $modalInstance, user, users, pageService, index) {
                     $scope.index = index;
-                    $scope.user = user;
+                    $scope.user =  user;
+                    $scope.users =  users;
+                    $scope.delUser = function (user, index)  {
+                        console.log(arguments);
+                        userService.delUser(user).then(function (deletedUser) {
+                            $scope.users.splice(index, 1);
+                        });
+                    };
+                    $scope.cancel = function () {
+                        $modalInstance.dismiss('cancel');
+                    };
                     setTimeout(function(){
-                        $('.modal-footer .btn.btn-danger').focus();
+                        // $('.modal-footer .btn.btn-danger').focus();
                     },200);
                 }]
             });
           };
+
 
           $scope.editUser = function editUser (user) {
               userService.editUser(user).then(function (editedUser) {

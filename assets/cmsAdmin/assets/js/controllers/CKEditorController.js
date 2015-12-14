@@ -13,7 +13,7 @@ angular.module('app')
        })
     }
     $scope.editorOptions = {
-      language: 'ru',
+      language: 'en',
     };
     $scope.$on('ckeditor.ready', function (event) {
         $scope.isReady = true;
@@ -22,7 +22,7 @@ angular.module('app')
         $scope.alert = false;
     }
     function savePage () {
-        if (angular.isUndefined($scope.param)) {
+        if (!$scope.param) {
             pageService.createPage($scope.Page).then(function (data) {
                 $location.url('pages');
                 ngNotify.set('New page has been successfully created', {

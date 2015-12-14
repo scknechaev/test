@@ -7,7 +7,7 @@
       <label for="email" class="col-sm-2 col-sm-offset-2 control-label"><!-- email --></label>
       <div class="col-sm-4">
         <input  type="email" class="form-control validate-err" email-validation name="email"  placeholder="Enter email" required ng-model="mail">
-        <div class="error-container" ng-show="Form.login.email.$dirty && Form.login.email.$invalid" role="alert">
+        <div ng-show="Form.login.email.$dirty && Form.login.email.$invalid" role="alert">
             <small class="error" ng-show="Form.login.email.$error.required">This fiels is required</small>
             <small class="error" ng-show="!Form.login.email.$error.required && Form.login.email.$error.emailValid">Enter valid e-mail</small>
         </div>
@@ -17,7 +17,7 @@
       <label for="password" class="col-sm-2 col-sm-offset-2 control-label"><!-- Password --></label>
       <div class="col-sm-4">
         <input  type="password" class="form-control validate-err" name="password" placeholder="Enter password" required ng-model="pass">
-        <div class="error-container" ng-show="Form.login.password.$dirty && Form.login.password.$invalid" role="alert">
+        <div ng-show="Form.login.password.$dirty && Form.login.password.$invalid" role="alert">
             <small class="error" ng-show="Form.login.password.$error.required">This fiels is required</small>
         </div>
       </div>

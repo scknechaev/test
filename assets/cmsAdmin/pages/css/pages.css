@@ -832,6 +832,7 @@ body.dashboard .page-container {
   min-height: 100%;
   -webkit-transition: all 0.3s ease;
   transition: all 0.3s ease;
+  overflow: hidden;
 }
 .page-container .page-content-wrapper .content.full-width {
   width: 100%;
@@ -7116,7 +7117,7 @@ div.cs-skin-slide .cs-options ul li.cs-selected span {
 .table thead tr th[class*='sorting_'] {
   color: #2c2c2c;
 }
-.table thead tr th:first-child {
+.table thead tr th {
   padding-left: 18px !important;
 }
 .table thead tr th .btn {

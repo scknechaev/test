@@ -1,26 +1,42 @@
 
   angular.module('app')
-      .controller('pagesController', ['$scope', '$http', '$state', 'CKEditorService', 'pageService', 'ngDialog',
-      function ($scope, $http, $state, CKEditorService, pageService, ngDialog) {
-        moment.locale('ru')
+      .controller('pagesController', ['$scope', '$http', '$state', 'CKEditorService', 'pageService', '$modal',
+      function ($scope, $http, $state, CKEditorService, pageService, $modal) {
+        moment.locale('en')
         $scope.pages    = [];
         $scope.editPage = editPage;
         
         getPages();
 
-        $scope.delPage = function (page, $index) {
-            pageService.delPage(page).then(function (page) {
-                      $scope.pages.splice($index, 1);
-                    })
-          }
+        
 
         $scope.openConfirmDelPage = function (page, index) {
-          ngDialog.open({
-              template: 'cmsAdmin/tpl/modals/confirmDelPage.html.tmpl',
-              scope: $scope,
-              controller: ['$scope', function($scope) {
+          $modal.open({
+              resolve:{
+                page: function(){
+                  return page;
+                },
+                pages: function(){
+                  return $scope.pages;
+                },
+                index: function(){
+                  return index;
+                }
+              },
+              templateUrl: 'cmsAdmin/tpl/modals/confirmDelPage.html.tmpl',
+              controller: ['$scope', '$modalInstance', 'page', 'pages', 'pageService', 'index',
+                function($scope, $modalInstance, page, pages, pageService, index) {
                   $scope.index = index;
                   $scope.page =  page;
+                  $scope.pages =  pages;
+                  $scope.delPage = function (page, $index) {
+                      pageService.delPage(page).then(function (page) {
+                        $scope.pages.splice($index, 1);
+                      })
+                  }
+                  $scope.cancel = function () {
+                      $modalInstance.dismiss('cancel');
+                  };
                   setTimeout(function(){
                       $('.modal-footer .btn.btn-danger').focus();
                   },200);
