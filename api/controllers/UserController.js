@@ -26,8 +26,9 @@ module.exports = {
                 if (err) {
                     return res.badRequest(err);
                 }
-
-                res.redirect('/dashboard');
+                
+                // res.redirect('/dashboard');
+                res.ok(user);
             });
 
         })(req, res);
