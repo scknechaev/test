@@ -33,8 +33,21 @@ module.exports = {
 
         })(req, res);
     },
+
     logout: function (req, res) {
         req.logOut();
         res.redirect('/');
+    },
+
+    getUsersList: function (req, res) {
+        console.log('Making request to getUsersList');
+        User.find(null).exec(function (err, users) {
+            console.log('err is ', err);
+            if (err) {
+                return res.badRequest(err);
+            }
+            console.log('Usesrs is ', users);
+            res.ok(users);
+        });
     }
 }

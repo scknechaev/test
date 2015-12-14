@@ -41,6 +41,7 @@ module.exports.routes = {
     '/'               : 'UserController.index',
     'POST /login'     : 'UserController.login',
     '/logout'         : 'UserController.logout',
+    'GET /users'      : 'UserController.getUsersList',
 
     'GET /dashboard'          : 'AdminController.dashboard',
     'POST /admin/createuser'  : 'AdminController.createUser',

@@ -53,9 +53,10 @@ module.exports.policies = {
         'dashboard': 'isAuthenticated'
     },
     'UserController': {
-        '*'     : 'isAdmin',
-        'index' : true,
-        'login' : true,
-        'logout': true,
+        '*'           : 'isAdmin',
+        'getUsersList': 'isAuthenticated',
+        'index'       : true,
+        'login'       : true,
+        'logout'      : true,
     }
 };

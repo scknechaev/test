@@ -13,7 +13,7 @@ angular.module('app').factory('userService', ['$http', 'baseService', function (
      * Requesting all list of users that is in DB
      */
     UserService.prototype.getUsers = function () {
-        return this.request('get', '/user');
+        return this.request('get', '/users');
     };
 
     /**
