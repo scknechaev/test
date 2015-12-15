@@ -40,7 +40,6 @@ module.exports = {
     },
 
     getUsersList: function (req, res) {
-        console.log('Making request to getUsersList');
         User.find(null).exec(function (err, users) {
             console.log('err is ', err);
             if (err) {
