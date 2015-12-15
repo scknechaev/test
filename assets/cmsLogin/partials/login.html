@@ -142,6 +142,7 @@
                     </div>
                 </div>
 
+
                 <div class="clearfix"></div>
                 <button class="btn btn-primary btn-cons m-t-10" type="submit"
                         ng-disabled="Form.login.$invalid"
@@ -149,6 +150,16 @@
                     Sign in
                 </button>
             </form>
+            <br>
+
+            <div id="error-message" class="form-group" ng-class="errorClass">
+                <div class="col-sm-12 col-xs-12 col-md-12">
+                    <div class="alert alert-danger">
+                        Incorrect credentials
+                    </div>
+                </div>
+            </div>
+
         </div>
     </div>
     <div class="clearfix"></div>
