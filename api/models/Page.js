@@ -33,17 +33,25 @@ module.exports = {
 
     },
 
-    beforeValidate: function (values, next) {
-
-        if (values.url !== undefined) {
-            if (values.url[0] === '/') {
-                values.url =  values.url.slice(1);
-                next();
-            } else {
-                next();
-            }
+    beforeCreate: function (page, next) {
+        if ( page.url && _.isString(page.url) ) {
+            page.url = page.url.trim();
         }
+
+        next(null, page);
     },
+
+    // beforeValidate: function (values, next) {
+
+    //     if (values.url !== undefined) {
+    //         if (values.url[0] === '/') {
+    //             values.url =  values.url.slice(1);
+    //             next();
+    //         } else {
+    //             next();
+    //         }
+    //     }
+    // },
 
     afterDestroy: function (pages, cb) {
         var navsIds = _.pluck(pages, 'navs'), 
