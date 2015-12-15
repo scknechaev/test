@@ -33,20 +33,39 @@ module.exports = {
 
     },
 
-    beforeValidate: function (values, next) {
-
-        if (values.url !== undefined) {
-            if (values.url[0] === '/') {
-                values.url =  values.url.slice(1);
-                next();
-            } else {
-                next();
-            }
+    beforeCreate: function (page, next) {
+        if ( page.url && _.isString(page.url) ) {
+            page.url = page.url.trim();
         }
+
+        next(null, page);
     },
 
-    afterDestroy: function (navs, cb) {
-        Navigation.destroy( _.pluck(navs, 'id') ).exec(cb);
+    // beforeValidate: function (values, next) {
+
+    //     if (values.url !== undefined) {
+    //         if (values.url[0] === '/') {
+    //             values.url =  values.url.slice(1);
+    //             next();
+    //         } else {
+    //             next();
+    //         }
+    //     }
+    // },
+
+    afterDestroy: function (pages, cb) {
+        var navsIds = _.pluck(pages, 'navs'), 
+            pageIds = _.pluck(pages, 'id');
+
+        async.parallel({
+            deletedNavs: function (call) {
+                Navigation.destroy(navsIds).exec(call);
+            },
+            deletedTags: function (call) {
+                Tag.destroy(pageIds).exec(call);
+            }
+        }, cb);
+        
     }
 
 };
