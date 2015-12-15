@@ -4,21 +4,25 @@ angular.module('app')
 
     $scope.createOrEditUser = function () {
         var user          = $scope.newUser,
-            validateAttrs = [
-                'name',
-                'email',
-                'password'
-            ];
-
+            validateAttrs = [];
         userService.emailToLowerCase(user);
 
         if (!isSavingAvailable(user, $scope, validateAttrs)) { // validation
             return;                                            
         }                                                      
 
-        if (user.id != null) {                                 // edit or created user
+        if (user.id != null) {   
+            validateAttrs = [
+                'name',
+                'email'
+            ];                              // edit or created user
             editUser(userService, user, $scope);
         } else {
+            validateAttrs = [
+                'name',
+                'email',
+                'password'
+            ];
             createUser(userService, user, $scope);
         }
     };
@@ -26,30 +30,6 @@ angular.module('app')
     $scope.closeAlert = function () {
         $scope.alert = false;
     }
-
-    /*$scope.createUser = function () {
-        var userToCreate = {
-            name: $scope.newUser.name,
-            email: $scope.newUser.email,
-            password: $scope.newUser.password,
-            role: $scope.newUser.role
-        };
-
-        return $http.post('/api/createUser', userToCreate).then(function (data) {
-            $scope.creationSuccess = true;
-            users.push(data.data);
-            $('.bs-example-modal-lg').modal('hide');
-            ngNotify.set('User has been Created', {
-                  position: 'top',
-                  theme: 'pure',
-                  type: 'success',
-                  sticky: false,
-                  duration: 2500
-            });
-        },  function (err) {
-            $scope.creationFail = true;
-        });
-    };*/
 
     function initScope (userToEdit) {
         $scope.$parent.navModal = $scope;
@@ -81,32 +61,48 @@ angular.module('app')
         service.editUser(user).then(function (result) {
             service.copyUser($scope.user, user);
             $('.bs-example-modal-lg').modal('hide');
-            ngNotify.set('User has been changed', {
-                  position: 'top',
-                  theme: 'pure',
-                  type: 'success',
-                  sticky: false,
-                  duration: 2500
-            });
-        }, function (error) {
-            service.showAlert($scope, 'Error during user editing', 'warning');
+            if(result.status && result.statusText && result.status !== 200){
+                ngNotify.set('Error during user editing', {
+                      position: 'top',
+                      theme: 'pure',
+                      type: 'error',
+                      sticky: false,
+                      duration: 2500
+                });
+            } else {
+                ngNotify.set('User has been changed', {
+                      position: 'top',
+                      theme: 'pure',
+                      type: 'success',
+                      sticky: false,
+                      duration: 2500
+                });
+            }
+            
         });
     }
 
     function createUser (service, user, $scope) {
-        service.createUser(user).then(function (data) {
-            $scope.$parent.users.push(data.user);
+        service.createUser(user).then(function (result) {
             $('.bs-example-modal-lg').modal('hide');
-            ngNotify.set('User has been added', {
-                  position: 'top',
-                  theme: 'pure',
-                  type: 'success',
-                  sticky: false,
-                  duration: 2500
-            });
-            //service.showAlert($scope, 'User successfully created', 'success');
-        }, function (error) {
-            service.showAlert($scope, 'Error during user creating', 'warning');
+            if(result.status && result.statusText && result.status !== 200){
+                ngNotify.set('Error during user creation', {
+                      position: 'top',
+                      theme: 'pure',
+                      type: 'error',
+                      sticky: false,
+                      duration: 2500
+                });
+            } else {
+                $scope.$parent.users.push(result.user);
+                ngNotify.set('User has been added', {
+                      position: 'top',
+                      theme: 'pure',
+                      type: 'success',
+                      sticky: false,
+                      duration: 2500
+                });
+            }
         });
     }
 }]);

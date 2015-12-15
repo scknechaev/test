@@ -1,5 +1,6 @@
   angular.module('app')
-      .controller('usersController', ['$scope', '$http', '$modal', 'userService', function ($scope, $http, $modal, userService) {
+      .controller('usersController', ['$scope', '$http', '$modal', 'userService', 'ngNotify',
+        function ($scope, $http, $modal, userService, ngNotify) {
           $scope.Form = {};
           $scope.users = [];
           getUsers();
@@ -16,6 +17,7 @@
 
             if (editUser) {
               $scope.newUser = Object.create(editUser);
+              $scope.newUser.password = '';
             } else {
               $scope.newUser = {
                 email:'',
@@ -71,7 +73,24 @@
                     $scope.delUser = function (user, index)  {
                         console.log(arguments);
                         userService.delUser(user).then(function (deletedUser) {
-                            $scope.users.splice(index, 1);
+                          if(deletedUser.status && deletedUser.statusText && deletedUser.status !== 200){
+                              ngNotify.set('Error during user deliting', {
+                                    position: 'top',
+                                    theme: 'pure',
+                                    type: 'error',
+                                    sticky: false,
+                                    duration: 2500
+                              });
+                          } else {
+                              ngNotify.set('User has been deleted', {
+                                    position: 'top',
+                                    theme: 'pure',
+                                    type: 'success',
+                                    sticky: false,
+                                    duration: 2500
+                              });
+                              $scope.users.splice(index, 1);
+                          }
                         });
                     };
                     $scope.cancel = function () {
