@@ -1,6 +1,6 @@
 angular.module('app')
-  .controller('CKEditorController', ['$scope', '$http', '$stateParams', 'pageService', '$state', 'ngNotify',
-    function ($scope, $http, $stateParams, pageService, $state, ngNotify) {
+  .controller('CKEditorController', ['$scope', '$http', '$stateParams', 'pageService', '$state', 'ngNotify', 'filepickerService',
+    function ($scope, $http, $stateParams, pageService, $state, ngNotify, filepickerService) {
     $scope.savePage = savePage;
 
     $scope.param = $stateParams.pageId;

@@ -4,9 +4,10 @@
  * ============================================================ */
 
 angular.module('app')
-    .config(['$stateProvider', '$urlRouterProvider', '$ocLazyLoadProvider',
+    .config(['$stateProvider', '$urlRouterProvider', '$ocLazyLoadProvider', 'filepickerProvider',
 
-        function($stateProvider, $urlRouterProvider, $ocLazyLoadProvider) {
+        function($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, filepickerProvider) {
+            filepickerProvider.setKey('AIgCAHmhKTWikYg0yVshvz');
             $urlRouterProvider
                 .otherwise('/app/dashboard');
 
