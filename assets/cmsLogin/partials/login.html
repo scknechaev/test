@@ -1,50 +1,156 @@
-<div style="margin-top: 50px" id="main-container">
-  <form  class="form-horizontal registartion-form" name="Form.login" method="post" action="/login" data-type="login"><!-- to ng-submit="login()"-->
-    <div class="row">
-      <h1 style="text-align: center">Login</h1>
-    </div>
-    <div class="form-group">
-      <label for="email" class="col-sm-2 col-sm-offset-2 control-label"><!-- email --></label>
-      <div class="col-sm-4">
-        <input  type="email" class="form-control validate-err" email-validation name="email"  placeholder="Enter email" required ng-model="mail">
-        <div ng-show="Form.login.email.$dirty && Form.login.email.$invalid" role="alert">
-            <small class="error" ng-show="Form.login.email.$error.required">This fiels is required</small>
-            <small class="error" ng-show="!Form.login.email.$error.required && Form.login.email.$error.emailValid">Enter valid e-mail</small>
+<!--<div style="margin-top: 50px" id="main-container">-->
+<!--<form class="form-horizontal registartion-form" name="Form.login" method="post" action="/login" data-type="login">-->
+<!--&lt;!&ndash; to ng-submit="login()"&ndash;&gt;-->
+<!--<div class="row">-->
+<!--<h1 style="text-align: center">Login</h1>-->
+<!--</div>-->
+<!--<div class="form-group">-->
+<!--<label for="email" class="col-sm-2 col-sm-offset-2 control-label">&lt;!&ndash; email &ndash;&gt;</label>-->
+
+<!--<div class="col-sm-4">-->
+<!--<input type="email" class="form-control validate-err" email-validation name="email"-->
+<!--placeholder="Enter email" required ng-model="mail">-->
+
+<!--<div ng-show="Form.login.email.$dirty && Form.login.email.$invalid" role="alert">-->
+<!--<small class="error" ng-show="Form.login.email.$error.required">This fiels is required</small>-->
+<!--<small class="error"-->
+<!--ng-show="!Form.login.email.$error.required && Form.login.email.$error.emailValid">Enter valid-->
+<!--e-mail-->
+<!--</small>-->
+<!--</div>-->
+<!--</div>-->
+<!--</div>-->
+<!--<div class="form-group">-->
+<!--<label for="password" class="col-sm-2 col-sm-offset-2 control-label">&lt;!&ndash; Password &ndash;&gt;</label>-->
+
+<!--<div class="col-sm-4">-->
+<!--<input type="password" class="form-control validate-err" name="password" placeholder="Enter password"-->
+<!--required ng-model="pass">-->
+
+<!--<div ng-show="Form.login.password.$dirty && Form.login.password.$invalid" role="alert">-->
+<!--<small class="error" ng-show="Form.login.password.$error.required">This fiels is required</small>-->
+<!--</div>-->
+<!--</div>-->
+<!--</div>-->
+<!--<div class="form-group">-->
+<!--<div class="col-sm-offset-4 col-sm-1">-->
+<!--<button type="submit" ng-disabled="Form.login.$invalid" class="btn btn-primary"-->
+<!--ng-click="makeRequest($event, mail, pass)">Login-->
+<!--</button>-->
+<!--</div>-->
+<!--</div>-->
+<!--<div id="error-message" class="form-group" ng-class="errorClass">-->
+<!--<div class="col-sm-4 col-sm-offset-4">-->
+<!--<div class="alert alert-danger">-->
+<!--Incorrect credentials-->
+<!--</div>-->
+<!--</div>-->
+<!--</div>-->
+<!--<div class="error-message-password">-->
+
+<!--</div>-->
+<!--<div class="alert alert-warning alert-dismissable validate-field" role="alert" ng-model="alert" type="warning">-->
+<!--<button ng-show="closeable" type="button" class="close" ng-click="close()">-->
+<!--<span aria-hidden="true">×</span>-->
+<!--<span class="sr-only">Close</span>-->
+<!--</button>-->
+<!--<div>-->
+<!--<span class="validation-message">Please, fill all required fields!</span>-->
+<!--</div>-->
+<!--</div>-->
+<!--</form>-->
+<!--</div>-->
+
+<div class="login-wrapper ">
+
+    <div class="bg-pic">
+
+        <img src="images/login_bg.jpg" data-src="images/logo_bg.jpg" data-src-retina="images/logo_bg.jpg"
+             class="lazy">
+
+
+        <div class="bg-caption pull-bottom sm-pull-bottom text-white p-l-20 m-b-20">
+            <h2 class="semi-bold text-white">
+                Pages make it easy to enjoy what matters the most in the life</h2>
+
+            <p class="small">
+                images Displayed are solely for representation purposes only, All work copyright of respective owner,
+                otherwise © 2013-2014 REVOX.
+            </p>
         </div>
-      </div>
-    </div>
-    <div class="form-group">
-      <label for="password" class="col-sm-2 col-sm-offset-2 control-label"><!-- Password --></label>
-      <div class="col-sm-4">
-        <input  type="password" class="form-control validate-err" name="password" placeholder="Enter password" required ng-model="pass">
-        <div ng-show="Form.login.password.$dirty && Form.login.password.$invalid" role="alert">
-            <small class="error" ng-show="Form.login.password.$error.required">This fiels is required</small>
-        </div>
-      </div>
-    </div>
-    <div class="form-group">
-      <div class="col-sm-offset-4 col-sm-1">
-        <button type="submit" ng-disabled="Form.login.$invalid" class="btn btn-primary" ng-click="makeRequest($event, mail, pass)">Login</button>
-      </div>
-    </div>
-    <div id="error-message" class="form-group" ng-class="errorClass">
-      <div class="col-sm-4 col-sm-offset-4">
-        <div class="alert alert-danger">
-          Incorrect credentials
-        </div>
-      </div>
-    </div>
-    <div class="error-message-password">
 
     </div>
-    <div class="alert alert-warning alert-dismissable validate-field" role="alert" ng-model="alert" type="warning">
-      <button ng-show="closeable" type="button" class="close" ng-click="close()">
-          <span aria-hidden="true">×</span>
-          <span class="sr-only">Close</span>
-      </button>
-    <div>
-      <span class="validation-message">Please, fill all required fields!</span>
+
+    <div class="clearfix"></div>
+
+    <div class="login-container bg-white">
+        <div class="p-l-50 m-l-20 p-r-50 m-r-20 p-t-50 m-t-30 sm-p-l-15 sm-p-r-15 sm-p-t-40" style="height: 100vh;">
+            <img src="images/logo.png" alt="logo" data-src="assets/img/logo.png"
+                 data-src-retina="assets/img/logo_2x.png" width="78" height="22">
+
+            <p class="p-t-35">Sign into your pages account</p>
+
+            <form id="form-login" class="p-t-15" role="form" novalidate name="Form.login" method="post" action="/login"
+                  data-type="login">
+
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div pg-form-group class="form-group form-group-default"
+                             ng-class="{ 'has-error' : Form.login.email.$invalid && Form.login.email.$dirty }">
+                            <label>Email</label>
+                            <input type="email" id="email" class="form-control" email-validation name="email"
+                                   ng-model="mail" required>
+                        </div>
+                        <label class="error" for="email"
+                               ng-show="Form.login.email.$dirty && Form.login.email.$error.required">
+                            This field is required.
+                        </label>
+
+                        <label class="error" for="email"
+                               ng-show="!Form.login.email.$error.required && Form.login.email.$error.emailValid">
+                            Enter a valid email
+                        </label>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div pg-form-group class="form-group form-group-default"
+                             ng-class="{ 'has-error' : Form.login.password.$dirty && Form.login.password.$error.required }">
+                            <label>Password</label>
+                            <input type="password" id="password" class="form-control validate-err" name="password"
+                                   ng-model="pass" required>
+                        </div>
+                        <label class="error" for="email"
+                               ng-show="Form.login.password.$dirty && Form.login.password.$error.required">
+                            This field is required.
+                        </label>
+
+                    </div>
+                </div>
+
+
+                <div class="row">
+                    <div class="col-md-6 no-padding">
+                        <div class="checkbox ">
+                            <input type="checkbox" value="1" id="checkbox1">
+                            <label for="checkbox1">Keep Me Signed in</label>
+                        </div>
+                    </div>
+                    <div class="col-md-6 text-right">
+                        <a href="#" class="text-info small">Help? Contact Support</a>
+                    </div>
+                </div>
+
+                <div class="clearfix"></div>
+                <button class="btn btn-primary btn-cons m-t-10" type="submit"
+                        ng-disabled="Form.login.$invalid"
+                        ng-click="makeRequest($event, mail, pass)">
+                    Sign in
+                </button>
+            </form>
+        </div>
     </div>
-  </div>
-  </form>
+    <div class="clearfix"></div>
+
 </div>
