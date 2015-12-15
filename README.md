@@ -1,3 +1,6 @@
-# node-cms
+# h2o-cms
 
-a [Sails](http://sailsjs.org) application
+H2O Content Management System
+
+To deploy to dev server, please push updates to the staging branch.
+
