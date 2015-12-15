@@ -27,20 +27,20 @@ angular.module('app').factory('pageService', ['$http', 'baseService', function (
      * Creating new page
      */
     PageService.prototype.createPage = function (editedPage) {
-       // return this.request('post', '/page', editedPage);
-        return $http.post('/page', editedPage).then(function (data) {
-            return data.data;
-        });
+       return this.request('post', '/page', editedPage);
+        // return $http.post('/page', editedPage).then(function (data) {
+            // return data.data;
+        // });
     };
 
     /**
      * Update existing page
      */
     PageService.prototype.updatePage = function (updatedPage) {
-        // return this.request('put', '/page/' + updatedPage.id, updatedPage);
-        return $http.put('/page/' + updatedPage.id, updatedPage).then(function (data) {
-            return data.data;
-        });
+        return this.request('put', '/page/' + updatedPage.id, updatedPage);
+        // return $http.put('/page/' + updatedPage.id, updatedPage).then(function (data) {
+            // return data.data;
+        // });
     };
 
     /**

@@ -1,11 +1,15 @@
 angular.module('app')
-  .controller('CKEditorController', ['$scope', '$http', '$stateParams', 'pageService', '$location', 'ngNotify', 
-    function ($scope, $http, $stateParams, pageService, $location, ngNotify) {
+  .controller('CKEditorController', ['$scope', '$http', '$stateParams', 'pageService', '$state', 'ngNotify',
+    function ($scope, $http, $stateParams, pageService, $state, ngNotify) {
     $scope.savePage = savePage;
 
     $scope.param = $stateParams.pageId;
-
-    if (angular.isDefined($scope.param)) {
+    $scope.Page = {
+      title: '',
+      url:'',
+      html:''
+    };
+    if ($scope.param !== '') {
         pageService.getOnePage($scope.param).then(function (page) {
            $scope.Page = page;
        }, function (err) {
@@ -23,8 +27,9 @@ angular.module('app')
     }
     function savePage () {
         if (!$scope.param) {
+            console.log($scope.Page);
             pageService.createPage($scope.Page).then(function (data) {
-                $location.url('pages');
+                $state.go('app.pages');
                 ngNotify.set('New page has been successfully created', {
                   position: 'top',
                   theme: 'pure',
@@ -49,7 +54,7 @@ angular.module('app')
 
             pageService.updatePage($scope.Page).then(function (data) {
                 console.log($scope.Page.id);
-                $location.url('pages');
+                $state.go('app.pages');
                 ngNotify.set('Page has been successfully edited', {
                   position: 'top',
                   theme: 'pure',
