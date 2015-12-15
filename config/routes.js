@@ -43,6 +43,8 @@ module.exports.routes = {
     '/logout'         : 'UserController.logout',
     'GET /users'      : 'UserController.getUsersList',
 
+    'GET /page/:pageUrl': 'PageController.getPage',
+
     'GET /dashboard'          : 'AdminController.dashboard',
     'POST /admin/createuser'  : 'AdminController.createUser',
     'PUT /admin/updateuser'   : 'AdminController.updateUser',
