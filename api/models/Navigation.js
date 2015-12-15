@@ -20,14 +20,7 @@ module.exports = {
 
         page: {
             model: 'Page'
-        },
-
-        // orientation: {
-        //     type: 'integer',
-        //     required: true
-        //     enum: [1, 2],
-        //     defaultsTo: 1
-        // }
+        }
 
     },
 

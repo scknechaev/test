@@ -41,11 +41,10 @@ module.exports = {
 
     getUsersList: function (req, res) {
         User.find(null).exec(function (err, users) {
-            console.log('err is ', err);
             if (err) {
                 return res.badRequest(err);
             }
-            console.log('Usesrs is ', users);
+
             res.ok(users);
         });
     }
