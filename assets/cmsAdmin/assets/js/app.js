@@ -4,4 +4,4 @@
  * will be loaded on demand using ocLazyLoad
  * ============================================================ */
 
-angular.module('app', ['ui.router', 'ui.utils','ngCkeditor', 'oc.lazyLoad','ui.bootstrap', 'ngNotify','ngDialog']);
+angular.module('app', ['ui.router', 'ui.utils','ngCkeditor', 'oc.lazyLoad','ui.bootstrap', 'ngNotify']);
