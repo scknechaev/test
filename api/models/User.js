@@ -1,6 +1,3 @@
-/**
- * Created by Ayerhan on 4/15/2015.
- */
 module.exports = {
 
     attributes: {
