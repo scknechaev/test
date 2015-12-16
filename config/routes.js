@@ -44,7 +44,7 @@ module.exports.routes = {
     'GET /users'      : 'UserController.getUsersList',
     'GET /cmssignin'  : 'UserController.cmsSignIn',
 
-    'GET /page/:pageUrl': 'PageController.getPage',
+    'GET /nav/:pageUrl': 'PageController.getPage',
 
     'GET /cms'                : 'AdminController.dashboard',
     'POST /admin/createuser'  : 'AdminController.createUser',
