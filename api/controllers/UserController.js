@@ -11,6 +11,7 @@ module.exports = {
                 layout: false
             });
         }
+        
     },
 
     login: function (req, res) {
