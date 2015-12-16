@@ -6,6 +6,6 @@ module.exports = function (req, res, next) {
     } else if (req.wantsJSON) {
     	return res.forbidden('You must be authenticated as user');
     }
-    
+
     res.redirect('/');
 };

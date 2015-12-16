@@ -50,7 +50,7 @@ module.exports.policies = {
 
     'AdminController': {
         '*'        : 'isAdmin',
-        'dashboard': 'isAuthenticated'
+        'dashboard': ['signInRedirect', 'isAuthenticated']
     },
     
     'UserController': {
@@ -59,5 +59,6 @@ module.exports.policies = {
         'index'       : true,
         'login'       : true,
         'logout'      : true,
+        'cmsSignIn'   : true
     }
 };
