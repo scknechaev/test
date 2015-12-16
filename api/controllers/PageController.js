@@ -8,7 +8,7 @@ module.exports = {
 
 	getPage: function (req, res) {
 		var url = req.param('pageUrl');
-		
+
 		Page.findOne({
 			'url': url
 		}).exec(function (err, page) {
