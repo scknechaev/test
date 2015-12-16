@@ -17,7 +17,7 @@ BEGIN SIDEBAR -->
       <div class="sidebar-menu">
         <ul class="menu-items">
           <li ng-repeat="nav in $root.navs track by $index">
-            <a ng-if="nav.navtype === 1" href ui-sref="{{nav.page.url}}" >
+            <a ng-if="nav.navtype === 1" href ui-sref="{{'app.' + nav.page.url}}" >
               <span class="title" ng-bind="nav.name"></span>
             </a>
             <a ng-if="nav.navtype !== 1" href="{{nav.href}}" target="_blank" ng-bind="nav.name">
