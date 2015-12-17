@@ -15,6 +15,12 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
     <meta content="" name="description" />
     <meta content="" name="author" />
+    <% var keywordsArr = []; 
+       keywords.forEach(function (keyWord) {
+        keywordsArr.push(keyWord.tag);
+       });
+    %>
+    <meta name="keywords" content="<%= keywordsArr.join(', ') %>" />
     <link href="../dependencies/plugins/pace/pace-theme-flash.css" rel="stylesheet" type="text/css" />
     <link href="../dependencies/plugins/boostrapv3/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
     <link href="../dependencies/plugins/font-awesome/css/font-awesome.css" rel="stylesheet" type="text/css" />
