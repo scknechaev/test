@@ -21,20 +21,22 @@ module.exports = {
 				Tag.find({ 'page': data.page.id }).exec(next);
 			}],
 			navigation: ['page', function (next) {
-				Navigation.find({ 'limit': 1 }).exec(next);
+				Navigation.find()
+				.sort({ 'createdAt': 0 })
+				.exec(next);
 			}]
 		},function (err, data) {
-			if (err &&  err.errDesc && req.wantsJSON) {
-				return res.badRequest(err);
-			} else if (err) {
+			if (err &&  err.errDesc && !req.wantsJSON) {
 				return res.notFound();
+			} else if (err) {
+				return res.badRequest(err);
 			}
 
 			res.render('./page', {
 				'body'      : data.page.html,
 				'title'     : data.page.title,
 				'keywords'  : data.keywords,
-				'navigation': data.navigation.navs
+				'navigation': data.navigation.shift()
 			});
 		});
 	}
