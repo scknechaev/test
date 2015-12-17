@@ -1,3 +1,6 @@
+.btn-header-action {
+	margin: 0 6px;
+}
 /*edit page start*/
 .ck-editor {
 	margin: 30px 0;
@@ -13,3 +16,32 @@
 	top: 20px
 }
 /*modal*/
+/*nav*/
+.tree-node {
+    border: 1px solid #dae2ea;
+    background: #f8faff;
+    color: #7c9eb2;
+}
+.tree-node-content {
+    margin: 10px;
+}
+.tree-node-content input {
+	width: 65%;
+	display: inline-block;
+	margin: 0 10px;
+}.tree-node-content select {
+	width: 65%;
+	margin: 9px 45px;
+}
+.angular-ui-tree-handle:hover {
+    color: #438eb9;
+    background: #f4f6f7;
+    border-color: #dce2e8;
+}
+.angular-ui-tree-handle {
+    background: #f8faff;
+    border: 1px solid #dae2ea;
+    color: #7c9eb2;
+    padding: 10px 10px;
+}
+/*nav*/

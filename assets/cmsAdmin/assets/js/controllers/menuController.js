@@ -3,12 +3,29 @@ angular.module('app')
     '$scope',
     'navigationService',
     '$modal',
-    function ($scope, navigationService, $modal) {
-        $scope.pageUrl = navigationService.getUrl();
+    'pageService',
+    'ngNotify',
+    function ($scope, navigationService, $modal, pageService, ngNotify) {
+        // $scope.pageUrl = navigationService.getUrl();
         $scope.navs = [];
-        $scope.Form = {};
+        // $scope.Form = {};
+        $scope.remove = function (scope) {
+          scope.remove();
+        };
 
-        $scope.getNavs = function () {
+        $scope.toggle = function (scope) {
+          scope.toggle();
+        };
+
+        $scope.newSubItem = function (scope) {
+          var nodeData = scope.$modelValue;
+          nodeData.nodes.push({
+            id: nodeData.id * 10 + nodeData.nodes.length,
+            title: nodeData.title + '.' + (nodeData.nodes.length + 1),
+            nodes: []
+          });
+        };
+        $scope.getNodes = function () {
             navigationService.getNavs().then(function (navs) {
                 $scope.navs = navs;
                 console.log(navs);
@@ -16,59 +33,90 @@ angular.module('app')
                 console.log(err);
             });
         }
-        $scope.getNavs();
-
-        $scope.setModalState = function (editingNav) {
-            $scope.Form.navModalForm.name.$setPristine();
-            $scope.Form.navModalForm.name.$setUntouched();
-            $scope.isEditing = false;
-
-            if (editingNav) {
-                $scope.isEditing = true;
-                $scope.nav       = editingNav;
-                $scope.navCopy   = Object.create(editingNav);
-            } else {
-                $scope.navCopy = {};
-            }
-
-            resetModalState($scope.navModal);
-        };
-
-        $scope.delNav = function (nav, index) {
-            navigationService.delNav(nav).then (function (data) {
-                $scope.navs.splice(index, 1);
+        $scope.getPages = function () {
+            pageService.getPages().then(function (data) {
+                $scope.pages = data;
             }, function (err) {
-                console.log('error deleting nav');
+                console.log(err);
             })
-        };
-        $scope.openConfirmDelNav = function (nav, index) {
-          $modal.open({
-              templateUrl: 'cmsAdmin/tpl/modals/confirmDelNav.html.tmpl',
-              resolve: {
-                nav : function () {
-                  return nav;
-                },
-                index : function () {
-                  return index;
-                }
-              },
-              controller: ['$scope', '$modalInstance', 'nav', 'index', function($scope, $modalInstance, nav, index) {
-                  $scope.index = index;
-                  $scope.nav =  nav;
-                  setTimeout(function(){
-                      $('.modal-footer .btn.btn-danger').focus();
-                  },200);
-                  $scope.cancel = function () {
-                      $modalInstance.dismiss('cancel');
-                  };
-              }]
-          });
-        };
-
-        function resetModalState (modalWindow) {
-            modalWindow.alert       = false;
-            modalWindow.modalClosed = false;
         }
+        $scope.getNodes();
+        $scope.getPages();
+
+        $scope.createNode = function(){
+          $scope.navs.push(
+            {
+              "title": "",
+              "nodes": []
+            }
+          )
+        }
+        
+        $scope.saveChanges = function(node){
+          navigationService.editNav($scope.navs)
+          .then(function(node){
+            ngNotify.set('Menu has been successfully updated', {
+                  position: 'top',
+                  theme: 'pure',
+                  type: 'success',
+                  sticky: false,
+                  duration: 2500
+            });
+          })
+            
+        }
+
+        // $scope.setModalState = function (editingNav) {
+        //     $scope.Form.navModalForm.name.$setPristine();
+        //     $scope.Form.navModalForm.name.$setUntouched();
+        //     $scope.isEditing = false;
+
+        //     if (editingNav) {
+        //         $scope.isEditing = true;
+        //         $scope.nav       = editingNav;
+        //         $scope.navCopy   = Object.create(editingNav);
+        //     } else {
+        //         $scope.navCopy = {};
+        //     }
+
+        //     resetModalState($scope.navModal);
+        // };
+
+        // $scope.delNav = function (nav, index) {
+        //     navigationService.delNav(nav).then (function (data) {
+        //         $scope.navs.splice(index, 1);
+        //     }, function (err) {
+        //         console.log('error deleting nav');
+        //     })
+        // };
+        // $scope.openConfirmDelNav = function (nav, index) {
+        //   $modal.open({
+        //       templateUrl: 'cmsAdmin/tpl/modals/confirmDelNav.html.tmpl',
+        //       resolve: {
+        //         nav : function () {
+        //           return nav;
+        //         },
+        //         index : function () {
+        //           return index;
+        //         }
+        //       },
+        //       controller: ['$scope', '$modalInstance', 'nav', 'index', function($scope, $modalInstance, nav, index) {
+        //           $scope.index = index;
+        //           $scope.nav =  nav;
+        //           setTimeout(function(){
+        //               $('.modal-footer .btn.btn-danger').focus();
+        //           },200);
+        //           $scope.cancel = function () {
+        //               $modalInstance.dismiss('cancel');
+        //           };
+        //       }]
+        //   });
+        // };
+
+        // function resetModalState (modalWindow) {
+        //     modalWindow.alert       = false;
+        //     modalWindow.modalClosed = false;
+        // }
 
         
 }]);
