@@ -58,6 +58,10 @@ module.exports.policies = {
         'getUsersList': 'isAuthenticated',
         'index'       : true,
         'login'       : true,
-        'logout'      : true,
+        'logout'      : true
+    },
+
+    'MediaController': {
+        '*'           : 'isAuthenticated'
     }
 };
