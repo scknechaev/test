@@ -19,20 +19,24 @@ module.exports = {
 				}
 
 				Tag.find({ 'page': data.page.id }).exec(next);
+			}],
+			navigation: ['page', function (next) {
+				Navigation.find()
+				.sort({ 'createdAt': 0 })
+				.exec(next);
 			}]
 		},function (err, data) {
-			if (err && err.errDesc) {
-				if (err) {
-					return res.badRequest(err);
-				}
-
+			if (err &&  err.errDesc && !req.wantsJSON) {
 				return res.notFound();
+			} else if (err) {
+				return res.badRequest(err);
 			}
-			console.log(data.keywords);
+
 			res.render('./page', {
-				'body'    : data.page.html,
-				'title'   : data.page.title,
-				'keywords': data.keywords
+				'body'      : data.page.html,
+				'title'     : data.page.title,
+				'keywords'  : data.keywords,
+				'navigation': data.navigation.shift()
 			});
 		});
 	}
