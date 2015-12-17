@@ -8,6 +8,7 @@
     "async": "^1.0.0",
     "bcrypt-nodejs": "0.0.3",
     "body-parser": "^1.12.3",
+    "cloudinary": "^1.2.6",
     "ejs": "~0.8.4",
     "email-validator": "^1.0.3",
     "grunt": "0.4.2",
