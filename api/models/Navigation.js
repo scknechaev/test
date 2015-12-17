@@ -3,7 +3,7 @@ module.exports = {
     attributes: {
 
         navs: {
-            type: 'string',
+            type: 'array',
             required: true
         }
 

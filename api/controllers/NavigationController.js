@@ -6,7 +6,7 @@ module.exports = {
 	},
 	
 	getNavs: function (req, res) {
-		NavigationService.getAllNavs(function (err, navs) {
+		NavigationService.getAllNavs(function (err, navigations) {
 			if (err) {
 				return res.serverError({
 					'message': 'error while requesting navigations',
@@ -14,7 +14,7 @@ module.exports = {
 				});
 			}
 
-			res.ok(navs);
+			res.ok(navigations[0]);
 		});
 	},
 

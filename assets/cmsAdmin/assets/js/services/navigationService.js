@@ -44,7 +44,7 @@ angular.module('app').factory('navigationService', [
          * Edit current navigation
          */
         NavigationService.prototype.editNav = function (nav) {
-            return this.request('put', '/navigation', nav);
+            return this.request('put', '/nav/update', {'navs':nav});
         };
 
         return new NavigationService;

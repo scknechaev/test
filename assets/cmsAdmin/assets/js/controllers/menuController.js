@@ -27,7 +27,7 @@ angular.module('app')
         };
         $scope.getNodes = function () {
             navigationService.getNavs().then(function (navs) {
-                $scope.navs = navs;
+                $scope.navs = navs.navs;
                 console.log(navs);
             }, function (err) {
                 console.log(err);
@@ -51,8 +51,8 @@ angular.module('app')
             }
           )
         }
-        
-        $scope.saveChanges = function(node){
+
+        $scope.saveChanges = function(){
           navigationService.editNav($scope.navs)
           .then(function(node){
             ngNotify.set('Menu has been successfully updated', {
