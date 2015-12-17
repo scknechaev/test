@@ -19,7 +19,7 @@ module.exports = {
 	},
 
 	update: function (req, res) {
-		var params = _.pick(req.body, ['name', 'href', 'navigation']);
+		var params = _.pick(req.body, ['navs']);
 
 		Navigation.update(null, params).exec(function (err, navigations) {
 			if (err || !navigations.length) {
