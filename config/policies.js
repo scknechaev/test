@@ -52,7 +52,7 @@ module.exports.policies = {
         '*'        : 'isAdmin',
         'dashboard': ['signInRedirect', 'isAuthenticated']
     },
-    
+
     'UserController': {
         '*'           : 'isAdmin',
         'getUsersList': 'isAuthenticated',
@@ -60,5 +60,9 @@ module.exports.policies = {
         'login'       : true,
         'logout'      : true,
         'cmsSignIn'   : true
+    },
+
+    'MediaController': {
+        '*'           : true
     }
 };

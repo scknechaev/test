@@ -10,6 +10,5 @@ module.exports = {
 function getAllNavs(call) {
 	Navigation
 		.find(null)
-		.populate('page')
 	.exec(call);
 }
