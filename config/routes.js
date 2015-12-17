@@ -38,14 +38,15 @@ module.exports.routes = {
     //     views: 'mainBook.ejs'
     // },
 
-    '/'               : 'UserController.index',
+    '/'               : 'UserController',
     'POST /login'     : 'UserController.login',
     '/logout'         : 'UserController.logout',
     'GET /users'      : 'UserController.getUsersList',
+    'GET /cmssignin'  : 'UserController.cmsSignIn',
 
-    'GET /page/:pageUrl': 'PageController.getPage',
+    'GET /nav/:pageUrl': 'PageController.getPage',
 
-    'GET /dashboard'          : 'AdminController.dashboard',
+    'GET /cms'                : 'AdminController.dashboard',
     'POST /admin/createuser'  : 'AdminController.createUser',
     'PUT /admin/updateuser'   : 'AdminController.updateUser',
     'DELETE /admin/deleteuser': 'AdminController.deleteUser',

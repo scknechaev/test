@@ -50,15 +50,16 @@ module.exports.policies = {
 
     'AdminController': {
         '*'        : 'isAdmin',
-        'dashboard': 'isAuthenticated'
+        'dashboard': ['signInRedirect', 'isAuthenticated']
     },
-    
+
     'UserController': {
         '*'           : 'isAdmin',
         'getUsersList': 'isAuthenticated',
         'index'       : true,
         'login'       : true,
-        'logout'      : true
+        'logout'      : true,
+        'cmsSignIn'   : true
     },
 
     'MediaController': {

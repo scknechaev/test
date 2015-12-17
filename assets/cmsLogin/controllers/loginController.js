@@ -15,7 +15,7 @@
     				email: mail,
 					password: pass
     			}).success(function () {
-    				location.assign('/dashboard');
+    				location.assign('/cms');
     			}).error(function () {
     				$scope.errorClass = 'visible';	
     			});

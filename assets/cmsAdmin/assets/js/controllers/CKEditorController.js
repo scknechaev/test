@@ -9,6 +9,7 @@ angular.module('app')
       url:'',
       html:''
     };
+
     if ($scope.param !== '') {
         pageService.getOnePage($scope.param).then(function (page) {
            $scope.Page = page;
