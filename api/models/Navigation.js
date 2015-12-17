@@ -7,38 +7,44 @@ module.exports = {
             required: true,
         },
 
-        navtype: {
-            type: 'integer',
-            required: true,
-            enum: [1, 2],
-            defaultsTo: 1
-        },
-
         href: {
             type: 'string'
         },
 
-        page: {
-            model: 'Page'
+        navigation: {
+            type: 'array',
+            required: true
         }
 
     },
 
-    beforeCreate: function (navigation, cb) {
-        if (navigation.navtype == 1) {
-            return Page.findOne(navigation.page).exec(function (err, page) {
-                if (err || !page) {
-                    return cb(err || 'Page with such id is not exist');
-                }
-
-                cb(null, navigation);
-            });
-        } else if (!navigation.href) {
-            return cb('External link is not specified');
+    beforeUpdate: function (navigation, cb) {
+        console.log(navigation);
+        if (navigation) {
+            return cb(null, navigation);
         }
-
-        cb(null, navigation);
+        console.log('Trying to create navigation');
+        Navigation.create({
+            'name'      : 'Navigation',
+            'navigation': []
+        }).exec(cb);
     }
+
+    // beforeCreate: function (navigation, cb) {
+    //     if (navigation.navtype == 1) {
+    //         return Page.findOne(navigation.page).exec(function (err, page) {
+    //             if (err || !page) {
+    //                 return cb(err || 'Page with such id is not exist');
+    //             }
+
+    //             cb(null, navigation);
+    //         });
+    //     } else if (!navigation.href) {
+    //         return cb('External link is not specified');
+    //     }
+
+    //     cb(null, navigation);
+    // }
 
 };
 /**
