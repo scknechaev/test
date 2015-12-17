@@ -2,6 +2,9 @@ module.exports = {
 
     attributes: {
 
+        autoCreatedAt: true,
+        autoUpdatedAt: true,
+
         name: {
             type: 'string',
             required: true,
@@ -12,22 +15,30 @@ module.exports = {
         },
 
         navigation: {
-            type: 'array',
+            type: 'string',
             required: true
         }
 
     },
 
     beforeUpdate: function (navigation, cb) {
-        console.log(navigation);
-        if (navigation) {
-            return cb(null, navigation);
-        }
-        console.log('Trying to create navigation');
-        Navigation.create({
-            'name'      : 'Navigation',
-            'navigation': []
-        }).exec(cb);
+        
+        Navigation
+            .find()
+            .limit(1)
+        .exec(function (err, nav) {
+            console.log(nav);
+            if (err || !nav.length) {
+                if (err) {
+                    return cb(err);
+                }
+                console.log('Trying to create new nav');
+                return Navigation.create(navigation).exec(cb);
+            }
+
+            cb(null, navigation);
+        });
+
     }
 
     // beforeCreate: function (navigation, cb) {

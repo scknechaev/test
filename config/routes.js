@@ -52,6 +52,7 @@ module.exports.routes = {
     'DELETE /admin/deleteuser': 'AdminController.deleteUser',
     
     'GET /navigation': 'NavigationController.getNavs',
+    'PUT /nav/update': 'NavigationController.update',
 
     'get /content/:pageID': {
         controller: 'SlugController',
