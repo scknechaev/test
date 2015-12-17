@@ -5,11 +5,9 @@
     <a class="pull-right btn btn-primary btn-xs" data-nodrag ng-click="newSubItem(this)" style="margin-right: 8px;"><span class="glyphicon glyphicon-plus"></span></a>
     <input type="text" ng-model="node.title" class="form-control">
     <select ng-model="node.id" name="page" class="form-control" ng-options="p.id as p.title for p in pages" required>
-        <option style="display:none" value="">Select page</option>
-        <option value="">No Page(only sub-menu open)</option>
-        <span ng-show="Form.navModalForm.page.$error.required && Form.navModalForm.page.$dirty ">Page is required.</span>
-        </span>
+        <option value="">No Page</option>
     </select>
+    <span ng-show="Form.navModalForm.page.$error.required && Form.navModalForm.page.$dirty ">Page is required.</span>
   </div>
 </div>
 <ol ui-tree-nodes="" ng-model="node.nodes" ng-class="{hidden: collapsed}">

@@ -27,7 +27,11 @@ angular.module('app')
         };
         $scope.getNodes = function () {
             navigationService.getNavs().then(function (navs) {
-                $scope.navs = navs.navs;
+                if(navs){
+                    $scope.navs = navs.navs;
+                } else {
+                    $scope.navs = [];
+                }
                 console.log(navs);
             }, function (err) {
                 console.log(err);
