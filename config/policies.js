@@ -63,6 +63,6 @@ module.exports.policies = {
     },
 
     'MediaController': {
-        '*'           : 'isAuthenticated'
+        '*'           : true
     }
 };
