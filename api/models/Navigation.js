@@ -2,19 +2,7 @@ module.exports = {
 
     attributes: {
 
-        autoCreatedAt: true,
-        autoUpdatedAt: true,
-
-        name: {
-            type: 'string',
-            required: true,
-        },
-
-        href: {
-            type: 'string'
-        },
-
-        navigation: {
+        navs: {
             type: 'string',
             required: true
         }
@@ -22,12 +10,10 @@ module.exports = {
     },
 
     beforeUpdate: function (navigation, cb) {
-        
         Navigation
             .find()
             .limit(1)
         .exec(function (err, nav) {
-            console.log(nav);
             if (err || !nav.length) {
                 if (err) {
                     return cb(err);
@@ -38,7 +24,6 @@ module.exports = {
 
             cb(null, navigation);
         });
-
     }
 
     // beforeCreate: function (navigation, cb) {
