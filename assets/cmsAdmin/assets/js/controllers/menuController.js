@@ -56,6 +56,17 @@ angular.module('app')
           )
         }
 
+        $scope.setUrl = function(id){
+            if(id === undefined){
+                return
+            }
+            for (var i = 0; i < $scope.pages.length; i++) {
+                if($scope.pages[i].id === id){
+                    return $scope.pages[i].url;
+                }
+            };
+        }
+
         $scope.saveChanges = function(){
           navigationService.editNav($scope.navs)
           .then(function(node){
