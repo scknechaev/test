@@ -13,7 +13,11 @@ module.exports = {
 			page: function (next) {
 				Page.findOne({ 'url': url }).exec(next);
 			},
-			navigation: ['page', function (next) {
+			navigation: ['page', function (next, data) {
+				if (!data.page) {
+					return next({ 'errDesc': 'Page was not found' });
+				}
+
 				Navigation.find()
 				.sort({ 'createdAt': 0 })
 				.exec(next);

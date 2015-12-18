@@ -56,7 +56,7 @@ angular.module('app')
                 }
             })
         } else {
-            $('#tags').tagsinput($scope.Page.tags);
+            // $('#tags').tagsinput($scope.Page.tags);
             pageService.updatePage($scope.Page).then(function (data) {
                 console.log($scope.Page.id);
                 $state.go('app.pages');
