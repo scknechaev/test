@@ -58,8 +58,6 @@ angular.module('app')
                 $scope.selectedFile = {};
                 $scope.upload = function () {
                     CKEditorService.postMedia($scope.selectedFile).then(function (res) {
-                        console.log(res);
-
                         $modalInstance.close({
                             url: res.url,
                             type: res.type
