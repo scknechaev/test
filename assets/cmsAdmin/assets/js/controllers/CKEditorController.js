@@ -22,6 +22,9 @@ angular.module('app')
     }
     $scope.editorOptions = {
       language: 'en',
+        removeButtons: 'Find,Replace,SelectAll,Scayt,Form,Checkbox,Radio,TextField,' +
+        'Textarea,Select,Button,ImageButton,HiddenField,BidiLtr,BidiRtl,' +
+        'About,Styles,Format,Font,FontSize,TextColor,BGColor'
     };
     $scope.$on('ckeditor.ready', function (event) {
         $scope.isReady = true;
@@ -32,6 +35,20 @@ angular.module('app')
 
     CKEDITOR.on('instanceReady', function (ev) {
         // ev.removeListener();
+
+        ev.editor.on( 'configLoaded', function() {
+            // Remove unnecessary plugins to make the editor simpler.
+            //editor.config.removePlugins = 'colorbutton,find,flash,font,' +
+            //    'forms,iframe,image,newpage,removeformat,' +
+            //    'smiley,specialchar,stylescombo,templates,find,replace,selectall,spellchecker';
+            // Rearrange the layout of the toolbar.
+            //editor.config.toolbarGroups = [
+            //    { name: 'editing',		groups: [ 'basicstyles', 'links' ] },
+            //    { name: 'undo' },
+            //    { name: 'clipboard',	groups: [ 'selection', 'clipboard' ] },
+            //    { name: 'about' }
+            //];
+        });
 
         ev.editor.on('beforeCommandExec', function (evt) {
             if (evt.data.name === 'image') {
