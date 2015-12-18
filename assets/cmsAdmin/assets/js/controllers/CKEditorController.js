@@ -10,6 +10,7 @@ angular.module('app')
       html:'',
       tags:[]
     };
+    
 
     if ($scope.param !== '') {
         pageService.getOnePage($scope.param).then(function (page) {
@@ -55,7 +56,7 @@ angular.module('app')
                 }
             })
         } else {
-
+            $('#tags').tagsinput($scope.Page.tags);
             pageService.updatePage($scope.Page).then(function (data) {
                 console.log($scope.Page.id);
                 $state.go('app.pages');
