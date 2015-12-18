@@ -7,7 +7,8 @@ angular.module('app')
     $scope.Page = {
       title: '',
       url:'',
-      html:''
+      html:'',
+      tags:[]
     };
 
     if ($scope.param !== '') {
@@ -26,7 +27,9 @@ angular.module('app')
     $scope.closeAlert = function () {
         $scope.alert = false;
     }
+
     function savePage () {
+        $scope.Page.tags = $('#tags').tagsinput('items')
         if (!$scope.param) {
             console.log($scope.Page);
             pageService.createPage($scope.Page).then(function (data) {
@@ -81,4 +84,5 @@ angular.module('app')
         }
 
     }
+
 }]);
