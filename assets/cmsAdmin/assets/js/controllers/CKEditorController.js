@@ -102,7 +102,9 @@ angular.module('app')
     function renderPagesTags() {
         if ($scope.Page.tags) {
             var values = $scope.Page.tags.join();
-            $('#tags').attr('value', values);
+            document.getElementById('tags').value = values;
+            $('#tags').tagsinput('destroy');
+            $('#tags').tagsinput();
         }
     }
 
@@ -133,7 +135,6 @@ angular.module('app')
                 }
             })
         } else {
-            // $('#tags').tagsinput($scope.Page.tags);
             pageService.updatePage($scope.Page).then(function (data) {
                 console.log($scope.Page.id);
                 $state.go('app.pages');
