@@ -20,9 +20,14 @@ function cloudUpload(req, res) {
 						var types = /image|video/i;
 						if (!uploaded[0].type.match(types)) return cb('Wrong mime type');
 
+						var rType = (uploaded[0].type.match(/video/i)) ? { resource_type: "video" } : {};
+
 						cloudinary.uploader.upload(uploaded[0].fd, function(result) {
-							cb(null, result);
-						});
+							if (result.public_id)
+								cb(null, result);
+							else
+								cb(result);
+						}, rType);
 					}
 					else {
 						cb('Nothing uploaded');
