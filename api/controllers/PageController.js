@@ -13,14 +13,11 @@ module.exports = {
 			page: function (next) {
 				Page.findOne({ 'url': url }).exec(next);
 			},
-			keywords: ['page', function (next, data) {
+			navigation: ['page', function (next, data) {
 				if (!data.page) {
 					return next({ 'errDesc': 'Page was not found' });
 				}
 
-				Tag.find({ 'page': data.page.id }).exec(next);
-			}],
-			navigation: ['page', function (next) {
 				Navigation.find()
 				.sort({ 'createdAt': 0 })
 				.exec(next);
@@ -35,7 +32,7 @@ module.exports = {
 			res.render('./page', {
 				'body'      : data.page.html,
 				'title'     : data.page.title,
-				'keywords'  : data.keywords,
+				'keywords'  : data.page.tags,
 				'navigation': data.navigation.shift()
 			});
 		});

@@ -7,12 +7,15 @@ angular.module('app')
     $scope.Page = {
       title: '',
       url:'',
-      html:''
+      html:'',
+      tags:[]
     };
+
 
     if ($scope.param !== '') {
         pageService.getOnePage($scope.param).then(function (page) {
            $scope.Page = page;
+           renderPagesTags();
        }, function (err) {
            console.log(err);
        })
@@ -81,7 +84,15 @@ angular.module('app')
         return deferred.promise;
     }
 
+    function renderPagesTags() {
+        if ($scope.Page.tags) {
+            var values = $scope.Page.tags.join();
+            $('#tags').attr('value', values);
+        }
+    }
+
     function savePage () {
+        $scope.Page.tags = $('#tags').tagsinput('items')
         if (!$scope.param) {
             console.log($scope.Page);
             pageService.createPage($scope.Page).then(function (data) {
@@ -107,7 +118,7 @@ angular.module('app')
                 }
             })
         } else {
-
+            // $('#tags').tagsinput($scope.Page.tags);
             pageService.updatePage($scope.Page).then(function (data) {
                 console.log($scope.Page.id);
                 $state.go('app.pages');
@@ -136,4 +147,5 @@ angular.module('app')
         }
 
     }
+
 }]);

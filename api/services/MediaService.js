@@ -13,15 +13,21 @@ function cloudUpload(req, res) {
 	async.auto({
 		upload: function (cb) {
 			req.file('file').upload(
-				{maxBytes: 10000000},
+				{maxBytes: 50000000},
 				function (err, uploaded) {
 					if (err) return cb(err);
 					if (uploaded && uploaded[0]) {
-						if (uploaded[0].type.indexOf('image') < 0) return cb('Only images allowed');
+						var types = /image|video/i;
+						if (!uploaded[0].type.match(types)) return cb('Wrong mime type');
+
+						var rType = (uploaded[0].type.match(/video/i)) ? { resource_type: "video" } : {};
 
 						cloudinary.uploader.upload(uploaded[0].fd, function(result) {
-							cb(null, result);
-						});
+							if (result.public_id)
+								cb(null, result);
+							else
+								cb(result);
+						}, rType);
 					}
 					else {
 						cb('Nothing uploaded');
@@ -40,7 +46,7 @@ function cloudUpload(req, res) {
 			Media.create(mediaObj, cb);
 		}]
 	}, function (err, results) {
-		if (err) return res.serverError(err);
+		if (err) return res.badRequest(err);
 		res.ok(results.save);
 	});
 }
