@@ -1,44 +1,60 @@
 <script src="//cdn.ckeditor.com/4.4.7/standard/ckeditor.js"></script>
 <div ng-controller="CKEditorController">
-  <!-- START PAGE COVER -->
-  <div class="container-fluid container-fixed-lg ">
-      <h3 class="" href ng-hide="param" >Create page</h3>
-      <h3 class="" href ng-show="param" >Edit Page</h3>
-  </div>
-  <div  class="col-md-8 col-md-offset-2" id="page-editing">
-      <div ng-show="alert">
-          <alert ng-model="alert"  type="{{alert.type}}" close="closeAlert()">{{alert.msg}}</alert>
-      </div>
+    <!-- START PAGE COVER -->
+    <div class="container-fluid container-fixed-lg ">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title" href ng-hide="param">Create page</h3>
 
-    <form name="form.editForm" novalidate class="form-horizontal edit-page-form">
-      <div class="form-group">
-        <label for="title" class="col-sm-2 control-label">Header</label>
-        <div class="col-sm-10">
-          <input ng-model="Page.title"  type="text" class="form-control" name="title"  placeholder="Header" required>
+                <h3 class="panel-title" href ng-show="param">Edit Page</h3>
+            </div>
+
+            <div class="panel-body" id="page-editing">
+                <h5>
+                    Please fill up the following form
+                </h5>
+
+                <div ng-show="alert">
+                    <alert ng-model="alert" type="{{alert.type}}" close="closeAlert()">{{alert.msg}}</alert>
+                </div>
+
+                <form name="form.editForm" novalidate class="edit-page-form">
+                    <div pg-form-group class="form-group form-group-default required">
+                        <label for="title" class="control-label">Header</label>
+
+                        <input ng-model="Page.title" type="text" class="form-control" name="title" id="title"
+                               required>
+                    </div>
+
+                    <div pg-form-group class="form-group form-group-default required">
+                        <label for="Url" class="control-label">Url</label>
+
+                        <input ng-model="Page.url" type="text" class="form-control" name="Url" id="Url"
+                               required>
+                    </div>
+
+
+                    <div ng-cloak ng-hide="isReady" class="highlight">
+                        preparing CK editor ...
+                    </div>
+
+                    <div ng-cloak ng-show="isReady" class="ck-editor">
+                    <textarea id="page-editor" ckeditor="editorOptions" name="editor" ng-model="Page.html" rows="10"
+                              cols="80"></textarea>
+                    </div>
+
+                    <div pg-form-group class='form-group form-group-default required col-md-12' id='tags-wrapper'>
+                        <label>Tags</label>
+                        <input type="text" data-role="tagsinput" class="tagsinput custom-tag-input" id='tags'
+                               ui-jq="tagsinput">
+                    </div>
+
+                    <button class="btn btn-primary" ng-click="savePage()" ng-disabled="form.editForm.$invalid"><span
+                        ng-show="param">Save</span><span ng-hide="param">Add</span></button>
+                </form>
+            </div>
+
         </div>
-      </div>
-      <div class="form-group">
-        <label for="Url" class="col-sm-2 control-label">Url</label>
-        <div class="col-sm-10">
-          <input ng-model="Page.url"  type="text" class="form-control" name="Url"  placeholder="Url/Slug" required>
-        </div>
-      </div>
-      <div  ng-cloak ng-hide="isReady" class="highlight">
-        preparing CK editor  ...
-      </div>
 
-      <div ng-cloak ng-show="isReady" class="ck-editor">
-        <textarea id="page-editor" ckeditor="editorOptions" name="editor" ng-model="Page.html" rows="10" cols="80" ></textarea>
-      </div>
-
-      <div pg-form-group class='form-group form-group-default required col-md-12' id='tags-wrapper'>
-        <label>Tags</label>
-        <input type="text" data-role="tagsinput" class="tagsinput custom-tag-input" id='tags' ui-jq="tagsinput">
-      </div>
-
-      <button class="btn btn-primary" ng-click="savePage()" ng-disabled="form.editForm.$invalid"><span ng-show="param">Save</span><span ng-hide="param">Add</span></button>
-    </form>
-
-      
-  </div>
+    </div>
 </div>
