@@ -15,6 +15,7 @@ angular.module('app')
     if ($scope.param !== '') {
         pageService.getOnePage($scope.param).then(function (page) {
            $scope.Page = page;
+           renderPagesTags();
        }, function (err) {
            console.log(err);
        })
@@ -28,6 +29,15 @@ angular.module('app')
     $scope.closeAlert = function () {
         $scope.alert = false;
     }
+
+    function renderPagesTags(){
+      if($scope.Page.tags){
+        var values = $scope.Page.tags.join();
+        $('#tags').attr('value', values);
+      }   
+    }
+
+    
 
     function savePage () {
         $scope.Page.tags = $('#tags').tagsinput('items')
