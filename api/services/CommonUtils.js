@@ -1,6 +1,7 @@
 module.exports = {
 	'removeEmpty'		 : removeEmpty,
-	'isPassLengthEnought': isPassLengthEnought
+	'isPassLengthEnought': isPassLengthEnought,
+	'generateTags'		 : generateTags
 };
 
 /**
@@ -23,4 +24,19 @@ function isPassLengthEnought (password) {
     var minPassLength = 6;
 
     return password.length >= minPassLength;
+}
+
+/**
+ * @name generateTags
+ * @desc Generating of the tags for creating in DB
+ * @param tags   - tags array
+ * 		  pageId - id of the page to which this tag must be binded 
+ */
+function generateTags (tags, pageId) {
+	return _.map(tags, function (tag) {
+		return {
+			'tag' : tag,
+			'page': pageId
+		};
+	});
 }

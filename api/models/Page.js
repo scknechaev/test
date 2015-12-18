@@ -54,18 +54,7 @@ module.exports = {
     // },
 
     afterDestroy: function (pages, cb) {
-        var navsIds = _.pluck(pages, 'navs'), 
-            pageIds = _.pluck(pages, 'id');
-
-        async.parallel({
-            deletedNavs: function (call) {
-                Navigation.destroy(navsIds).exec(call);
-            },
-            deletedTags: function (call) {
-                Tag.destroy(pageIds).exec(call);
-            }
-        }, cb);
-        
+        Tag.destroy(_.pluck(pages, 'id')).exec(cb);
     }
 
 };
