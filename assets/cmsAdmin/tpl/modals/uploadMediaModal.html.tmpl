@@ -1,0 +1,17 @@
+<div>
+        <button type="button" class="close" ng-click="cancel()">
+            <span aria-hidden="true">×</span><span class="sr-only">Close</span>
+        </button>
+    <div class="modal-header">
+        <span class="sr-only">test</span>
+    </div>
+    <form ng-submit="upload()" name="uploadForm" enctype="multipart/form-data">
+        <div class="modal-body">
+            <input id="file-select" type="file" name="file" ngf-select="onFileSelect($file)" ngf-change="onFileSelect($file)" ngf-max-size="50MB" ngf-pattern="'image/*,video/*'" ngf-accept="'image/*,video/*'">
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" ng-click="cancel()">Close</button>
+            <button type="submit" class="btn btn-primary">Upload</button>
+        </div>
+    </form>
+</div>
