@@ -38,11 +38,10 @@ module.exports.routes = {
     //     views: 'mainBook.ejs'
     // },
 
-    '/'               : 'UserController',
+    '/'               : 'UserController.cmsSignIn',
     'POST /login'     : 'UserController.login',
     '/logout'         : 'UserController.logout',
     'GET /users'      : 'UserController.getUsersList',
-    'GET /cmssignin'  : 'UserController.cmsSignIn',
 
     'GET /nav/:pageUrl': 'PageController.getPage',
 
@@ -50,7 +49,7 @@ module.exports.routes = {
     'POST /admin/createuser'  : 'AdminController.createUser',
     'PUT /admin/updateuser'   : 'AdminController.updateUser',
     'DELETE /admin/deleteuser': 'AdminController.deleteUser',
-    
+
     'GET /navigation': 'NavigationController.getNavs',
     'PUT /nav/update': 'NavigationController.update'
 

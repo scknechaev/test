@@ -50,7 +50,7 @@ module.exports.policies = {
 
     'AdminController': {
         '*'        : 'isAdmin',
-        'dashboard': ['signInRedirect', 'isAuthenticated']
+        'dashboard': 'isAuthenticated'
     },
 
     'UserController': {
