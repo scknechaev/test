@@ -56,10 +56,6 @@ module.exports = {
     //             next();
     //         }
     //     }
-    // },
-
-    afterDestroy: function (pages, cb) {
-        Tag.destroy(_.pluck(pages, 'id')).exec(cb);
-    }
+    // }
 
 };
