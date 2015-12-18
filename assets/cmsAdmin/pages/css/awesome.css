@@ -22,6 +22,12 @@
     background: #f8faff;
     color: #7c9eb2;
 }
+.tree-node input.input-icon{
+	float: right;
+	clear: both;
+	width: 70px;
+	margin: 17px 0px 0px 0px;
+}
 .tree-node-content {
     margin: 10px;
 }

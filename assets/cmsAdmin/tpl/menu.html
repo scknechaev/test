@@ -7,7 +7,7 @@
 <div class="container-fluid container-fixed-lg">
   <div class="row">
     <div class="col-sm-6 col-sm-offset-3">
-      <div ui-tree data-clone-enabled="true" data-nodrop-enabled="true">
+      <div ui-tree>
         <ol ui-tree-nodes="" ng-model="navs">
           <li ng-repeat="node in navs" ui-tree-node ng-include="'cmsAdmin/tpl/nodesRenderers/nodes_renderer.html'"></li>
         </ol>

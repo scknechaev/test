@@ -29,6 +29,11 @@ module.exports = {
         html: {
             type: 'string',
             required: true,
+        },
+
+        tags: {
+            type: 'array',
+            required: true
         }
 
     },
@@ -51,21 +56,6 @@ module.exports = {
     //             next();
     //         }
     //     }
-    // },
-
-    afterDestroy: function (pages, cb) {
-        var navsIds = _.pluck(pages, 'navs'), 
-            pageIds = _.pluck(pages, 'id');
-
-        async.parallel({
-            deletedNavs: function (call) {
-                Navigation.destroy(navsIds).exec(call);
-            },
-            deletedTags: function (call) {
-                Tag.destroy(pageIds).exec(call);
-            }
-        }, cb);
-        
-    }
+    // }
 
 };
