@@ -10,7 +10,7 @@
           <alert ng-model="alert"  type="{{alert.type}}" close="closeAlert()">{{alert.msg}}</alert>
       </div>
 
-    <form name="form.editForm" class="form-horizontal edit-page-form">
+    <form name="form.editForm" novalidate class="form-horizontal edit-page-form">
       <div class="form-group">
         <label for="title" class="col-sm-2 control-label">Header</label>
         <div class="col-sm-10">
@@ -30,8 +30,16 @@
       <div ng-cloak ng-show="isReady" class="ck-editor">
         <textarea ckeditor="editorOptions" name="editor" ng-model="Page.html" rows="10" cols="80" ></textarea>
       </div>
+
+      <div pg-form-group class='form-group form-group-default required col-md-12' id='tags-wrapper'>
+        <label>Tags</label>
+        <input type="text" data-role="tagsinput" class="tagsinput custom-tag-input" id='tags' ui-jq="tagsinput">
+      </div>
+
       <button class="btn btn-primary" ng-click="savePage()" ng-disabled="form.editForm.$invalid"><span ng-show="param">Save</span><span ng-hide="param">Add</span></button>
       <!-- <input filepicker type="filepicker-dragdrop" data-fp-multiple="true" data-fp-services="computer,facebook,webcam,box" on-success="pickMultipleResults=event.fpfiles" /> -->
     </form>
+
+      
   </div>
 </div>
