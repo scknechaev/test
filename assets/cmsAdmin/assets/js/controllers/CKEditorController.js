@@ -24,7 +24,7 @@ angular.module('app')
       language: 'en',
         removeButtons: 'Find,Replace,SelectAll,Scayt,Form,Checkbox,Radio,TextField,' +
         'Textarea,Select,Button,ImageButton,HiddenField,BidiLtr,BidiRtl,' +
-        'About,TextColor,BGColor,Flash,HorizontalRule,Smiley,SpecialChar,PageBreak,' +
+        'About,TextColor,BGColor,Flash,HorizontalRule,Smiley,SpecialChar,Image,PageBreak,' +
         'Iframe,Styles,Format,Font,FontSize',
         removePlugins: 'language'
     };
