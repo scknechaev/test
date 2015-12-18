@@ -24,7 +24,7 @@ angular.module('app')
       language: 'en',
         removeButtons: 'Find,Replace,SelectAll,Scayt,Form,Checkbox,Radio,TextField,' +
         'Textarea,Select,Button,ImageButton,HiddenField,BidiLtr,BidiRtl,' +
-        'About,Styles,Format,Font,FontSize,TextColor,BGColor,Flash,HorizontalRule,Smiley,SpecialChar,PageBreak,Iframe,',
+        'About,TextColor,BGColor,Flash,HorizontalRule,Smiley,SpecialChar,PageBreak,Iframe,',
         removePlugins: 'Language'
     };
     $scope.$on('ckeditor.ready', function (event) {
