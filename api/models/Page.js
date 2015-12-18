@@ -29,6 +29,11 @@ module.exports = {
         html: {
             type: 'string',
             required: true,
+        },
+
+        tags: {
+            type: 'array',
+            required: true
         }
 
     },
