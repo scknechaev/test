@@ -4,17 +4,9 @@
   </div>
   <div class="modal-body">
     <h4>Media Item</h4>
-    <div class="col-md-6">
-      <img src="http://pages.revox.io/dashboard/latest/html/assets/img/gallery/1.jpg" alt="" class="image-responsive-height">
-    </div>
-    <div class="col-md-6">
-      <p>
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-      tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-      quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-      consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-      cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-      proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+    <div class="col-md-12 media-modal-content">
+      <video ng-if="item.type === 'video'" controls class="image-responsive-height" ng-src="{{item.url}}" ></video>
+      <img ng-if="item.type === 'image'" ng-src="{{item.url}}" alt="" class="image-responsive-height">
     </div>
   </div>
   <div class="modal-footer">

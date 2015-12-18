@@ -55,3 +55,26 @@
 	margin:0;
 	margin-bottom:30px;
 }
+/*media*/
+.galery .frame {
+    height: 100%;
+    white-space: nowrap;
+    text-align: center;
+}
+.galery .frame .helper {
+    display: inline-block;
+    height: 100%;
+    vertical-align: middle;
+}
+.media-modal-content img, .media-modal-content video{
+	margin-bottom: 20px;
+}
+.galery .frame img, .galery .frame video {
+    vertical-align: middle;
+    position: relative;
+    left: -4px;
+}
+.galery .gallery-item {
+    width: auto!important;
+}
+/*media*/
