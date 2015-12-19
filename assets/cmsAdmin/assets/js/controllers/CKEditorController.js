@@ -27,7 +27,7 @@ angular.module('app')
         'About,TextColor,BGColor,Flash,HorizontalRule,Smiley,SpecialChar,Image,PageBreak,' +
         'Iframe,Styles,Format,Font,FontSize',
         removePlugins: 'language',
-        extraAllowedContent: 'video[*]{*};source[*]{*}'
+        extraAllowedContent: 'video[*]{*};source[*]{*};img[*]{*}'
     };
     $scope.$on('ckeditor.ready', function (event) {
         $scope.isReady = true;
