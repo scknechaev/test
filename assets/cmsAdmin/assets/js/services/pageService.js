@@ -27,10 +27,7 @@ angular.module('app').factory('pageService', ['$http', 'baseService', function (
      * Creating new page
      */
     PageService.prototype.createPage = function (editedPage, successCall, errorCall) {
-       return this.request('post', '/page', editedPage);
-        // return $http.post('/page', editedPage).then(function (data) {
-            // return data.data;
-        // });
+       return this.request('post', '/page', editedPage, successCall, errorCall);
     };
 
     /**
@@ -38,9 +35,6 @@ angular.module('app').factory('pageService', ['$http', 'baseService', function (
      */
     PageService.prototype.updatePage = function (updatedPage, successCall, errorCall) {
         return this.request('put', '/page/' + updatedPage.id, updatedPage, successCall, errorCall);
-        // return $http.put('/page/' + updatedPage.id, updatedPage).then(function (data) {
-            // return data.data;
-        // });
     };
 
     /**

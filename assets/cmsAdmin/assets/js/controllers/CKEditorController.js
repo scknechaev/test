@@ -100,50 +100,20 @@ angular.module('app')
         $scope.Page.tags = $('#tags').tagsinput('items');
 
         if ( !isNeedUpdate($scope.param) ) {
-
             pageService.createPage($scope.Page, function (data) {
-                notifyUser({
-                  'message' : 'New page has been successfully created',
-                  'position': 'top',
-                  'theme'   : 'pure',
-                  'type'    : 'success',
-                  'sticky'  : false,
-                  'duration': 2500
-                });
+              notifyUser('New page has been successfully created', true);
             }, function (err) {
-                if (err.status === 400) {
-                  notifyUser({
-                    'message' : 'Unable to use this url, make sure that the link contains only a-zA-z or this url already exists',
-                    'position': 'top',
-                    'theme'   : 'pure',
-                    'type'    : 'error',
-                    'sticky'  : false,
-                    'duration': 4000
-                  });
-                }
+              if (err.status === 400) {
+                notifyUser('Unable to use this url, make sure that the link contains only a-zA-z or this url already exists', false);
+              }
             });
         } else {
             pageService.updatePage($scope.Page, function (data) {
               $state.go('app.pages');
-              
-              notifyUser({
-                'message' : 'Page has been successfully edited',
-                'position': 'top',
-                'theme'   : 'pure',
-                'type'    : 'success',
-                'sticky'  : false,
-                'duration': 2500
-              });
+              notifyUser('Page has been successfully edited', true);
             }, function (err) {
               if (err.status === 400) {
-                notifyUser({
-                  'message' : 'Unable to use this url, make sure that the link contains only a-zA-z or this url already exists',
-                  'position': 'top',
-                  'theme'   : 'pure',
-                  'type'    : 'error',
-                  'sticky'  : false,
-                  'duration': 4000
-                });
+                notifyUser('Unable to use this url, make sure that the link contains only a-zA-z or this url already exists', false);
               }
             });
 
@@ -163,16 +133,29 @@ angular.module('app')
     /**
      * @name notifyUser
      * @desc Notifying user about maked request
-     * @param notifyObj - notifying object with params
+     * @param message   - message to user about operation
+     *        isSuccess - is operation was successful 
      */
-    function notifyUser(notifyObj) {
-      ngNotify.set(notifyObj.message, {
-        'position': notifyObj.top,
-        'theme'   : notifyObj.theme,
-        'type'    : notifyObj.type,
-        'sticky'  : notifyObj.sticky,
-        'duration': notifyObj.duration
-      });
+    function notifyUser(message, isSuccess) {
+
+      if (isSuccess) {
+        ngNotify.set(message, {
+          'position': 'top',
+          'theme'   : 'pure',
+          'type'    : 'success',
+          'sticky'  : false,
+          'duration': 2500
+        });
+      } else {
+        ngNotify.set(message, {
+          'position': 'top',
+          'theme'   : 'pure',
+          'type'    : 'error',
+          'sticky'  : false,
+          'duration': 4000
+        });
+      }
+    
     }
 
 }]);
