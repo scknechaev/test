@@ -15,6 +15,7 @@ angular.module('app')
     if ($scope.param !== '') {
         pageService.getOnePage($scope.param).then(function (page) {
            $scope.Page = page;
+           $('textarea').eq(1).val(page.html);
            renderPagesTags();
        }, function (err) {
            console.log(err);
@@ -112,6 +113,7 @@ angular.module('app')
     }
 
     function savePage () {
+        $scope.Page.html = $('textarea').eq(1).val()
         $scope.$apply();
         $scope.Page.tags = $('#tags').tagsinput('items');
 
