@@ -112,6 +112,7 @@ angular.module('app')
     }
 
     function savePage () {
+        $scope.$apply();
         $scope.Page.tags = $('#tags').tagsinput('items');
 
         if ( !isNeedUpdate($scope.param) ) {
