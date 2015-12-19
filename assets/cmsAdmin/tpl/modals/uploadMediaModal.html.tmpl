@@ -1,17 +1,17 @@
 <div>
-        <button type="button" class="close" ng-click="cancel()">
-            <span aria-hidden="true">×</span><span class="sr-only">Close</span>
-        </button>
     <div class="modal-header">
-        <span class="sr-only">test</span>
+        <button type="button" class="close" ng-click="cancel()">
+            <span aria-hidden="true">×</span>
+        </button>
     </div>
-    <form ng-submit="upload()" name="uploadForm" enctype="multipart/form-data">
+    <form ng-submit="upload()" name="uploadForm" novalidate>
         <div class="modal-body">
-            <input id="file-select" type="file" name="file" ngf-select="onFileSelect($file)" ngf-change="onFileSelect($file)" ngf-max-size="50MB" ngf-pattern="'image/*,video/*'" ngf-accept="'image/*,video/*'">
+        <h4>Upload media file</h4>
+            <input id="file-select" type="file" name="file" ng-model="file" ngf-select="onFileSelect($file)" ngf-change="onFileSelect($file)" ngf-max-size="50MB" ngf-pattern="'image/*,video/*'" ngf-accept="'image/*,video/*'" required>
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-default" ng-click="cancel()">Close</button>
-            <button type="submit" class="btn btn-primary">Upload</button>
+            <button type="submit" class="btn btn-primary" ng-disabled="uploadForm.$invalid || isUploading">{{uploadButtonText}}</button>
         </div>
     </form>
 </div>

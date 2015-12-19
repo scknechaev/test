@@ -1,6 +1,6 @@
 angular.module('app')
-  .controller('CKEditorController', ['$scope', '$http', '$stateParams', 'pageService', '$state', 'ngNotify', 'filepickerService', 'CKEditorService', '$modal', '$q',
-    function ($scope, $http, $stateParams, pageService, $state, ngNotify, filepickerService, CKEditorService, $modal, $q) {
+  .controller('CKEditorController', ['$scope', '$http', '$stateParams', 'pageService', '$state', 'ngNotify', 'filepickerService', 'CKEditorService', '$modal', '$q', '$sce',
+    function ($scope, $http, $stateParams, pageService, $state, ngNotify, filepickerService, CKEditorService, $modal, $q, $sce) {
     $scope.savePage = savePage;
 
     $scope.param = $stateParams.pageId;
@@ -22,11 +22,12 @@ angular.module('app')
     }
     $scope.editorOptions = {
       language: 'en',
-        removeButtons: 'Find,Replace,SelectAll,Scayt,Form,Checkbox,Radio,TextField,' +
-        'Textarea,Select,Button,ImageButton,HiddenField,BidiLtr,BidiRtl,' +
+        removeButtons: 'Find,Replace,SelectAll,Scayt,Form,Checkbox,Radio,ImageButton,TextField,' +
+        'Textarea,Select,Button,HiddenField,BidiLtr,BidiRtl,' +
         'About,TextColor,BGColor,Flash,HorizontalRule,Smiley,SpecialChar,Image,PageBreak,' +
         'Iframe,Styles,Format,Font,FontSize',
-        removePlugins: 'language'
+        removePlugins: 'language',
+        extraAllowedContent: 'video[*]{*};source[*]{*}'
     };
     $scope.$on('ckeditor.ready', function (event) {
         $scope.isReady = true;
@@ -35,34 +36,48 @@ angular.module('app')
         $scope.alert = false;
     };
 
-    CKEDITOR.on('instanceReady', function (ev) {
-        // ev.removeListener();
+    $scope.showUploadModal = showUploadModal;
 
+    // CKEDITOR.editorConfig = function( config ) {
+    //     // Define changes to default configuration here. For example:
+    //     // Referencing the new plugin
+    //     config.extraPlugins = 'video';
+    // };
+
+    CKEDITOR.on('instanceReady', function (ev) {
         ev.editor.on('beforeCommandExec', function (evt) {
             if (evt.data.name === 'image') {
                 evt.cancel();
-
-                showUploadMediaModal().then(function (data) {
-                    if (data.type === 'image' && CKEDITOR.instances['page-editor']) {
-                        CKEDITOR.instances['page-editor'].insertHtml('<img src="' + data.url + '" alt="image" style="max-width: 100%">');
-                    } else if (data.type === 'video' && CKEDITOR.instances['page-editor']) {
-                        CKEDITOR.instances['page-editor'].insertHtml('<video controls src="' + data.url + '" ></video>');
-                    }
-                });
-
+                showUploadModal();
             }
         }, null, null, 0);
     });
 
-    function showUploadMediaModal(item) {
+    function showUploadModal() {
+        showUploadMediaModal().then(function (data) {
+            if (data.type === 'image' && CKEDITOR.instances['page-editor']) {
+                CKEDITOR.instances['page-editor'].insertHtml('<img src="' + data.url + '" alt="image" style="max-width: 100%">');
+            } else if (data.type === 'video' && CKEDITOR.instances['page-editor']) {
+                CKEDITOR.instances['page-editor'].insertHtml('<video controls src="' + data.url + '" ></video>');
+            }
+        });
+    }
+
+    function showUploadMediaModal() {
         var deferred = $q.defer();
         var modalInstance = $modal.open({
             templateUrl: 'cmsAdmin/tpl/modals/uploadMediaModal.html.tmpl',
             controller: ['$scope', '$modalInstance',
               function ($scope, $modalInstance) {
+                $scope.isUploading = false;
+                $scope.uploadButtonText = 'Upload';
+
                 $scope.selectedFile = {};
                 $scope.upload = function () {
-                    CKEditorService.postMedia($scope.selectedFile).then(function (res) {
+                    $scope.uploadButtonText = 'Uploading...';
+                    $scope.isUploading = true;
+                    $scope.uploadPromise = CKEditorService.postMedia($scope.selectedFile).then(function (res) {
+                        $scope.isUploading = false;
                         $modalInstance.close({
                             url: res.url,
                             type: res.type
@@ -87,7 +102,7 @@ angular.module('app')
         return deferred.promise;
     }
 
-    function renderPagesTags() {
+    function renderPagesTags () {
         if ($scope.Page.tags) {
             var values = $scope.Page.tags.join();
             document.getElementById('tags').value = values;
