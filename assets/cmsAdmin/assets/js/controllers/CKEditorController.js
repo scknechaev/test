@@ -15,6 +15,7 @@ angular.module('app')
     if ($scope.param !== '') {
         pageService.getOnePage($scope.param).then(function (page) {
            $scope.Page = page;
+           CKEDITOR.instances['page-editor'].setData(page.html);
            renderPagesTags();
        }, function (err) {
            console.log(err);
@@ -112,7 +113,7 @@ angular.module('app')
     }
 
     function savePage () {
-        $scope.$apply();
+        $scope.Page.html = CKEDITOR.instances['page-editor'].getData()
         $scope.Page.tags = $('#tags').tagsinput('items');
 
         if ( !isNeedUpdate($scope.param) ) {
