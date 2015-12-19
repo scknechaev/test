@@ -13,7 +13,7 @@ function cloudUpload(req, res) {
 	async.auto({
 		upload: function (cb) {
 			req.file('file').upload(
-				{maxBytes: 50000000},
+				{ 'maxBytes': 50000000 },
 				function (err, uploaded) {
 					if (err) return cb(err);
 					if (uploaded && uploaded[0]) {
