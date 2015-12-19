@@ -4,9 +4,11 @@
  * ============================================================ */
 
 angular.module('app')
-    .controller('AppCtrl', ['$scope', '$rootScope', '$state', function($scope, $rootScope, $state) {
+    .controller('AppCtrl', ['$scope', '$rootScope', '$state', '$http',
+    function($scope, $rootScope, $state, $http) {
 
         // App globals
+        $scope.myProfile = {};
         $scope.app = {
             name: 'Pages',
             description: 'Admin Dashboard UI kit',
@@ -17,6 +19,12 @@ angular.module('app')
             },
             author: 'Revox'
         }
+
+        $http.get('/me')
+        .then(function(res){
+            $scope.myProfile = res.data.user;
+        })
+
 
         // Checks if the given state is the current state
         $scope.is = function(name) {
