@@ -1,3 +1,5 @@
+var cloudinary = require('cloudinary');
+
 module.exports = {
 
     attributes: {
@@ -31,9 +33,7 @@ module.exports = {
 
     afterDestroy: function (files, cb) {
         async.times(files.length, function (n, next) {
-            var cloudinary = require('cloudinary');
             cloudinary.uploader.destroy(files[n].public_id, function(result) { next();});
-
         }, cb);
     }
 

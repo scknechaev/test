@@ -38,11 +38,26 @@ module.exports = {
     },
 
     beforeCreate: function (page, next) {
-        if ( page.url && _.isString(page.url) ) {
+
+        if (!page.url) {
+            return next('You must specify url');
+        } else if ( page.url && _.isString(page.url) ) {
             page.url = page.url.trim();
         }
 
-        next(null, page);
+        Page.findOne({
+            'url': url
+        }).exec(function (err, page) {
+            if (err || page) {
+                if (page) {
+                    return next('Page with such url already exist');
+                }
+
+                return next(err);
+            }
+
+            next(null);
+        });
     },
 
 };

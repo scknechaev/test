@@ -1,8 +1,9 @@
+var cloudinary = require('cloudinary');
+
 module.exports = {
 	'cloudUpload': cloudUpload
 };
 
-var cloudinary = require('cloudinary');
 /**
  * @name cloudUpload
  * @desc Upload file to cloudinary
