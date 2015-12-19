@@ -32,8 +32,7 @@ module.exports = {
         },
 
         tags: {
-            type: 'array',
-            required: true
+            type: 'array'
         }
 
     },
@@ -45,17 +44,5 @@ module.exports = {
 
         next(null, page);
     },
-
-    // beforeValidate: function (values, next) {
-
-    //     if (values.url !== undefined) {
-    //         if (values.url[0] === '/') {
-    //             values.url =  values.url.slice(1);
-    //             next();
-    //         } else {
-    //             next();
-    //         }
-    //     }
-    // }
 
 };
