@@ -114,7 +114,6 @@ angular.module('app')
 
     function savePage () {
         $scope.Page.html = CKEDITOR.instances['page-editor'].getData()
-        $scope.$apply();
         $scope.Page.tags = $('#tags').tagsinput('items');
 
         if ( !isNeedUpdate($scope.param) ) {
