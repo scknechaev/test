@@ -20,12 +20,15 @@ angular.module('app')
         };
     }
 
-    $scope.showMediaItem = function(item) {
+    $scope.showMediaItem = function(item, mediaArr) {
     	$modal.open({
     	    resolve:{
-    	      item: function(){
+    	      item: function() {
     	        return item;
-    	      }
+    	      },
+              items: function() {
+                return mediaArr;
+              }
     	    },
             size: 'lg',
     	    templateUrl: 'cmsAdmin/tpl/modals/showMediaItem.html.tmpl',
@@ -48,6 +51,7 @@ angular.module('app')
                           'duration': 2500
                         });
 
+                        _.pull(mediaArr, itemFile);
                         $modalInstance.dismiss('cancel');
                     }, function (err) {
                         ngNotify.set('Some error while deleting file', {
