@@ -46,17 +46,17 @@ module.exports = {
         }
 
         Page.findOne({
-            'url': url
-        }).exec(function (err, page) {
-            if (err || page) {
-                if (page) {
+            'url': page.url
+        }).exec(function (err, findPage) {
+            if (err || findPage) {
+                if (findPage) {
                     return next('Page with such url already exist');
                 }
 
                 return next(err);
             }
 
-            next(null);
+            next(null, page);
         });
     },
 

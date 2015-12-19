@@ -116,11 +116,15 @@ angular.module('app')
 
         if ( !isNeedUpdate($scope.param) ) {
             pageService.createPage($scope.Page, function (data) {
+              $state.go('app.pages');
+
               notifyUser('New page has been successfully created', true);
             }, function (err) {
               if (err.status === 400) {
                 notifyUser('Unable to use this url, make sure that the link contains only a-zA-z or this url already exists', false);
-              }
+              } else if (err.status === 500) {
+                notifyUser(err.data.raw, false);
+              } 
             });
         } else {
             pageService.updatePage($scope.Page, function (data) {
