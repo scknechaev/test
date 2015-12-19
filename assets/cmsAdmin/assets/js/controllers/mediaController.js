@@ -1,7 +1,9 @@
 angular.module('app')
-	.controller('mediaController', ['$scope', '$modal', '$http', '$sce',
- 	function ($scope, $modal, $http, $sce) {
+	.controller('mediaController', ['$scope', '$modal', '$http', '$sce', 'ngNotify',
+ 	function ($scope, $modal, $http, $sce, ngNotify) {
     $scope.mediaArr = [];
+    getMedia();
+
     function getMedia() {
         $http.get('/media')
         .then(function(res){
@@ -9,6 +11,7 @@ angular.module('app')
             processVideo();
         })
     }
+
     function processVideo(){
         for (var i = 0; i < $scope.mediaArr.length; i++) {
             if($scope.mediaArr[i].type === 'video'){
@@ -16,7 +19,7 @@ angular.module('app')
             }
         };
     }
-    getMedia();
+
     $scope.showMediaItem = function(item) {
     	$modal.open({
     	    resolve:{
@@ -29,9 +32,34 @@ angular.module('app')
     	    controller: ['$scope', '$modalInstance', 'item',
     	      function($scope, $modalInstance, item) {
     	        $scope.item = item;
+
     	        $scope.cancel = function () {
     	            $modalInstance.dismiss('cancel');
     	        };
+
+                $scope.delete = function (itemFile) {
+                    $http.delete('/media/' + itemFile.id)
+                    .then(function (data) {
+                        ngNotify.set('File successfuly deleted', {
+                          'position': 'top',
+                          'theme'   : 'pure',
+                          'type'    : 'success',
+                          'sticky'  : false,
+                          'duration': 2500
+                        });
+
+                        $modalInstance.dismiss('cancel');
+                    }, function (err) {
+                        ngNotify.set('Some error while deleting file', {
+                          'position': 'top',
+                          'theme'   : 'pure',
+                          'type'    : 'error',
+                          'sticky'  : false,
+                          'duration': 4000
+                        });
+                    });
+                };
+
     	    }]
     	});
     }
