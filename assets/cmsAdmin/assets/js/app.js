@@ -14,5 +14,6 @@ angular.module('app', [
     'angular-filepicker',
     'ui.tree',
     'ngFileUpload',
-    'ngSanitize'
+    'ngSanitize',
+    'cgBusy'
 ]);
