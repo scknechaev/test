@@ -15,7 +15,7 @@ angular.module('app')
     if ($scope.param !== '') {
         pageService.getOnePage($scope.param).then(function (page) {
            $scope.Page = page;
-           $('textarea').eq(1).val(page.html);
+           CKEDITOR.instances['page-editor'].setData(page.html);
            renderPagesTags();
        }, function (err) {
            console.log(err);
@@ -113,7 +113,7 @@ angular.module('app')
     }
 
     function savePage () {
-        $scope.Page.html = $('textarea').eq(1).val()
+        $scope.Page.html = CKEDITOR.instances['page-editor'].getData()
         $scope.$apply();
         $scope.Page.tags = $('#tags').tagsinput('items');
 
