@@ -26,7 +26,7 @@ angular.module('app').factory('pageService', ['$http', 'baseService', function (
     /**
      * Creating new page
      */
-    PageService.prototype.createPage = function (editedPage) {
+    PageService.prototype.createPage = function (editedPage, successCall, errorCall) {
        return this.request('post', '/page', editedPage);
         // return $http.post('/page', editedPage).then(function (data) {
             // return data.data;
@@ -36,8 +36,8 @@ angular.module('app').factory('pageService', ['$http', 'baseService', function (
     /**
      * Update existing page
      */
-    PageService.prototype.updatePage = function (updatedPage) {
-        return this.request('put', '/page/' + updatedPage.id, updatedPage);
+    PageService.prototype.updatePage = function (updatedPage, successCall, errorCall) {
+        return this.request('put', '/page/' + updatedPage.id, updatedPage, successCall, errorCall);
         // return $http.put('/page/' + updatedPage.id, updatedPage).then(function (data) {
             // return data.data;
         // });
@@ -46,8 +46,8 @@ angular.module('app').factory('pageService', ['$http', 'baseService', function (
     /**
      * Delete existing page
      */
-    PageService.prototype.delPage = function (deletedPage) {
-        return this.request('delete', '/page/' + deletedPage.id);
+    PageService.prototype.delPage = function (deletedPage, successCall, errorCall) {
+        return this.request('delete', '/page/' + deletedPage.id, successCall, errorCall);
     };
 
     return new PageService;

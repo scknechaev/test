@@ -97,59 +97,82 @@ angular.module('app')
     }
 
     function savePage () {
-        $scope.Page.tags = $('#tags').tagsinput('items')
-        if (!$scope.param) {
-            console.log($scope.Page);
-            pageService.createPage($scope.Page).then(function (data) {
-                $state.go('app.pages');
-                ngNotify.set('New page has been successfully created', {
-                  position: 'top',
-                  theme: 'pure',
-                  type: 'success',
-                  sticky: false,
-                  duration: 2500
+        $scope.Page.tags = $('#tags').tagsinput('items');
+
+        if ( !isNeedUpdate($scope.param) ) {
+
+            pageService.createPage($scope.Page, function (data) {
+                notifyUser({
+                  'message' : 'New page has been successfully created',
+                  'position': 'top',
+                  'theme'   : 'pure',
+                  'type'    : 'success',
+                  'sticky'  : false,
+                  'duration': 2500
                 });
             }, function (err) {
-                console.log(err);
                 if (err.status === 400) {
-                    ngNotify.set('Unable to use this url, make sure that the link contains only a-zA-z or this url already exists', {
-                      position: 'top',
-                      theme: 'pure',
-                      type: 'error',
-                      sticky: false,
-                      duration: 4000
-                    });
-                    console.log($scope.alart);
+                  notifyUser({
+                    'message' : 'Unable to use this url, make sure that the link contains only a-zA-z or this url already exists',
+                    'position': 'top',
+                    'theme'   : 'pure',
+                    'type'    : 'error',
+                    'sticky'  : false,
+                    'duration': 4000
+                  });
                 }
-            })
+            });
         } else {
-            pageService.updatePage($scope.Page).then(function (data) {
-                console.log($scope.Page.id);
-                $state.go('app.pages');
-                ngNotify.set('Page has been successfully edited', {
-                  position: 'top',
-                  theme: 'pure',
-                  type: 'success',
-                  sticky: false,
-                  duration: 2500
-                });
+            pageService.updatePage($scope.Page, function (data) {
+              $state.go('app.pages');
+              
+              notifyUser({
+                'message' : 'Page has been successfully edited',
+                'position': 'top',
+                'theme'   : 'pure',
+                'type'    : 'success',
+                'sticky'  : false,
+                'duration': 2500
+              });
             }, function (err) {
-                console.log(err);
+              if (err.status === 400) {
+                notifyUser({
+                  'message' : 'Unable to use this url, make sure that the link contains only a-zA-z or this url already exists',
+                  'position': 'top',
+                  'theme'   : 'pure',
+                  'type'    : 'error',
+                  'sticky'  : false,
+                  'duration': 4000
+                });
+              }
+            });
 
-                if (err.status === 400) {
-                    ngNotify.set('Unable to use this url, make sure that the link contains only a-zA-z or this url already exists', {
-                      position: 'top',
-                      theme: 'pure',
-                      type: 'error',
-                      sticky: false,
-                      duration: 4000
-                    });
-
-                }
-
-            })
         }
 
+    }
+
+  /**
+   * @name isNeedUpdate
+   * @desc Checking is user want to update user
+   * @param pageId - id of the page
+   */
+    function isNeedUpdate(pageId) {
+      return pageId;
+    }
+
+    /**
+     * @name notifyUser
+     * @desc Notifying user about maked request
+     * @param notifyObj - notifying object with params
+     */
+    function notifyUser(notifyObj) {
+      ngNotify.set(notifyObj.message, {
+        'position': notifyObj.top,
+        'theme'   : notifyObj.theme,
+        'type'    : notifyObj.type,
+        'sticky'  : notifyObj.sticky,
+        'duration': notifyObj.duration
+      });
     }
 
 }]);
