@@ -38,10 +38,11 @@ module.exports.routes = {
     //     views: 'mainBook.ejs'
     // },
 
-    '/'               : 'UserController.cmsSignIn',
-    'POST /login'     : 'UserController.login',
-    '/logout'         : 'UserController.logout',
-    'GET /users'      : 'UserController.getUsersList',
+    '/'          : 'UserController.cmsSignIn',
+    'POST /login': 'UserController.login',
+    '/logout'    : 'UserController.logout',
+    'GET /users' : 'UserController.getUsersList',
+    'GET /me'    : 'UserController.getCurrUser',
 
     'GET /nav/:pageUrl': 'PageController.getPage',
 

@@ -49,5 +49,9 @@ module.exports = {
 
             res.ok(users);
         });
+    },
+
+    getCurrUser: function (req, res) {
+        res.ok({ 'user': req.user });
     }
 }

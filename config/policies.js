@@ -56,6 +56,7 @@ module.exports.policies = {
     'UserController': {
         '*'           : 'isAdmin',
         'getUsersList': 'isAuthenticated',
+        'getCurrUser' : 'isAuthenticated',
         'index'       : true,
         'login'       : true,
         'logout'      : true,
