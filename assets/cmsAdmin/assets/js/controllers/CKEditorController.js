@@ -59,7 +59,7 @@ angular.module('app')
             if (data.type === 'image' && CKEDITOR.instances['page-editor']) {
                 CKEDITOR.instances['page-editor'].insertHtml('<img src="' + data.url + '" alt="image" style="max-width: 100%">');
             } else if (data.type === 'video' && CKEDITOR.instances['page-editor']) {
-                CKEDITOR.instances['page-editor'].insertHtml('<video controls src="' + data.url + '" width="500" height="300" ></video>');
+                CKEDITOR.instances['page-editor'].insertHtml('<video controls width="400" height="200" ><source src="' + data.url + '">Your browser does not support HTML 5 video</video>');
             }
         });
     }
