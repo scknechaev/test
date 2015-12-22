@@ -1,4 +1,32 @@
 module.exports = {
+
+	create: function (req, res) {
+		PageService.createPage(req.body, function (err, result) {
+			if (err && err.errDesc && !req.wantsJSON) {
+				return res.notFound();
+			} else if (err) {
+				return res.badRequest(err);
+			}
+
+			res.ok(result.page);
+		});
+	},
+
+	update: function (req, res) {
+		PageService.updatePage(req.params.id, req.body, function (err, result) {
+			if (err) return res.badRequest(err);
+
+			res.ok(result.page);
+		});
+	},
+
+	destroy: function (req, res) {
+		PageService.removePage(req.params.id, function (err, result) {
+			if (err) return res.badRequest(err);
+
+			res.ok(result.page);
+		});
+	},
 	
 	render: function (req, res) {
 		return res.view('mainBook', {
