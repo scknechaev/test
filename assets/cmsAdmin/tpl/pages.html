@@ -8,7 +8,9 @@
     <table class="table table-hover">
       <thead>
         <th>Page name</th>
-        <th>Last updeated</th>
+        <th>Menu Item</th>
+        <th>Last Modified</th>
+        <th>Tags</th>
         <th>Edit</th>
         <th  >Delete</th>
       </thead>
@@ -18,7 +20,13 @@
             <span>{{page.title}}</span>
           </td>
           <td>
+            <span>Menu Item</span>
+          </td>
+          <td>
             <span> {{ page.updatedAt | dateTimeUtc }} </span>
+          </td>
+          <td>
+            <span> Tags </span>
           </td>
           <td>
             <button  type="button" class="btn btn-primary btn-sm margin-right ng-scope delUserButton" title="Edit" ng-click="editPage(page)">
