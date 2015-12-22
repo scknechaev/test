@@ -94,35 +94,6 @@
                           <select id="role" ng-init="$parent.newUser.role = 1" name="role" ng-model="newUser.role" class="form-control validate-err" ng-options="r.type as r.name for r in roleTypes">
                           </select>
                         </div>
-                        <!-- <div class="form-group {{validate.email}}">
-                          <label for="mail" class="col-sm-2 control-label">Email</label>
-                          <div class="col-sm-10">
-                             <input ng-model="$parent.newUser.email" email-validation type="text" class="form-control validate-err" name="mail"  placeholder="Email" required>
-                            <div class="" ng-show="Form.UserManagement.mail.$dirty && Form.UserManagement.mail.$invalid" role="alert">
-                                <small class="error" ng-show="Form.UserManagement.mail.$error.required">This field is required</small>
-                                <small class="error" ng-show="!Form.UserManagement.mail.$error.required && Form.UserManagement.mail.$error.emailValid">Enter valid e-mail</small>
-                            </div>
-                          </div>
-                        </div> -->
-                        <!-- <div class="form-group {{validate.password}}">
-                          <label ng-if="!$parent.isEditing" for="password" class="col-sm-2 control-label">Password</label>
-                          <label ng-if="$parent.isEditing" for="password" class="col-sm-2 control-label">Set New Password</label>
-                          <div class="col-sm-10">
-                            <input ng-if="$parent.isEditing" ng-model="$parent.newUser.password" type="password" ng-minlength="6" class="form-control validate-err" name="password" placeholder="Password">
-                            <input ng-if="!$parent.isEditing" ng-model="$parent.newUser.password" type="password" ng-minlength="6" class="form-control validate-err" name="password" placeholder="Password" required>
-                            <div class="" ng-show="Form.UserManagement.password.$dirty && Form.UserManagement.password.$invalid" role="alert">
-                                <small class="error" ng-show="Form.UserManagement.password.$error.required">This field is required</small>
-                                <small class="error" ng-show="!Form.UserManagement.password.$error.required && Form.UserManagement.password.$error.minlength ">Minimum password length 6 characters</small>
-                            </div>
-                          </div>
-                        </div> -->
-                        <!-- <div class="form-group">
-                          <label for="role" class="col-sm-2 control-label">Role</label>
-                          <div class="col-sm-10">
-                            <select ng-init="$parent.newUser.role = 1" ng-model="newUser.role" class="form-control validate-err" ng-options="r.type as r.name for r in roleTypes">
-                            </select>
-                          </div>
-                        </div> -->
                           <div ng-show="alert">
                               <alert ng-model="alert"  type="{{alert.type}}" close="closeAlert()">{{alert.msg}}</alert>
                           </div>
@@ -132,7 +103,7 @@
               </div>
               <div class="modal-footer">
                 <div class="form-group ng-class={{validate.email}}">
-                  <div class="col-sm-offset-9 col-sm-2">
+                  <div class="col-sm-12">
                     <button type="submit" ng-disabled="Form.UserManagement.$invalid" class="btn btn-default col-sm-offset-1" ng-if="$parent.isEditing">Save</button>
                     <button type="submit" ng-disabled="Form.UserManagement.$invalid" class="btn btn-default col-sm-offset-4" ng-if="!$parent.isEditing">Create</button>
                   </div>
