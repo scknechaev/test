@@ -42,25 +42,38 @@ module.exports = {
 
     },
 
-    beforeUpdate: callBack,
-    beforeCreate: callBack
-};
+    beforeUpdate: function (page, next) {
 
-function callBack(page, next) {
-
-    if (!page.url) {
-        return next('You must specify url');
-    } else if ( page.url && _.isString(page.url) ) {
-        page.url = page.url.trim();
-    }
-
-    Page.findOne({
-        'url': page.url
-    }).exec(function (err, findPage) {
-        if (err || findPage) {
-            return next(err || 'Page with such url already exist');
+        if (!page.url) {
+            return next('You must specify url');
         }
 
-        next(null, page);
+        checkURL({
+            'id' : {
+                '!': page.id
+            },
+            'url': page.url
+        }, page, next);
+    },
+
+    beforeCreate: function (page, next) {
+
+        if (!page.url) {
+            return next('You must specify url');
+        } else if ( page.url && _.isString(page.url) ) {
+            page.url = page.url.trim();
+        }
+
+        checkURL({ 'url': page.url }, page, next);
+    }
+};
+
+function checkURL(query, page, call) {
+    Page.findOne(query).exec(function (err, findPage) {
+        if (err || findPage) {
+            return call(err || 'Page with such url already exist');
+        }
+
+        call(null, page);
     });
 }

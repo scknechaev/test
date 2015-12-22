@@ -35,7 +35,8 @@ module.exports = {
 	},
 
 	getPage: function (req, res) {
-		var identifier = req.param('identifier');
+		var identifier = req.param('identifier'),
+			isNeedEdit = req.query.edit;
 
 		async.auto({
 			page: function (next) {
@@ -60,6 +61,10 @@ module.exports = {
 				return res.notFound();
 			} else if (err) {
 				return res.badRequest(err);
+			}
+
+			if (!isNeedEdit) {
+				CommonUtils.renderBBTags(data.page);
 			}
 
 			if (req.wantsJSON) {
