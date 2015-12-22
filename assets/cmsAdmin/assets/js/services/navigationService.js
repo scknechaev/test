@@ -22,8 +22,8 @@ angular.module('app').factory('navigationService', [
         /**
          * Getting all navigations
          */
-        NavigationService.prototype.getNavs = function () {
-            return this.request('get', '/navigation');
+        NavigationService.prototype.getNavs = function (sucess, error) {
+            return this.request('get', '/navigation', null, sucess, error);
         };
 
         /**

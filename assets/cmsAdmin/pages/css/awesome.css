@@ -78,3 +78,9 @@
     width: auto!important;
 }
 /*media*/
+.tags{
+    max-width:250px;
+}
+.tags-words{
+    word-break:break-all;
+}

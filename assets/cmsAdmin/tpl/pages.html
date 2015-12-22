@@ -15,18 +15,18 @@
         <th  >Delete</th>
       </thead>
       <tbody>
-        <tr ng-repeat="page in pages" class="userItem">
+        <tr ng-repeat="page in pages track by $index" class="userItem">
           <td>
             <span>{{page.title}}</span>
           </td>
           <td>
-            <span>Menu Item</span>
+            <span>{{renderNodes(page.id) || 'no relation'}}</span>
           </td>
           <td>
             <span> {{ page.updatedAt | dateTimeUtc }} </span>
           </td>
-          <td>
-            <span> Tags </span>
+          <td class='tags'>
+            <span class='tags-words'> {{page.tags.join(', ')}} </span>
           </td>
           <td>
             <button  type="button" class="btn btn-primary btn-sm margin-right ng-scope delUserButton" title="Edit" ng-click="editPage(page)">

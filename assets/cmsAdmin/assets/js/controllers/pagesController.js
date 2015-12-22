@@ -1,15 +1,14 @@
 
   angular.module('app')
-      .controller('pagesController', ['$scope', '$http', '$state', 'CKEditorService', 'pageService', '$modal',
-      function ($scope, $http, $state, CKEditorService, pageService, $modal) {
+      .controller('pagesController', ['$scope', '$http', '$state', 'CKEditorService', 'pageService', '$modal', 'navigationService',
+      function ($scope, $http, $state, CKEditorService, pageService, $modal, navigationService) {
         moment.locale('en')
         $scope.pages    = [];
         $scope.editPage = editPage;
-        
+        $scope.nav;
+        $scope.counter
         getPages();
-
-        
-
+        getNav();
         $scope.openConfirmDelPage = function (page, index) {
           $modal.open({
               resolve:{
@@ -28,7 +27,7 @@
                 function($scope, $modalInstance, page, pages, pageService, index) {
                   $scope.index = index;
                   $scope.page =  page;
-                  $scope.pages =  pages;
+                  $scope.pages =  pages;                  
                   $scope.delPage = function (page, $index) {
                       pageService.delPage(page).then(function (page) {
                         $scope.pages.splice($index, 1);
@@ -52,11 +51,41 @@
         
         function editPage (page) {
             CKEditorService.selectedPage = page;
-
             $state.go('app.editpage', {pageId: page.id});
-
         }
+
         function newPage () {
             $state.go('app.editpage');
       }
+
+      function getNav(){
+            navigationService.getNavs().then(function (result){
+               $scope.nav = result.navs;
+               console.log($scope.nav);
+            })
+        }
+
+
+      $scope.renderNodes = function(pageId){
+        $scope.title = '';
+        $scope.node = '';
+        for(var i = 0; i < $scope.nav.length; i++){
+          if($scope.nav[i].nodes.length > 0){
+            for(var y = 0; y < $scope.nav[i].nodes.length; y++){
+              if($scope.nav[i].nodes[y].id == pageId){
+                $scope.title = $scope.nav[i].title;
+                if($scope.nav[i].nodes[y].title){
+                   $scope.node = "\u0020" + ' > ' + "\u0020" + $scope.nav[i].nodes[y].title;
+                }
+                return $scope.title + '  ' + $scope.node;
+              }
+            }
+          }else if($scope.nav[i].id == pageId){
+            $scope.title = $scope.nav[i].title
+            return $scope.title;
+          }
+          
+        }
+      }
+
   }]);
