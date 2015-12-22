@@ -2,6 +2,12 @@ var bcrypt = require('bcrypt-nodejs');
 
 module.exports = {
 
+    _config: {
+        'actions'  : false,
+        'shortcuts': false,
+        'rest'     : false
+    },
+
     dashboard: function (req, res) {
       	res.render('indexCms', {
         	user: req.user

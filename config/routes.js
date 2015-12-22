@@ -51,6 +51,8 @@ module.exports.routes = {
     'PUT /admin/updateuser'   : 'AdminController.updateUser',
     'DELETE /admin/deleteuser': 'AdminController.deleteUser',
 
+    'GET /page' : 'PageController.pages',
+
     'GET /navigation': 'NavigationController.getNavs',
     'PUT /nav/update': 'NavigationController.update'
 
