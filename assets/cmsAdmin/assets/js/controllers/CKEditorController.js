@@ -107,7 +107,6 @@ angular.module('app')
         if ($scope.Page.tags) {
             var values = $scope.Page.tags.join();
             document.getElementById('tags').value = values;
-            $('#tags').tagsinput('destroy');
             $('#tags').tagsinput();
         }
     }

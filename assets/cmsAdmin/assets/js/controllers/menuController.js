@@ -68,17 +68,30 @@ angular.module('app')
         }
 
         $scope.saveChanges = function(){
-          navigationService.editNav($scope.navs)
-          .then(function(node){
-            ngNotify.set('Menu has been successfully updated', {
-                  position: 'top',
-                  theme: 'pure',
-                  type: 'success',
-                  sticky: false,
-                  duration: 2500
-            });
+            $scope.navs = removeThirdLevelNav($scope.navs);
+            navigationService.editNav($scope.navs)
+                .then(function(res){
+                    $scope.navs = res[0].navs;
+                    ngNotify.set('Menu has been successfully updated', {
+                          position: 'top',
+                          theme: 'pure',
+                          type: 'success',
+                          sticky: false,
+                          duration: 2500
+                    });
           })
         }
+
+        function removeThirdLevelNav(navs){
+            for (var i = 0; i < navs.length; i++) {
+                for (var j = 0; j < navs[i].nodes.length; j++) {
+                    navs[i].nodes[j].nodes = [];
+                };
+            };
+            return navs;
+        }
+
+
         
 }]);
 
