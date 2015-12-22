@@ -28,7 +28,7 @@ angular.module('app')
         'About,TextColor,BGColor,Flash,HorizontalRule,Smiley,SpecialChar,Image,PageBreak,' +
         'Iframe,Styles,Format,Font,FontSize',
         removePlugins: 'language',
-        extraAllowedContent: 'video[*]{*};source[*]{*};img[*]{*}'
+        extraAllowedContent: 'video[*]{*};source[*]{*};img[*]{*};h1;h2;h3;h4;h5;h6;'
     };
     $scope.$on('ckeditor.ready', function (event) {
         $scope.isReady = true;
@@ -113,7 +113,8 @@ angular.module('app')
     }
 
     function savePage () {
-        $scope.Page.html = CKEDITOR.instances['page-editor'].getData()
+        $scope.Page.url = $scope.Page.title.toLowerCase().replace(new RegExp(' '),'-');
+        $scope.Page.html = CKEDITOR.instances['page-editor'].getData();
         $scope.Page.tags = $('#tags').tagsinput('items');
 
         if ( !isNeedUpdate($scope.param) ) {
