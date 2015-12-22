@@ -32,6 +32,8 @@ function update(userId, params, call) {
 		update: ['generatePass', function (next, data) {
 			if (data.generatePass) {
 				params.password = data.generatePass;
+			} else {
+				delete params.password;
 			}
 
 			_.extend(data.user, params);
