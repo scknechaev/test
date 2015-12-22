@@ -59,7 +59,6 @@ angular.module('app')
 
     function editUser (service, user, $scope) {
         service.editUser(user).then(function (result) {
-            service.copyUser($scope.user, user);
             $('.bs-example-modal-lg').modal('hide');
             if(result.status && result.statusText && result.status !== 200){
                 ngNotify.set('Error during user editing', {
@@ -77,6 +76,7 @@ angular.module('app')
                       sticky: false,
                       duration: 2500
                 });
+                service.copyUser($scope.user, user);
             }
             
         });

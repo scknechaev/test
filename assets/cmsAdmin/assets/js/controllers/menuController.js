@@ -69,17 +69,41 @@ angular.module('app')
 
         $scope.saveChanges = function(){
             $scope.navs = removeThirdLevelNav($scope.navs);
-            navigationService.editNav($scope.navs)
-                .then(function(res){
-                    $scope.navs = res[0].navs;
-                    ngNotify.set('Menu has been successfully updated', {
-                          position: 'top',
-                          theme: 'pure',
-                          type: 'success',
-                          sticky: false,
-                          duration: 2500
-                    });
-          })
+            if(menuValidation($scope.navs)){
+                navigationService.editNav($scope.navs)
+                    .then(function(res){
+                        $scope.navs = res[0].navs;
+                        ngNotify.set('Menu has been successfully updated', {
+                              position: 'top',
+                              theme: 'pure',
+                              type: 'success',
+                              sticky: false,
+                              duration: 2500
+                        });
+                })
+            } else {
+                ngNotify.set('Validation error. Some of menu items has no title', {
+                      position: 'top',
+                      theme: 'pure',
+                      type: 'error',
+                      sticky: false,
+                      duration: 2500
+                });
+            }
+        }
+
+        function menuValidation(menu){
+            for (var i = 0; i < menu.length; i++) {
+                if(!menu[i].title){
+                    return false;
+                }
+                for (var j = 0; j < menu[i].nodes.length; j++) {
+                    if(!menu[i].nodes[j].title) {
+                        return false;
+                    }
+                };
+            };
+            return true;
         }
 
         function removeThirdLevelNav(navs){
