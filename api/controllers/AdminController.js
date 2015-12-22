@@ -33,15 +33,12 @@ module.exports = {
         			'email': email
         		}).exec(call);
         	},
-        	salt: ['isUserExist', function (call, data) {
-        		if (data.isUserExist) {
-        			return call('User with such email already exist');
-        		}
+        	hash: ['isUserExist', function (call, data) {
+                if (data.isUserExist) {
+                    return call('User with such email already exist');
+                }
 
-        		call(null, bcrypt.genSaltSync(8));
-        	}],
-        	hash: ['salt', function (call, data) {
-        		bcrypt.hash(params.password, data.salt, null, call);
+        		AdminService.generateHash(8, params.password, call);
         	}],
         	user: ['hash', function (call, data) {
         		params.password = data.hash;
@@ -58,7 +55,7 @@ module.exports = {
     },
 
     deleteUser: function (req, res) {
-        var userId = req.body.userId;
+        var userId = req.param('userId');
 
         if (!userId) {
         	return res.badRequest({ 'message': 'User id is not defined' });
@@ -78,23 +75,24 @@ module.exports = {
     },
 
     updateUser: function (req, res) {
-        var userId = req.body.userId,
+        var userId = req.param('userId'),
         	params = _.pick(req.body, ['name', 'email', 'password', 'role']);
 
         if (!userId) {
         	return res.badRequest({ 'message': 'User id is not defined' });
         }
 
-        User.update(userId, params).exec(function (err, updatedUser) {
-        	if (err || !updatedUser.length) {
-                res.badRequest({ 
-                	'message': 'Cannot update user', 
-                	'error'  : err || 'Cannot find user with id - ' + userId
+        AdminService.update(userId, params, function (err, data) {
+            if (err) {
+                return res.badRequest({ 
+                    'message': 'Cannot update user', 
+                    'error'  : err || 'Cannot find user with id - ' + userId
                 });
             } 
             
-        	res.ok({ 'message': 'User was updated', 'user': updatedUser });
+            res.ok({ 'message': 'User was updated', 'user': data.user });
         });
+
     }
    
 };

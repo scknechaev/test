@@ -47,10 +47,10 @@ module.exports.routes = {
     // 'GET /nav/:pageUrl'    : 'PageController.getPage',
     'GET /page/:identifier': 'PageController.getPage',
 
-    'GET /cms'                : 'AdminController.dashboard',
-    'POST /admin/createuser'  : 'AdminController.createUser',
-    'PUT /admin/updateuser'   : 'AdminController.updateUser',
-    'DELETE /admin/deleteuser': 'AdminController.deleteUser',
+    'GET /cms'                        : 'AdminController.dashboard',
+    'POST /admin/createuser'          : 'AdminController.createUser',
+    'PUT /admin/updateuser/:userId'   : 'AdminController.updateUser',
+    'DELETE /admin/deleteuser/:userId': 'AdminController.deleteUser',
 
     'GET /navigation': 'NavigationController.getNavs',
     'PUT /nav/update': 'NavigationController.update'
