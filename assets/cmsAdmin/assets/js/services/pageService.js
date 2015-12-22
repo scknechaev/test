@@ -13,7 +13,7 @@ angular.module('app').factory('pageService', ['$http', 'baseService', function (
      * Get one page from server
      */
     PageService.prototype.getOnePage = function (id) {
-        return this.request('get', '/page?id=' + id);
+        return this.request('get', '/page/' + id);
     };
 
     /**
