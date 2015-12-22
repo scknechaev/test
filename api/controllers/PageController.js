@@ -39,7 +39,6 @@ module.exports = {
 
 		async.auto({
 			page: function (next) {
-				// Page.findOne({ 'url': url }).exec(next);
 				Page.findOne({
 					or: [
 						{ 'url': identifier },
@@ -74,7 +73,6 @@ module.exports = {
 				});
 			}
 
-			
 		});
 	},
 

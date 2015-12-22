@@ -42,26 +42,25 @@ module.exports = {
 
     },
 
-    beforeCreate: function (page, next) {
+    beforeUpdate: callBack,
+    beforeCreate: callBack
+};
 
-        if (!page.url) {
-            return next('You must specify url');
-        } else if ( page.url && _.isString(page.url) ) {
-            page.url = page.url.trim();
+function callBack(page, next) {
+
+    if (!page.url) {
+        return next('You must specify url');
+    } else if ( page.url && _.isString(page.url) ) {
+        page.url = page.url.trim();
+    }
+
+    Page.findOne({
+        'url': page.url
+    }).exec(function (err, findPage) {
+        if (err || findPage) {
+            return next(err || 'Page with such url already exist');
         }
 
-        Page.findOne({
-            'url': page.url
-        }).exec(function (err, findPage) {
-            if (err || findPage) {
-                if (findPage) {
-                    return next('Page with such url already exist');
-                }
-
-                return next(err);
-            }
-
-            next(null, page);
-        });
-    }
-};
+        next(null, page);
+    });
+}
