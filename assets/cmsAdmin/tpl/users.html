@@ -11,8 +11,7 @@
         <th>Name</th>
         <th>Email</th>
         <th>Role</th>
-        <th  >Edit</th>
-        <th  >Delete</th>
+        <th>Actions</th>
       </thead>
       <tbody>
         <tr ng-repeat="user in users track by $index" class="userItem">
@@ -30,8 +29,6 @@
               <button  type="button" class="btn btn-primary btn-sm margin-right ng-scope delUserButton" title="Edit"  data-toggle="modal" data-target=".bs-example-modal-lg" ng-click="setModalState(user)">
               <span class="fa fa-pencil"></span>
             </button>
-          </td>
-          <td  >
             <button class="btn btn-danger btn-sm ng-scope" title="Delete" ng-click="openConfirmDelUser(user, $index)">
               <span class="fa fa-trash-o"></span>
             </button>

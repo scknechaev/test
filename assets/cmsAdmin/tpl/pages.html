@@ -11,11 +11,10 @@
         <th>Menu Item</th>
         <th>Last Modified</th>
         <th>Tags</th>
-        <th>Edit</th>
-        <th  >Delete</th>
+        <th>Actions</th>
       </thead>
       <tbody>
-        <tr ng-repeat="page in pages track by $index" class="userItem">
+        <tr ng-if="nav" ng-repeat="page in pages track by $index" class="userItem">
           <td>
             <span>{{page.title}}</span>
           </td>
@@ -32,9 +31,6 @@
             <button  type="button" class="btn btn-primary btn-sm margin-right ng-scope delUserButton" title="Edit" ng-click="editPage(page)">
               <span class="fa fa-pencil"></span>
             </button>
-          </td>
-
-          <td  >
             <button class="btn btn-danger btn-sm ng-scope" title="Delete" ng-click="openConfirmDelPage(page, $index)">
               <span class="fa fa-trash-o"></span>
             </button>

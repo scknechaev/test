@@ -141,7 +141,7 @@ angular.module('app')
               notifyUser('New page has been successfully created', true);
             }, function (err) {
               if (err.status === 400) {
-                notifyUser('Unable to use this url, make sure that the link contains only a-zA-z or this url already exists', false);
+                notifyUser('such header already exists', false);
               } else if (err.status === 500) {
                 notifyUser(err.data.raw, false);
               } else {
@@ -154,7 +154,7 @@ angular.module('app')
               notifyUser('Page has been successfully edited', true);
             }, function (err) {
               if (err.status === 400) {
-                notifyUser('Unable to use this url, make sure that the link contains only a-zA-z or this url already exists', false);
+                notifyUser('such header already exists', false);
               } else if (err.status === 500) {
                 notifyUser(err.data.raw, false);
               } else {
