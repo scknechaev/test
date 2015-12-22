@@ -12,7 +12,7 @@ module.exports = {
 
         title: {
             type: 'string',
-            required: true,
+            required: true
         },
 
         navs: {
@@ -28,7 +28,12 @@ module.exports = {
 
         html: {
             type: 'string',
-            required: true,
+            required: true
+        },
+
+        media: {
+            type: 'array',
+            defaultsTo: []
         },
 
         tags: {
@@ -58,6 +63,5 @@ module.exports = {
 
             next(null, page);
         });
-    },
-
+    }
 };

@@ -16,6 +16,11 @@ module.exports = {
             required: true
         },
 
+        pages: {
+            type: 'array',
+            defaultsTo: []
+        },
+
         type: {
             type: 'string',
             required: true

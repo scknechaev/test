@@ -10,7 +10,7 @@ angular.module('app')
       html:'',
       tags:[]
     };
-
+    $scope.editorMode = false;
 
     if ($scope.param !== '') {
         pageService.getOnePage($scope.param).then(function (page) {
@@ -20,6 +20,8 @@ angular.module('app')
        }, function (err) {
            console.log(err);
        })
+    } else {
+      renderPagesTags();
     }
     $scope.editorOptions = {
       language: 'en',
@@ -52,14 +54,24 @@ angular.module('app')
                 showUploadModal();
             }
         }, null, null, 0);
+        CKEDITOR.instances['page-editor'].on('mode',function(e){
+          var mode = e.editor.mode;
+          $scope.$apply(function(){
+            if(mode === "source"){
+              $scope.editorMode = true;
+            } else {
+              $scope.editorMode = false;
+            }
+          })
+        });
     });
 
     function showUploadModal() {
         showUploadMediaModal().then(function (data) {
             if (data.type === 'image' && CKEDITOR.instances['page-editor']) {
-                CKEDITOR.instances['page-editor'].insertHtml('<img src="' + data.url + '" alt="image" style="max-width: 100%">');
+                CKEDITOR.instances['page-editor'].insertHtml('<img src="' + data.url + '" data-id="'+ data.id +'" alt="image" style="max-width: 100%">');
             } else if (data.type === 'video' && CKEDITOR.instances['page-editor']) {
-                CKEDITOR.instances['page-editor'].insertHtml('<video controls width="400" height="200" ><source src="' + data.url + '">Your browser does not support HTML 5 video</video>');
+                CKEDITOR.instances['page-editor'].insertHtml('<video controls width="400" height="200" ><source src="' + data.url + '" data-id="'+ data.id +'" >Your browser does not support HTML 5 video</video>');
             }
         });
     }
@@ -81,7 +93,8 @@ angular.module('app')
                         $scope.isUploading = false;
                         $modalInstance.close({
                             url: res.url,
-                            type: res.type
+                            type: res.type,
+                            id: res.id
                         });
                     });
                 };
@@ -107,14 +120,18 @@ angular.module('app')
         if ($scope.Page.tags) {
             var values = $scope.Page.tags.join();
             document.getElementById('tags').value = values;
-            $('#tags').tagsinput('destroy');
-            $('#tags').tagsinput();
         }
+        $('#tags').tagsinput();
     }
+
 
     function savePage () {
         $scope.Page.url = $scope.Page.title.toLowerCase().replace(new RegExp(' '),'-');
         $scope.Page.html = CKEDITOR.instances['page-editor'].getData();
+        var parsedHtml = $.parseHTML($scope.Page.html);
+        var mediaArr = $(parsedHtml).find('[data-id]');
+        var mediaIdsArr = _.map(mediaArr, function(i){return $(i).attr('data-id'); });
+        $scope.Page.media = _.uniq(mediaIdsArr);
         $scope.Page.tags = $('#tags').tagsinput('items');
 
         if ( !isNeedUpdate($scope.param) ) {
