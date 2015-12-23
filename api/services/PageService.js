@@ -3,7 +3,8 @@ var cloudinary = require('cloudinary');
 module.exports = {
 	'createPage': createPage,
 	'updatePage': updatePage,
-	'removePage': removePage
+	'removePage': removePage,
+	'sendPage'  : sendPage
 };
 
 function createPage (data, callback) {
@@ -129,4 +130,17 @@ function removePage (id, callback) {
 			}
 		}]
 	}, callback);
+}
+
+function sendPage(isNeedJSON, navigation, page, res) {
+	if (isNeedJSON) {
+		res.ok(page);
+	} else {
+		res.render('./page', {
+			'body'      : page.html,
+			'title'     : page.title,
+			'keywords'  : page.tags,
+			'navigation': navigation.shift()
+		});
+	}
 }

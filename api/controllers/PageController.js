@@ -64,20 +64,16 @@ module.exports = {
 			}
 
 			if (!isNeedEdit) {
-				CommonUtils.renderBBTags(data.page);
-			}
+				CommonUtils.renderBBTags(data.page, function (err) {
+					if (err) { return res.badRequest(err); }
 
-			if (req.wantsJSON) {
-				res.ok(data.page);
-			} else {
-				res.render('./page', {
-					'body'      : data.page.html,
-					'title'     : data.page.title,
-					'keywords'  : data.page.tags,
-					'navigation': data.navigation.shift()
+					PageService.sendPage(req.wantsJSON, data.navigation, data.page, res);
 				});
+			} else {
+				PageService.sendPage(req.wantsJSON, data.navigation, data.page, res);
 			}
 
+			
 		});
 	},
 

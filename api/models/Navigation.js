@@ -18,7 +18,7 @@ module.exports = {
                 if (err) {
                     return cb(err);
                 }
-                console.log('Trying to create new nav');
+
                 return Navigation.create(navigation).exec(cb);
             }
 
