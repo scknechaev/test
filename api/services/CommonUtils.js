@@ -1,7 +1,7 @@
 var BBTagRegExp   = new RegExp(/\[.*\]/ig),
 	templates     = {
-		'img'  : _.template('<img src="<%= src %>" title="<%= src %>" alt=""/>'),
-		'video': _.template('<video controls="true" src="<%= src %>"></video>')
+		'image': _.template('<img src="<%= src %>" title="<%= name %>" alt=""/>'),
+		'video': _.template('<video controls="true" src="<%= name %>"></video>')
 	};
 
 module.exports = {
@@ -43,8 +43,7 @@ function renderBBTags(page, call) {
 			return mediaName.slice(1, mediaName.length - 1);
 		}),
 		searchObj = generateSearch(mediaArr);
-	console.log(searchObj);
-	console.log(searchObj.query);
+
 	Media.find(searchObj.query).exec(function (err, mediaFiles) {
 		if (err) { return call(err); }
 
@@ -55,13 +54,16 @@ function renderBBTags(page, call) {
 			if (searchObj.media[fileName]) {
 				regExp   = new RegExp('\\[' + fileName + '\\]', 'gi');
 				template = templates[media.type]({
-					'src': media.url
+					'src' : media.url,
+					'name': media.name
 				});
 
-				html.replace(regExp, template);
+				html = html.replace(regExp, template);
 			}
 		});
+		page.html = html;
 
+		call();
 	});
 }
 
