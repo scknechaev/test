@@ -87,8 +87,14 @@ angular.module('app')
         var deferred = $q.defer();
         var modalInstance = $modal.open({
             templateUrl: 'cmsAdmin/tpl/modals/uploadMediaModal.html.tmpl',
-            controller: ['$scope', '$modalInstance',
-              function ($scope, $modalInstance) {
+            resolve: {
+              mediaArr : function(){
+                return $scope.mediaArr;
+              }
+            },
+            controller: ['$scope', '$modalInstance', 'mediaArr',
+              function ($scope, $modalInstance, mediaArr) {
+                $scope.mediaArr = mediaArr;
                 $scope.isUploading = false;
                 $scope.uploadButtonText = 'Upload';
 
@@ -105,6 +111,7 @@ angular.module('app')
                             id: res.id,
                             name: res.name
                         });
+                        $scope.mediaArr.push(res);
                     }, function (errorMessage) {
                       $scope.isUploading      = false;
                       $scope.uploadButtonText = 'Upload';
