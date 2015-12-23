@@ -61,7 +61,6 @@
       function getNav(){
             navigationService.getNavs().then(function (result){
                $scope.nav = result.navs;
-               console.log($scope.nav);
             })
         }
 

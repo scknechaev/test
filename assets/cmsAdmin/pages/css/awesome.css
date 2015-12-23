@@ -84,3 +84,13 @@
 .tags-words{
     word-break:break-all;
 }
+ 
+table th {
+    text-align: left!important;
+}
+.tr-ng-grid .tr-ng-sort {
+    top: 40%!important;
+}
+table .btn {
+    margin-left: 5px;
+}

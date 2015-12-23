@@ -39,7 +39,16 @@ angular.module('app')
         $scope.alert = false;
     };
 
+    function getMedia() {
+        $http.get('/media')
+        .then(function(res){
+            $scope.mediaArr = res.data;
+        })
+    }
+    getMedia();
+
     $scope.showUploadModal = showUploadModal;
+    $scope.showChooseMediaModal = showChooseMediaModal;
 
     // CKEDITOR.editorConfig = function( config ) {
     //     // Define changes to default configuration here. For example:
@@ -68,10 +77,8 @@ angular.module('app')
 
     function showUploadModal() {
         showUploadMediaModal().then(function (data) {
-            if (data.type === 'image' && CKEDITOR.instances['page-editor']) {
-                CKEDITOR.instances['page-editor'].insertHtml('<img src="' + data.url + '" data-id="'+ data.id +'" alt="image" style="max-width: 100%">');
-            } else if (data.type === 'video' && CKEDITOR.instances['page-editor']) {
-                CKEDITOR.instances['page-editor'].insertHtml('<video controls width="400" height="200" ><source src="' + data.url + '" data-id="'+ data.id +'" >Your browser does not support HTML 5 video</video>');
+            if (CKEDITOR.instances['page-editor']) {
+                CKEDITOR.instances['page-editor'].insertHtml('[' + data.name + ']');
             }
         });
     }
@@ -114,6 +121,30 @@ angular.module('app')
         });
 
         return deferred.promise;
+    }
+    function showChooseMediaModal() {
+        var modalInstance = $modal.open({
+            templateUrl: 'cmsAdmin/tpl/modals/chooseMediaModal.html.tmpl',
+            resolve: {
+              mediaArr : function(){
+                return $scope.mediaArr;
+              }
+            },
+            controller: ['$scope', '$modalInstance', 'mediaArr',
+              function ($scope, $modalInstance, mediaArr) {
+                $scope.file = {};
+                $scope.mediaArr = mediaArr;
+                $scope.choose = function () {
+                  if (CKEDITOR.instances['page-editor']) {
+                    $modalInstance.dismiss('cancel');
+                      CKEDITOR.instances['page-editor'].insertHtml('['+ $scope.file.name +']');
+                  }
+                };
+                $scope.cancel = function () {
+                    $modalInstance.dismiss('cancel');
+                };
+            }]
+        });
     }
 
     function renderPagesTags () {

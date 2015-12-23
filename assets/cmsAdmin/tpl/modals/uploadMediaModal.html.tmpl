@@ -7,7 +7,7 @@
     <form ng-submit="upload()" name="uploadForm" novalidate>
         <div class="modal-body">
         <h4>Upload media file</h4>
-            <input id="file-select" type="file" name="file" ng-model="file" ngf-select="onFileSelect($file)" ngf-change="onFileSelect($file)" ngf-max-size="50MB" ngf-pattern="'image/*,video/*'" ngf-accept="'image/*,video/*'" required>
+            <input id="file-select" type="file" name="file" ng-model="file" ngf-select="onFileSelect($file)" ngf-change="onFileSelect($file)" ngf-pattern="'image/*,video/*'" ngf-accept="'image/*,video/*'" required>
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-default" ng-click="cancel()">Close</button>

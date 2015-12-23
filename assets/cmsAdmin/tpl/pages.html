@@ -4,54 +4,43 @@
     <a href="" ui-sref="app.editpage" class="btn btn-primary create-btn pull-right">Create page</a>
 </div>
 <div class="col-md-12">
-  <div id="pagesList" class="list">
-    <table class="table table-hover">
+  <div ng-if="nav" id="pagesList" class="list">
+    <table tr-ng-grid="" enable-filtering="false" items="pages" class="table table-hover">
       <thead>
-        <th>Page name</th>
-        <th>Menu Item</th>
-        <th>Last Modified</th>
-        <th>Tags</th>
-        <th>Actions</th>
+          <th field-name="title" display-name="Page name" >
+          </th>
+          <th field-name="nodes" display-name="Menu Item" >
+          </th>
+          <th field-name="updatedAt" display-name="Last Modified" >
+          </th>
+          <th field-name="tags" display-name="Tags" >
+          </th>
+          <th field-name="actions" enable-sorting="false" display-name="Actions" >
+          </th>
       </thead>
       <tbody>
-        <tr ng-if="nav" ng-repeat="page in pages track by $index" class="userItem">
-          <td>
-            <span>{{page.title}}</span>
+          <td field-name="title">
+            <span>{{gridItem.title}}</span>
           </td>
-          <td>
-            <span>{{renderNodes(page.id) || 'no relation'}}</span>
+          <td field-name="nodes">
+            <span>{{renderNodes(gridItem.id)||'no relation'}}</span>
           </td>
-          <td>
-            <span> {{ page.updatedAt | dateTimeUtc }} </span>
+          <td field-name="updatedAt">
+            <span>{{ gridItem.updatedAt | dateTimeUtc }}</span>
           </td>
-          <td class='tags'>
-            <span class='tags-words'> {{page.tags.join(', ')}} </span>
+          <td field-name="tags" class='tags'>
+            <span class='tags-words'>{{gridItem.tags.join(', ')}}</span>
           </td>
-          <td>
-            <button  type="button" class="btn btn-primary btn-sm margin-right ng-scope delUserButton" title="Edit" ng-click="editPage(page)">
+          <td field-name="actions">
+            <button  type="button" class="btn btn-primary btn-sm margin-right ng-scope delUserButton" title="Edit" ng-click="editPage(gridItem)">
               <span class="fa fa-pencil"></span>
             </button>
-            <button class="btn btn-danger btn-sm ng-scope" title="Delete" ng-click="openConfirmDelPage(page, $index)">
+            <button class="btn btn-danger btn-sm ng-scope" title="Delete" ng-click="openConfirmDelPage(gridItem, $index)">
               <span class="fa fa-trash-o"></span>
             </button>
           </td>
-        </tr>
       </tbody>
     </table>
-
-
-<!--     <div ng-repeat="page in pages" class="userItem well menu-curr-element">
-      <div class="userName">
-        <p>{{page.id}}</p>
-      </div>
-      <div class="userEmail">
-        <p>{{page.title}}</p>
-      </div>
-      <div>
-        <button ng-click="editPage(page)"  type="button" class="btn btn-primary delUserButton">Edit</button>
-        <button ng-click="delPage(page, $index)"  type="button" class="btn btn-danger delUserButton">Remove</button>
-      </div>
-    </div> -->
   </div>
 </div>
 
