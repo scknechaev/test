@@ -1,11 +1,20 @@
 angular.module('app')
-    .controller('createUserModalController', ['$scope', 'userService', 'ngNotify',function ($scope, userService, ngNotify) {
+    .controller('createUserModalController', ['$scope', 'userService', 'ngNotify', '$timeout',
+      function ($scope, userService, ngNotify, $timeout) {
     initScope($scope.user);
-
+    var usersTable = $('#users-table');
+    var tableOptions = {
+        "sDom":"t",
+        "sPaginationType":"bootstrap",
+        "destroy":true,
+        "paging":false,
+        "scrollCollapse":true
+      }
     $scope.createOrEditUser = function () {
         var user          = $scope.newUser,
             validateAttrs = [];
         userService.emailToLowerCase(user);
+        
 
         if (!isSavingAvailable(user, $scope, validateAttrs)) { // validation
             return;                                            
@@ -69,6 +78,8 @@ angular.module('app')
                       duration: 2500
                 });
             } else {
+                usersTable.dataTable().fnDestroy();
+                service.copyUser($scope.user, user);
                 ngNotify.set('User has been changed', {
                       position: 'top',
                       theme: 'pure',
@@ -76,7 +87,9 @@ angular.module('app')
                       sticky: false,
                       duration: 2500
                 });
-                service.copyUser($scope.user, user);
+                $timeout(function() {
+                  usersTable.DataTable(tableOptions);
+                }, 100);
             }
             
         });
@@ -94,6 +107,7 @@ angular.module('app')
                       duration: 2500
                 });
             } else {
+                usersTable.dataTable().fnDestroy();
                 $scope.$parent.users.push(result.user);
                 ngNotify.set('User has been added', {
                       position: 'top',
@@ -102,6 +116,9 @@ angular.module('app')
                       sticky: false,
                       duration: 2500
                 });
+                $timeout(function() {
+                  usersTable.DataTable(tableOptions);
+                }, 100);
             }
         });
     }

@@ -5,7 +5,7 @@
 </div>
 <div class="col-md-12">
   <div class="list-group users-list table-responsive">
-    <table class="table table-hover">
+    <table id="users-table" class="table table-hover">
       <thead>
         <th>Name</th>
         <th>Email</th>
@@ -28,7 +28,7 @@
               <button  type="button" class="btn btn-primary btn-sm margin-right ng-scope delUserButton" title="Edit"  data-toggle="modal" data-target=".bs-example-modal-lg" ng-click="setModalState(user)">
               <span class="fa fa-pencil"></span>
             </button>
-            <button class="btn btn-danger btn-sm ng-scope" title="Delete" ng-click="openConfirmDelUser(user, $index)">
+            <button class="btn btn-danger btn-sm ng-scope" title="Delete" ng-click="openConfirmDelUser(user, $index, $event)">
               <span class="fa fa-trash-o"></span>
             </button>
           </td>

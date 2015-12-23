@@ -1,7 +1,7 @@
 
   angular.module('app')
-      .controller('pagesController', ['$scope', '$http', '$state', 'CKEditorService', 'pageService', '$modal', 'navigationService', '$timeout',
-      function ($scope, $http, $state, CKEditorService, pageService, $modal, navigationService, $timeout) {
+      .controller('pagesController', ['$scope', '$http', '$state', 'CKEditorService', 'pageService', '$modal', 'navigationService', '$timeout', 'ngNotify',
+      function ($scope, $http, $state, CKEditorService, pageService, $modal, navigationService, $timeout, ngNotify) {
         moment.locale('en')
         $scope.pages    = [];
         $scope.editPage = editPage;
@@ -40,20 +40,28 @@
                   $scope.page =  page;
                   $scope.target = target;
                   $scope.pages =  pages;                  
-                  $scope.delPage = function (page, $index) {
+                  $scope.delPage = function (page, index) {
+                      var pagesTable = $('#pages-table');
                       pageService.delPage(page).then(function (page) {
-                        $scope.pages.splice($index, 1);
-                        pagesTable
-                                .row( $(target).parents('tr') )
-                                .remove()
-                                .draw();
+                        pagesTable.dataTable().fnDestroy();
+                        $scope.pages.splice(index, 1);
+                        ngNotify.set('Page has been deleted', {
+                              position: 'top',
+                              theme: 'pure',
+                              type: 'success',
+                              sticky: false,
+                              duration: 2500
+                        });
+                        $timeout(function(){
+                          pagesTable.DataTable(tableOptions);
+                        },100);
                       })
                   }
                   $scope.cancel = function () {
                       $modalInstance.dismiss('cancel');
                   };
                   setTimeout(function(){
-                      $('.modal-footer .btn.btn-danger').focus();
+                      //$('.modal-footer .btn.btn-danger').focus();
                   },200);
               }]
           });
