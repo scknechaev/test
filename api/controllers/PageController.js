@@ -73,7 +73,6 @@ module.exports = {
 				PageService.sendPage(req.wantsJSON, data.navigation, data.page, res);
 			}
 
-			
 		});
 	},
 
