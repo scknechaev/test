@@ -35,11 +35,17 @@ module.exports = {
 	},
 
 	getPage: function (req, res) {
-		var url = req.param('pageUrl');
+		var identifier = req.param('identifier'),
+			isNeedEdit = req.query.edit;
 
 		async.auto({
 			page: function (next) {
-				Page.findOne({ 'url': url }).exec(next);
+				Page.findOne({
+					or: [
+						{ 'url': identifier },
+						{ 'id' : identifier }
+					]
+				}).exec(next);
 			},
 			navigation: ['page', function (next, data) {
 				if (!data.page) {
@@ -57,39 +63,26 @@ module.exports = {
 				return res.badRequest(err);
 			}
 
-			res.render('./page', {
-				'body'      : data.page.html,
-				'title'     : data.page.title,
-				'keywords'  : data.page.tags,
-				'navigation': data.navigation.shift()
-			});
+			if (!isNeedEdit) {
+				CommonUtils.renderBBTags(data.page);
+			}
+
+			if (req.wantsJSON) {
+				res.ok(data.page);
+			} else {
+				res.render('./page', {
+					'body'      : data.page.html,
+					'title'     : data.page.title,
+					'keywords'  : data.page.tags,
+					'navigation': data.navigation.shift()
+				});
+			}
+
 		});
 	},
 
 	pages: function (req, res) {
 
-		// console.log('Trying to find pages');
-
-		// async.auto({
-		// 	collection: function (next) {
-		// 		Page.native(next);
-		// 	},
-		// 	pages: ['collection', function (data, next) {
-		// 		data.collection.find(null, {
-		// 			'html' : 0,
-		// 			'title': 1,
-		// 			'navs' : 1,
-		// 			'url'  : 1,
-		// 			'tags' : 1
-		// 		}).toArray(next);
-		// 	}]
-		// }, function (err, data) {
-		// 	if (err) {
-		// 		return res.badRequest(err);
-		// 	}
-
-		// 	res.ok(data.pages);
-		// });
 		Page.find(null).exec(function (err, pages) {
 			if (err) {
 				return res.badRequest(err);

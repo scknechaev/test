@@ -11,14 +11,19 @@ module.exports = {
  * @param res - response
  */
 function cloudUpload(req, res) {
+	var fileName;
+
 	async.auto({
 		upload: function (cb) {
 			req.file('file').upload(
 				{ 'maxBytes': 50000000 },
 				function (err, uploaded) {
 					if (err) return cb(err);
+
 					if (uploaded && uploaded[0]) {
 						var types = /image|video/i;
+
+						fileName = uploaded[0].filename;
 						if (!uploaded[0].type.match(types)) return cb('Wrong mime type');
 
 						var rType = (uploaded[0].type.match(/video/i)) ? { resource_type: "video" } : {};
@@ -38,10 +43,11 @@ function cloudUpload(req, res) {
 		},
 		save: ['upload', function(cb, results) {
 			var mediaObj = {
-				public_id: results.upload.public_id,
-				size: results.upload.bytes,
-				type: results.upload.resource_type,
-				url: results.upload.url
+				'public_id': results.upload.public_id,
+				'size'     : results.upload.bytes,
+				'type'     : results.upload.resource_type,
+				'url'      : results.upload.url,
+				'name'     : fileName
 			};
 
 			Media.create(mediaObj, cb);

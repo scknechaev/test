@@ -24,6 +24,11 @@ module.exports = {
         type: {
             type: 'string',
             required: true
+        },
+
+        name: {
+            type: 'string',
+            required: true
         }
 
     },

@@ -42,6 +42,20 @@ module.exports = {
 
     },
 
+    beforeUpdate: function (page, next) {
+
+        if (!page.url) {
+            return next('You must specify url');
+        }
+
+        checkURL({
+            'id' : {
+                '!': page.id
+            },
+            'url': page.url
+        }, page, next);
+    },
+
     beforeCreate: function (page, next) {
 
         if (!page.url) {
@@ -50,18 +64,16 @@ module.exports = {
             page.url = page.url.trim();
         }
 
-        Page.findOne({
-            'url': page.url
-        }).exec(function (err, findPage) {
-            if (err || findPage) {
-                if (findPage) {
-                    return next('Page with such url already exist');
-                }
-
-                return next(err);
-            }
-
-            next(null, page);
-        });
+        checkURL({ 'url': page.url }, page, next);
     }
 };
+
+function checkURL(query, page, call) {
+    Page.findOne(query).exec(function (err, findPage) {
+        if (err || findPage) {
+            return call(err || 'Page with such url already exist');
+        }
+
+        call(null, page);
+    });
+}
