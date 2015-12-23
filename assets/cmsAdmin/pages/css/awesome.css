@@ -81,7 +81,7 @@
 .tags{
     max-width:250px;
 }
-.tags-words{
+.break-words{
     word-break:break-all;
 }
 .overflow {

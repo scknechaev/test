@@ -69,7 +69,7 @@
             <span> {{ page.updatedAt | dateTimeUtc }} </span>
           </td>
           <td class='tags'>
-            <span class='tags-words'> {{page.tags.join(', ')}} </span>
+            <a href="" ng-repeat="tag in page.tags" class="btn btn-tag">{{tag}}</a>
           </td>
           <td>
             <button  type="button" class="btn btn-primary btn-sm margin-right ng-scope delUserButton" title="Edit" ng-click="editPage(page)">
