@@ -164,7 +164,7 @@ angular.module('app')
 
 
     function savePage () {
-        $scope.Page.url = $scope.Page.title.toLowerCase().replace(new RegExp(' ','g'),'-');
+        $scope.Page.url = $scope.Page.title.toLowerCase().replace(/[^\w\s]/gi, '').replace(new RegExp(' ','g'),'-');
         $scope.Page.html = CKEDITOR.instances['page-editor'].getData();
         var parsedHtml = $.parseHTML($scope.Page.html);
         var mediaArr = $(parsedHtml).find('[data-id]');
