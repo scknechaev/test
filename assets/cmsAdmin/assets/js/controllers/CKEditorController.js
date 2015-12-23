@@ -1,6 +1,6 @@
 angular.module('app')
-  .controller('CKEditorController', ['$scope', '$http', '$stateParams', 'pageService', '$state', 'ngNotify', 'filepickerService', 'CKEditorService', '$modal', '$q', '$sce',
-    function ($scope, $http, $stateParams, pageService, $state, ngNotify, filepickerService, CKEditorService, $modal, $q, $sce) {
+  .controller('CKEditorController', ['$scope', '$http', '$stateParams', 'pageService', '$state', 'ngNotify', 'filepickerService', 'CKEditorService', '$modal', '$q', '$sce', '$timeout',
+    function ($scope, $http, $stateParams, pageService, $state, ngNotify, filepickerService, CKEditorService, $modal, $q, $sce, $timeout) {
     $scope.savePage = savePage;
 
     $scope.param = $stateParams.pageId;
@@ -15,7 +15,9 @@ angular.module('app')
     if ($scope.param !== '') {
         pageService.getOnePage($scope.param).then(function (page) {
            $scope.Page = page;
-           CKEDITOR.instances['page-editor'].setData(page.html);
+           $timeout(function(){
+                CKEDITOR.instances['page-editor'].setData($scope.Page.html);
+            },50);
            renderPagesTags();
        }, function (err) {
            console.log(err);
