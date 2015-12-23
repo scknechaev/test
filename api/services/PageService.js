@@ -14,7 +14,7 @@ function createPage (data, callback) {
 		},
 		getMedia: function (next) {
 			if (data.media && data.media.length) {
-				Media.find({id: data.media}).exec(next);
+				Media.find({name: data.media}).exec(next);
 			}
 			else {
 				next();
@@ -60,7 +60,7 @@ function updatePage (id, data, callback) {
 		getMediaToRemove: ['page', function (next) {
 			var extraMedia = _.difference(oldMedia, newMedia);
 			if (extraMedia.length) {
-				Media.find({id: extraMedia}).exec(next);
+				Media.find({name: extraMedia}).exec(next);
 			}
 			else {
 				next();
@@ -84,7 +84,7 @@ function updatePage (id, data, callback) {
 			var mediaToAdd = _.difference(newMedia, oldMedia);
 
 			if (mediaToAdd.length) {
-				Media.find({id: mediaToAdd}).exec(next);
+				Media.find({name: mediaToAdd}).exec(next);
 			}
 			else {
 				next();
