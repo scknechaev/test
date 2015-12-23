@@ -167,9 +167,9 @@ angular.module('app')
         $scope.Page.url = $scope.Page.title.toLowerCase().replace(/[^\w\s]/gi, '').replace(new RegExp(' ','g'),'-');
         $scope.Page.html = CKEDITOR.instances['page-editor'].getData();
         var parsedHtml = $.parseHTML($scope.Page.html);
-        var mediaArr = $(parsedHtml).find('[data-id]');
-        var mediaIdsArr = _.map(mediaArr, function(i){return $(i).attr('data-id'); });
-        $scope.Page.media = _.uniq(mediaIdsArr);
+        var mediaArr = [];
+        $(parsedHtml).text().replace(/\[(.+?)\]/g, function($0, $1) { mediaArr.push($1) })
+        $scope.Page.media = _.uniq(mediaArr);
         $scope.Page.tags = $('#tags').tagsinput('items');
 
         if ( !isNeedUpdate($scope.param) ) {
