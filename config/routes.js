@@ -44,13 +44,15 @@ module.exports.routes = {
     'GET /users' : 'UserController.getUsersList',
     'GET /me'    : 'UserController.getCurrUser',
 
-    // 'GET /nav/:pageUrl'    : 'PageController.getPage',
     'GET /page/:identifier': 'PageController.getPage',
 
     'GET /cms'                        : 'AdminController.dashboard',
     'POST /admin/createuser'          : 'AdminController.createUser',
     'PUT /admin/updateuser/:userId'   : 'AdminController.updateUser',
     'DELETE /admin/deleteuser/:userId': 'AdminController.deleteUser',
+
+    'GET /media/:mediaId': 'MediaController.getMedia',
+    'GET /media'         : 'MediaController.getAllMedia',
 
     'GET /navigation': 'NavigationController.getNavs',
     'PUT /nav/update': 'NavigationController.update'
