@@ -78,15 +78,31 @@ module.exports = {
 
 	pages: function (req, res) {
 
-		Page.find(null).exec(function (err, pages) {
-			if (err) {
-				return res.badRequest(err);
-			}
+		// Page.find(null).exec(function (err, pages) {
+		// 	if (err) {
+		// 		return res.badRequest(err);
+		// 	}
 
-			res.ok( _.map(pages, function (page) { 
-				delete page.html; 
-				return page; 
-			}) );
+		// 	res.ok( _.map(pages, function (page) { 
+		// 		delete page.html; 
+		// 		return page; 
+		// 	}) );
+		// });
+
+		Page.native(function (err, collection) {
+			if (err) { return res.badRequest(); }
+
+			collection.find(null, {
+				'title': true,
+				'navs' : true,
+				'url'  : true,
+				'media': true,
+				'tags' : true
+			}).toArray(function (err, pages) {
+				if (err) { return res.badRequest(err); }
+
+				res.ok(pages);
+			});
 		});
 	}
 
