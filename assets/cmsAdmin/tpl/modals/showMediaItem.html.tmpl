@@ -15,7 +15,7 @@
       <h5>Email: {{item.createdBy.email}}</h5>
       <h5>Pages:</h5>
       <ul ng-repeat="page in item.pages">
-        <li>{{page}}</li>
+        <li>{{page.title}}</li>
       </ul>
       <h5>Url</h5>
       <a href="{{item.url}}" target="_blank">{{item.url}}</a>
