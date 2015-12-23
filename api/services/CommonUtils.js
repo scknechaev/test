@@ -38,6 +38,7 @@ function isPassLengthEnought (password) {
  * @param page - html for page from DB
  */
 function renderBBTags(page, call) {
+	console.log(BBTagRegExp.exec(html));
 	var html      = page.html,
 		mediaArr  = _.map(BBTagRegExp.exec(html), function (mediaName) { 
 			return mediaName.slice(1, mediaName.length - 1);
