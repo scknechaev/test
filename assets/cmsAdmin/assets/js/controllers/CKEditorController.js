@@ -96,6 +96,7 @@ angular.module('app')
                 $scope.upload = function () {
                     $scope.uploadButtonText = 'Uploading...';
                     $scope.isUploading = true;
+
                     $scope.uploadPromise = CKEditorService.postMedia($scope.selectedFile).then(function (res) {
                         $scope.isUploading = false;
                         $modalInstance.close({
@@ -104,6 +105,11 @@ angular.module('app')
                             id: res.id,
                             name: res.name
                         });
+                    }, function (errorMessage) {
+                      $scope.isUploading      = false;
+                      $scope.uploadButtonText = 'Upload';
+                      
+                      notifyUser(errorMessage || 'Some error while Uploading file', false);
                     });
                 };
                 $scope.onFileSelect = function ($files) {

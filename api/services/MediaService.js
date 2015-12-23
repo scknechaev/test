@@ -32,7 +32,7 @@ function cloudUpload(req, res) {
 		}],
 		isFileExist: ['checkFile', function (call, data) {
 			Media.findOne({
-				'name': data.checkFile.name
+				'name': data.checkFile.filename
 			}).exec(call);
 		}],
 		cloudinaryUpload: ['isFileExist', function (call, data) {

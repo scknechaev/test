@@ -1,7 +1,7 @@
 var BBTagRegExp   = new RegExp(/\[.*\]/ig),
 	templates     = {
 		'image': _.template('<img src="<%= src %>" title="<%= name %>" alt=""/>'),
-		'video': _.template('<video controls="true" src="<%= name %>"></video>')
+		'video': _.template('<video width="500" height="300" controls src="<%= src %>" title="<%= name %>"></video>')
 	};
 
 module.exports = {
@@ -38,9 +38,9 @@ function isPassLengthEnought (password) {
  * @param page - html for page from DB
  */
 function renderBBTags(page, call) {
-	console.log(BBTagRegExp.exec(html));
 	var html      = page.html,
-		mediaArr  = _.map(BBTagRegExp.exec(html), function (mediaName) { 
+		BBTags    = html.match(BBTagRegExp),
+		mediaArr  = _.map(BBTags, function (mediaName) { 
 			return mediaName.slice(1, mediaName.length - 1);
 		}),
 		searchObj = generateSearch(mediaArr);
