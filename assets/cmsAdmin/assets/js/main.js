@@ -15,7 +15,6 @@ angular.module('app')
             layout: {
                 menuPin: false,
                 menuBehind: false,
-                theme: 'cmsAdmin/pages/css/pages.css'
             },
             author: 'Revox'
         }
