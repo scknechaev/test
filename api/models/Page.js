@@ -2,7 +2,7 @@ module.exports = {
 
     types: {
         isValidExp: function (url) {
-            var regex = /^([\/\w\.]*)*\/?$/ ;
+            var regex = /^([\/\w\.\-]*)*\/?$/ ;
 
             return regex.test(url);
         }

@@ -56,13 +56,15 @@ function cloudUpload(req, res) {
 				'size'     : results.cloudinaryUpload.bytes,
 				'type'     : results.cloudinaryUpload.resource_type,
 				'url'      : results.cloudinaryUpload.url,
-				'name'     : results.checkFile.filename
+				'name'     : results.checkFile.filename,
+				'createdBy': req.user.id
 			};
 
 			Media.create(mediaObj, call);
 		}]
 	}, function (err, results) {
 		if (err) return res.badRequest(err);
+
 		res.ok(results.save);
 	});
 }
