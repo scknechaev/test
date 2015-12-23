@@ -37,7 +37,7 @@ module.exports = {
 	},
 
 	getAllMedia: function (req, res) {
-		console.log('Returning list of all media');
+
 		async.auto({ 
 			media: function (next) {
 				Media.find(null).exec(next);
@@ -59,7 +59,9 @@ module.exports = {
 function setPagesToMedia(media, call) {
 	async.times(media.length, function (n, cb) {
 		Page.find(media[n].pages).exec(function (err, pages) {
-			media[n].pages = pages;
+			media[n].pages = _.map(pages, function (page) {
+				return _.pick(page, 'title', 'id');
+			});
 			cb();
 		});
 	}, call);
