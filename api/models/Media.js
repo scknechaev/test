@@ -2,6 +2,10 @@ var cloudinary = require('cloudinary');
 
 module.exports = {
 
+    schema: true,
+    autoCreatedAt: true,
+    autoUpdatedAt: true,
+
     attributes: {
 
         url: {
@@ -28,6 +32,11 @@ module.exports = {
 
         name: {
             type: 'string',
+            required: true
+        },
+
+        createdBy: {
+            model: 'User',
             required: true
         }
 
