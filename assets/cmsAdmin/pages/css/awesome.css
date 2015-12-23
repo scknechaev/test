@@ -84,4 +84,6 @@
 .tags-words{
     word-break:break-all;
 }
-
+.overflow {
+    overflow: hidden;
+}

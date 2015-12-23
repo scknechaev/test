@@ -1,12 +1,24 @@
 <div>
-  <div class="modal-header">
+  <div class="modal-header" style="min-height: 40px;">
     <button type="button" class="close"  ng-click="cancel()"><span aria-hidden="true">&times;</span></button>
   </div>
-  <div class="modal-body">
-    <h4>Media Item</h4>
-    <div class="col-md-12 media-modal-content">
+  <div class="modal-body overflow">
+    <div class="col-md-7">
       <video ng-if="item.type === 'video'" controls class="image-responsive-height" ng-src="{{item.url}}" ></video>
       <img ng-if="item.type === 'image'" ng-src="{{item.url}}" alt="" class="image-responsive-height">
+    </div>
+    <div class="col-md-5 tags-words">
+      <h5>Name: {{item.name}}</h5>
+      <h5>Type: {{item.type}}</h5>
+      <h5>Created by:</h5>
+      <h5>Name: {{item.createdBy.name}}</h5>
+      <h5>Email: {{item.createdBy.email}}</h5>
+      <h5>Pages:</h5>
+      <ul ng-repeat="page in item.pages">
+        <li>{{page}}</li>
+      </ul>
+      <h5>Url</h5>
+      <a href="{{item.url}}" target="_blank">{{item.url}}</a>
     </div>
   </div>
   <div class="modal-footer">
