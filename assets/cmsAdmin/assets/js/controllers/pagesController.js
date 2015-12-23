@@ -17,6 +17,7 @@
         }
         getPages();
         getNav();
+
         $scope.openConfirmDelPage = function (page, index, $event) {
           $modal.open({
               resolve:{
@@ -39,12 +40,11 @@
                   $scope.index = index;
                   $scope.page =  page;
                   $scope.target = target;
-                  $scope.pages =  pages;                  
+                  $scope.pages =  pages;
                   $scope.delPage = function (page, index) {
-                      var pagesTable = $('#pages-table');
+                      // var pagesTable = $('#pages-table');
                       pageService.delPage(page).then(function (page) {
-                        pagesTable.dataTable().fnDestroy();
-                        $scope.pages.splice(index, 1);
+                        // pagesTable.dataTable().fnDestroy();
                         ngNotify.set('Page has been deleted', {
                               position: 'top',
                               theme: 'pure',
@@ -53,7 +53,10 @@
                               duration: 2500
                         });
                         $timeout(function(){
-                          pagesTable.DataTable(tableOptions);
+                          // pagesTable.DataTable(tableOptions);
+                          pagesTable.row( $($scope.target).parents('tr') )
+                                  .remove()
+                                  .draw();
                         },100);
                       })
                   }
@@ -61,7 +64,7 @@
                       $modalInstance.dismiss('cancel');
                   };
                   setTimeout(function(){
-                      //$('.modal-footer .btn.btn-danger').focus();
+                      $('.modal-footer .btn.btn-danger').focus();
                   },200);
               }]
           });

@@ -84,8 +84,10 @@
                     $scope.index = index;
                     $scope.user =  user;
                     $scope.users =  users;
+                    $scope.target =  target;
                     $scope.delUser = function (user, index)  {
-                        var usersTable = $('#users-table');
+                        // var usersTable = $('#users-table');
+                        var pagesTable = $('#users-table').DataTable(tableOptions);;
                         console.log(arguments);
                         userService.delUser(user).then(function (deletedUser) {
                           if(deletedUser.status && deletedUser.statusText && deletedUser.status !== 200){
@@ -97,8 +99,8 @@
                                     duration: 2500
                               });
                           } else {
-                              usersTable.dataTable().fnDestroy();
-                              $scope.users.splice(index, 1);
+                              // usersTable.dataTable().fnDestroy();
+                              // $scope.users.splice(index, 1);
                               ngNotify.set('User has been deleted', {
                                     position: 'top',
                                     theme: 'pure',
@@ -107,7 +109,10 @@
                                     duration: 2500
                               });
                               $timeout(function(){
-                                usersTable.DataTable(tableOptions);
+                                // usersTable.DataTable(tableOptions);
+                                pagesTable.row( $($scope.target).parents('tr') )
+                                        .remove()
+                                        .draw();
                               },100);
                           }
                         });
@@ -116,7 +121,7 @@
                         $modalInstance.dismiss('cancel');
                     };
                     setTimeout(function(){
-                        // $('.modal-footer .btn.btn-danger').focus();
+                        $('.modal-footer .btn.btn-danger').focus();
                     },200);
                 }]
             });
