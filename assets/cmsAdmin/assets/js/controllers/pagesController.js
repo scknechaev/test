@@ -1,15 +1,23 @@
 
   angular.module('app')
-      .controller('pagesController', ['$scope', '$http', '$state', 'CKEditorService', 'pageService', '$modal', 'navigationService',
-      function ($scope, $http, $state, CKEditorService, pageService, $modal, navigationService) {
+      .controller('pagesController', ['$scope', '$http', '$state', 'CKEditorService', 'pageService', '$modal', 'navigationService', '$timeout',
+      function ($scope, $http, $state, CKEditorService, pageService, $modal, navigationService, $timeout) {
         moment.locale('en')
         $scope.pages    = [];
         $scope.editPage = editPage;
         $scope.nav;
         $scope.counter
+        var pagesTable;
+        var tableOptions = {
+          "sDom":"t",
+          "sPaginationType":"bootstrap",
+          "destroy":true,
+          "paging":false,
+          "scrollCollapse":true
+        }
         getPages();
         getNav();
-        $scope.openConfirmDelPage = function (page, index) {
+        $scope.openConfirmDelPage = function (page, index, $event) {
           $modal.open({
               resolve:{
                 page: function(){
@@ -20,17 +28,25 @@
                 },
                 index: function(){
                   return index;
+                },
+                target: function(){
+                  return $event.target;
                 }
               },
               templateUrl: 'cmsAdmin/tpl/modals/confirmDelPage.html.tmpl',
-              controller: ['$scope', '$modalInstance', 'page', 'pages', 'pageService', 'index',
-                function($scope, $modalInstance, page, pages, pageService, index) {
+              controller: ['$scope', '$modalInstance', 'page', 'pages', 'pageService', 'index', 'target',
+                function($scope, $modalInstance, page, pages, pageService, index, target) {
                   $scope.index = index;
                   $scope.page =  page;
+                  $scope.target = target;
                   $scope.pages =  pages;                  
                   $scope.delPage = function (page, $index) {
                       pageService.delPage(page).then(function (page) {
                         $scope.pages.splice($index, 1);
+                        pagesTable
+                                .row( $(target).parents('tr') )
+                                .remove()
+                                .draw();
                       })
                   }
                   $scope.cancel = function () {
@@ -46,6 +62,9 @@
         function getPages () {
             pageService.getPages().then(function (result) {
                   $scope.pages = result;
+                  $timeout(function(){
+                    pagesTable = $('#pages-table').DataTable(tableOptions);
+                  },100);
               })
         }
         

@@ -101,7 +101,8 @@ angular.module('app')
                         $modalInstance.close({
                             url: res.url,
                             type: res.type,
-                            id: res.id
+                            id: res.id,
+                            name: res.name
                         });
                     });
                 };

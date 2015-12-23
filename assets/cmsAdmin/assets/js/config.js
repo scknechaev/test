@@ -133,8 +133,3 @@ angular.module('app')
 
         }
     ]);
-    angular.module('app').run(
-          [function () {
-                TrNgGrid.tableCssClass = "tr-ng-grid table table-hover";     
-            }]
-        );

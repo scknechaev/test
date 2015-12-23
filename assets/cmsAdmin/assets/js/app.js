@@ -15,6 +15,5 @@ angular.module('app', [
     'ui.tree',
     'ngFileUpload',
     'ngSanitize',
-    'trNgGrid',
     'cgBusy'
 ]);

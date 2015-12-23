@@ -1,5 +1,5 @@
 <!-- START PAGE COVER -->
-<div class="container-fluid container-fixed-lg ">
+<!-- <div class="container-fluid container-fixed-lg ">
     <h3 class="page-title">Page management</h3>
     <a href="" ui-sref="app.editpage" class="btn btn-primary create-btn pull-right">Create page</a>
 </div>
@@ -42,6 +42,45 @@
       </tbody>
     </table>
   </div>
+</div> -->
+<div class="container-fluid container-fixed-lg ">
+    <h3 class="page-title">Page management</h3>
+    <a href="" ui-sref="app.editpage" class="btn btn-primary create-btn pull-right">Create page</a>
 </div>
+<div class="col-md-12">
+  <div id="pagesList" class="list">
+    <table id="pages-table" class="table table-hover">
+      <thead>
+        <th>Page name</th>
+        <th>Menu Item</th>
+        <th>Last Modified</th>
+        <th>Tags</th>
+        <th>Actions</th>
+      </thead>
+      <tbody>
+        <tr ng-if="nav" ng-repeat="page in pages track by $index" class="userItem">
+          <td>
+            <span>{{page.title}}</span>
+          </td>
+          <td>
+            <span>{{renderNodes(page.id) || 'no relation'}}</span>
+          </td>
+          <td>
+            <span> {{ page.updatedAt | dateTimeUtc }} </span>
+          </td>
+          <td class='tags'>
+            <span class='tags-words'> {{page.tags.join(', ')}} </span>
+          </td>
+          <td>
+            <button  type="button" class="btn btn-primary btn-sm margin-right ng-scope delUserButton" title="Edit" ng-click="editPage(page)">
+              <span class="fa fa-pencil"></span>
+            </button>
+            <button class="btn btn-danger btn-sm ng-scope" title="Delete" ng-click="openConfirmDelPage(page, $index, $event)">
+              <span class="fa fa-trash-o"></span>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
 
 
