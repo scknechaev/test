@@ -87,8 +87,14 @@ angular.module('app')
         var deferred = $q.defer();
         var modalInstance = $modal.open({
             templateUrl: 'cmsAdmin/tpl/modals/uploadMediaModal.html.tmpl',
-            controller: ['$scope', '$modalInstance',
-              function ($scope, $modalInstance) {
+            resolve: {
+              mediaArr : function(){
+                return $scope.mediaArr;
+              }
+            },
+            controller: ['$scope', '$modalInstance', 'mediaArr',
+              function ($scope, $modalInstance, mediaArr) {
+                $scope.mediaArr = mediaArr;
                 $scope.isUploading = false;
                 $scope.uploadButtonText = 'Upload';
 
@@ -105,6 +111,7 @@ angular.module('app')
                             id: res.id,
                             name: res.name
                         });
+                        $scope.mediaArr.push(res);
                     }, function (errorMessage) {
                       $scope.isUploading      = false;
                       $scope.uploadButtonText = 'Upload';
@@ -164,12 +171,12 @@ angular.module('app')
 
 
     function savePage () {
-        $scope.Page.url = $scope.Page.title.toLowerCase().replace(new RegExp(' '),'-');
+        $scope.Page.url = $scope.Page.title.toLowerCase().replace(/[^\w\s]/gi, '').replace(new RegExp(' ','g'),'-');
         $scope.Page.html = CKEDITOR.instances['page-editor'].getData();
         var parsedHtml = $.parseHTML($scope.Page.html);
-        var mediaArr = $(parsedHtml).find('[data-id]');
-        var mediaIdsArr = _.map(mediaArr, function(i){return $(i).attr('data-id'); });
-        $scope.Page.media = _.uniq(mediaIdsArr);
+        var mediaArr = [];
+        $(parsedHtml).text().replace(/\[(.+?)\]/g, function($0, $1) { mediaArr.push($1) })
+        $scope.Page.media = _.uniq(mediaArr);
         $scope.Page.tags = $('#tags').tagsinput('items');
 
         if ( !isNeedUpdate($scope.param) ) {
