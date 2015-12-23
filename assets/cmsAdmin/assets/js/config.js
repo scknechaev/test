@@ -97,7 +97,7 @@ angular.module('app')
                 .state('app.editpage', {
                     url: "/editpage/:pageId",
                     templateUrl: "cmsAdmin/tpl/editpage.html",
-                    controller: 'editPageController',
+                    controller: 'CKEditorController',
                     resolve: {
                         deps: ['$ocLazyLoad', function($ocLazyLoad) {
                             return $ocLazyLoad.load([
@@ -106,7 +106,7 @@ angular.module('app')
                                 })
                                 .then(function() {
                                     return $ocLazyLoad.load([
-                                        'cmsAdmin/assets/js/controllers/editPageController.js'
+                                        'cmsAdmin/assets/js/controllers/CKEditorController.js'
                                     ]);
                                 });
                         }]
