@@ -66,6 +66,14 @@ function updatePage (id, data, callback) {
 				next();
 			}
 		}],
+		updateNav: ['page', function (next, data) {
+
+			async.waterfall([function (next) {
+				Navigation.find(null).limit(1).exec(next);
+			}, function (nav, next) {
+				changeHeader(nav[0], data.page, next);
+			}], next);
+		}],
 		removeMedia: ['getMediaToRemove', function (next, results) {
 			if (results.getMediaToRemove && results.getMediaToRemove.length) {
 				async.times(results.getMediaToRemove.length,
@@ -103,7 +111,7 @@ function updatePage (id, data, callback) {
 			else {
 				next();
 			}
-		}]
+		}],
 	}, callback);
 }
 
@@ -142,5 +150,41 @@ function sendPage(isNeedJSON, navigation, page, res) {
 			'keywords'  : page.tags,
 			'navigation': navigation.shift()
 		});
+	}
+}
+
+function changeHeader(navigation, page, call) {
+	if (!navigation) {
+		return call();
+	}
+
+	setNewTitle(navigation.navs, page) ? navigation.save(call) : call(null, navigation);
+}
+
+function setNewTitle(navs, page) {
+	var navsLengh = navs.length,
+		nodes, currPage;
+
+	for (var i = 0; i < navsLengh; i++) {
+		currPage   = navs[i];
+		nodes      = currPage.nodes.concat(currPage);
+		isReplaced = checkNodes(nodes, page);
+
+		if (isReplaced) {		// is title was replaced in current nodes
+			return true;
+		}
+	}
+
+	return false;
+}
+
+function checkNodes(nodes, page) {
+	var nodesLength = nodes.length;
+
+	for (var i = 0; i < nodesLength; i++) {
+		if (nodes[i].id === page.id) {
+			nodes[i].title = page.title;
+			return true;
+		}
 	}
 }
